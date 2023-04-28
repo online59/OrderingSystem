@@ -12,14 +12,6 @@
             android:layout_height="match_parent"
             android:id="@+id/ui_container"/>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/add_task_button"
-            android:src="@drawable/baseline_add_24"
-            app:layout_anchor="@id/bottomAppBar"
-            android:layout_margin="16dp"/>
-
     <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bottomAppBar"
             android:layout_width="match_parent"

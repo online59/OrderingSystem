@@ -11,7 +11,7 @@ public class RepositoryImpl implements Repository<Item>{
 
     private final FirebaseAPI<Item> service;
 
-    public RepositoryImpl(FirebaseService service) {
+    public RepositoryImpl(FirebaseAPI<Item> service) {
         this.service = service;
     }
 
