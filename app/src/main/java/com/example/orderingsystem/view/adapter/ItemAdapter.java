@@ -26,6 +26,10 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemViewHolder>{
         notifyDataSetChanged();
     }
 
+    public Item getItemList(int position) {
+        return itemList.get(position);
+    }
+
     public void setItemClickListener(ItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
     }

@@ -2,16 +2,15 @@ package com.example.orderingsystem.viewmodel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
-import com.example.orderingsystem.model.data.Item;
 import com.example.orderingsystem.model.repository.Repository;
 
 import java.util.List;
 
-public class MyViewModel<T> extends ViewModel {
+public class ItemViewModel<T> extends ViewModel {
 
     private final Repository<T> repository;
 
-    public MyViewModel(Repository<T> repository) {
+    public ItemViewModel(Repository<T> repository) {
         this.repository = repository;
     }
 

@@ -14,7 +14,7 @@ import com.example.orderingsystem.model.repository.RepositoryImpl;
 import com.example.orderingsystem.model.service.FirebaseService;
 import com.example.orderingsystem.view.adapter.ItemAdapter;
 import com.example.orderingsystem.view.event.ItemClickListener;
-import com.example.orderingsystem.viewmodel.MyViewModel;
+import com.example.orderingsystem.viewmodel.ItemViewModel;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -22,7 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class ShopFragment extends Fragment {
 
     private static ShopFragment instance;
-    private MyViewModel<Item> viewModel;
+    private ItemViewModel<Item> viewModel;
 
     private ShopFragment() {
         // Required empty public constructor
@@ -43,7 +43,7 @@ public class ShopFragment extends Fragment {
 
     private void initialSetup() {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        viewModel = new MyViewModel<>(new RepositoryImpl(new FirebaseService(reference)));
+        viewModel = new ItemViewModel<>(new RepositoryImpl(new FirebaseService(reference)));
     }
 
     @Override
@@ -68,7 +68,7 @@ public class ShopFragment extends Fragment {
             @Override
             public void setOnItemClick(int position) {
                 Intent intent = new Intent(getActivity(), ItemDetailsActivity.class);
-                intent.putExtra("item_id", adapter.getItemId(position));
+                intent.putExtra("item_id", adapter.getItemList(position).getItemId());
                 startActivity(intent);
             }
         });

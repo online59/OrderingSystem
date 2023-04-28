@@ -3,11 +3,13 @@ package com.example.orderingsystem.model.repository;
 import androidx.lifecycle.LiveData;
 import com.example.orderingsystem.model.api.FirebaseAPI;
 import com.example.orderingsystem.model.data.Item;
+import com.example.orderingsystem.model.service.FirebaseAuthService;
 import com.example.orderingsystem.model.service.FirebaseService;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.List;
 
-public class RepositoryImpl implements Repository<Item>{
+public class RepositoryImpl extends Repository<Item>{
 
     private final FirebaseAPI<Item> service;
 
