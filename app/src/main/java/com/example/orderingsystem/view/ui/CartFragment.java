@@ -6,10 +6,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.example.orderingsystem.R;
+import com.example.orderingsystem.model.data.Item;
+import com.example.orderingsystem.model.repository.RepositoryImpl;
+import com.example.orderingsystem.model.service.FirebaseService;
+import com.example.orderingsystem.viewmodel.MyViewModel;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class CartFragment extends Fragment {
 
     private static CartFragment instance;
+    private MyViewModel<Item> viewModel;
 
     private CartFragment() {
         // Required empty public constructor
@@ -25,12 +32,24 @@ public class CartFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initialSetup();
+    }
+
+    private void initialSetup() {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        viewModel = new MyViewModel<>(new RepositoryImpl(new FirebaseService(reference)));
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cart, container, false);
+        View view = inflater.inflate(R.layout.fragment_cart, container, false);
+        displayItemOnCartOnRecyclerView(view);
+        return view;
+    }
+
+    private void displayItemOnCartOnRecyclerView(View view) {
+
     }
 }
