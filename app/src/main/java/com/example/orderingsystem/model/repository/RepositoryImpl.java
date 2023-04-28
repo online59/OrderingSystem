@@ -9,7 +9,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.List;
 
-public class RepositoryImpl extends Repository<Item>{
+public class RepositoryImpl extends Repository{
 
     private final FirebaseAPI<Item> service;
 

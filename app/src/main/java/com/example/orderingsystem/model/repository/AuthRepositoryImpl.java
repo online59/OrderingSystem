@@ -1,6 +1,7 @@
 package com.example.orderingsystem.model.repository;
 
 import androidx.lifecycle.LiveData;
+import com.example.orderingsystem.model.data.User;
 import com.example.orderingsystem.model.service.FirebaseAuthService;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -25,5 +26,10 @@ public class AuthRepositoryImpl extends AuthRepository{
     @Override
     public LiveData<FirebaseUser> getCurrentUser() {
         return authService.getCurrentUser();
+    }
+
+    @Override
+    public void write(User user, String key) {
+        authService.write(user, key);
     }
 }

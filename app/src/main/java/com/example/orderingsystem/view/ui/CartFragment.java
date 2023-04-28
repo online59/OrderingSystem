@@ -14,14 +14,14 @@ import com.example.orderingsystem.model.repository.RepositoryImpl;
 import com.example.orderingsystem.model.service.FirebaseService;
 import com.example.orderingsystem.view.adapter.ItemAdapter;
 import com.example.orderingsystem.view.event.ItemClickListener;
-import com.example.orderingsystem.viewmodel.ItemViewModel;
+import com.example.orderingsystem.viewmodel.MainViewModel;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class CartFragment extends Fragment {
 
     private static CartFragment instance;
-    private ItemViewModel<Item> viewModel;
+    private MainViewModel viewModel;
 
     private CartFragment() {
         // Required empty public constructor
@@ -42,7 +42,7 @@ public class CartFragment extends Fragment {
 
     private void initialSetup() {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        viewModel = new ItemViewModel<>(new RepositoryImpl(new FirebaseService(reference)));
+        viewModel = new MainViewModel(new RepositoryImpl(new FirebaseService(reference)));
     }
 
     @Override

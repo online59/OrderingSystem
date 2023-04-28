@@ -12,7 +12,7 @@ import com.example.orderingsystem.model.service.FirebaseService;
 import com.example.orderingsystem.view.ui.CartFragment;
 import com.example.orderingsystem.view.ui.ProfileFragment;
 import com.example.orderingsystem.view.ui.ShopFragment;
-import com.example.orderingsystem.viewmodel.ItemViewModel;
+import com.example.orderingsystem.viewmodel.MainViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.database.DatabaseReference;
@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ItemViewModel<Item> viewModel;
+    private MainViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setup() {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        viewModel = new ItemViewModel<>(new RepositoryImpl(new FirebaseService(reference)));
+        viewModel = new MainViewModel(new RepositoryImpl(new FirebaseService(reference)));
     }
 
     private void setupBottomNavBar() {

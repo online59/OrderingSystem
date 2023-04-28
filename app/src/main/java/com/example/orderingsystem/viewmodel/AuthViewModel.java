@@ -2,6 +2,7 @@ package com.example.orderingsystem.viewmodel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
+import com.example.orderingsystem.model.data.User;
 import com.example.orderingsystem.model.repository.AuthRepository;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -26,5 +27,9 @@ public class AuthViewModel extends ViewModel {
 
     public LiveData<FirebaseUser> getCurrentUser() {
         return authRepository.getCurrentUser();
+    }
+
+    public void write(User user, String key) {
+        authRepository.write(user, key);
     }
 }
