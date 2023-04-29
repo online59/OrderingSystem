@@ -42,8 +42,6 @@ public class CartFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // View biding
-        binding = FragmentCartBinding.inflate(getLayoutInflater());
         initialSetup();
     }
 
@@ -56,9 +54,11 @@ public class CartFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        binding = FragmentCartBinding.inflate(inflater, container, false);
+
         displayItemOnCartOnRecyclerView();
 
-        return inflater.inflate(R.layout.fragment_cart, container, false);
+        return binding.getRoot();
     }
 
     private void displayItemOnCartOnRecyclerView() {

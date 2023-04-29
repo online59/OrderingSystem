@@ -13,6 +13,11 @@
             android:id="@+id/order"
             android:title="Order"
             android:icon="@drawable/baseline_order_24"/>
+
+    <item
+            android:id="@+id/report"
+            android:title="Report"
+            android:icon="@drawable/baseline_chart_24"/>
     <item
             android:id="@+id/profile"
             android:title="Profile"

@@ -6,26 +6,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import com.example.orderingsystem.R;
-import com.example.orderingsystem.databinding.ActivityMainBinding;
-import com.example.orderingsystem.model.repository.ShopItemRepositoryImpl;
-import com.example.orderingsystem.model.service.FirebaseService;
-import com.example.orderingsystem.view.ui.CartFragment;
-import com.example.orderingsystem.view.ui.OrderFragment;
-import com.example.orderingsystem.view.ui.ProfileFragment;
-import com.example.orderingsystem.view.ui.ShopFragment;
-import com.example.orderingsystem.viewmodel.ItemViewModel;
+import com.example.orderingsystem.databinding.ActivityAdminMainBinding;
+import com.example.orderingsystem.view.ui.*;
 import com.google.android.material.navigation.NavigationBarView;
-import com.google.firebase.database.FirebaseDatabase;
 import org.jetbrains.annotations.NotNull;
 
-public class MainActivity extends AppCompatActivity {
+public class AdminMainActivity extends AppCompatActivity {
 
-    private ActivityMainBinding binding;
+    private ActivityAdminMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        binding = ActivityAdminMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setupBottomNavBar();
@@ -48,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.order:
                     translateFragment(R.id.ui_container, OrderFragment.getInstance());
+                    return true;
+                case R.id.report:
+                    translateFragment(R.id.ui_container, ReportFragment.getInstance());
                     return true;
                 case R.id.profile:
                     translateFragment(R.id.ui_container, ProfileFragment.getInstance());

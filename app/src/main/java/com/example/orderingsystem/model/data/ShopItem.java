@@ -11,7 +11,7 @@ public abstract class ShopItem {
     @SerializedName("item_name")
     private String itemName;
     @SerializedName("produce_year")
-    private String produceYear;
+    private int produceYear;
     @SerializedName("description")
     private String description;
     @SerializedName("remaining")

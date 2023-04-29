@@ -39,7 +39,6 @@ public class OrderFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = FragmentOrderBinding.inflate(getLayoutInflater());
         initialSetup();
     }
 
@@ -52,9 +51,11 @@ public class OrderFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        binding = FragmentOrderBinding.inflate(inflater, container, false);
+
         displayItemOnCartOnRecyclerView();
 
-        return inflater.inflate(R.layout.fragment_order, container, false);
+        return binding.getRoot();
     }
 
 

@@ -42,9 +42,8 @@ public class SignUpActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
-        // Bind view
         binding = ActivitySignUpBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         setup();
         signUp();
@@ -87,7 +86,8 @@ public class SignUpActivity extends AppCompatActivity {
 
                 if (task.isSuccessful()) {
 
-                    userViewModel.write(createUserData(getFirebaseAuthUserUID()), "user" + getFirebaseAuthUserUID());
+                    userViewModel.write(createUserData(getFirebaseAuthUserUID()), "user/" + getFirebaseAuthUserUID());
+                    Toast.makeText(SignUpActivity.this, "Sign up successfully.", Toast.LENGTH_SHORT).show();
 
                 } else {
                     Toast.makeText(SignUpActivity.this, "Cannot sign up, please try again later.", Toast.LENGTH_SHORT).show();

@@ -16,4 +16,6 @@ public abstract class AuthRepository {
     public abstract Task<AuthResult> createUserWithEmailPassword(String email, String password);
 
     public abstract FirebaseUser getCurrentUser();
+
+    public abstract void signOut();
 }

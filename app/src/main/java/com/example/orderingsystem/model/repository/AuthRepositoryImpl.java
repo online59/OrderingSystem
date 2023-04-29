@@ -29,4 +29,9 @@ public class AuthRepositoryImpl extends AuthRepository{
     public FirebaseUser getCurrentUser() {
         return authService.getCurrentUser();
     }
+
+    @Override
+    public void signOut() {
+        authService.signOut();
+    }
 }

@@ -1,7 +1,9 @@
 package com.example.orderingsystem.view.ui;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,18 +12,24 @@ import androidx.lifecycle.LifecycleOwner;
 import com.example.orderingsystem.R;
 import com.example.orderingsystem.databinding.ActivitySignInBinding;
 import com.example.orderingsystem.model.repository.AuthRepositoryImpl;
+import com.example.orderingsystem.model.repository.UserRepositoryImpl;
 import com.example.orderingsystem.model.service.FirebaseAuthService;
+import com.example.orderingsystem.model.service.FirebaseUserService;
+import com.example.orderingsystem.view.AdminMainActivity;
 import com.example.orderingsystem.view.MainActivity;
 import com.example.orderingsystem.viewmodel.AuthViewModel;
+import com.example.orderingsystem.viewmodel.UserViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.database.FirebaseDatabase;
 import org.jetbrains.annotations.NotNull;
 
 public class SignInActivity extends AppCompatActivity {
 
     private ActivitySignInBinding binding;
     private AuthViewModel authViewModel;
+    private UserViewModel userViewModel;
     private LifecycleOwner lifecycleOwner;
     private String mEmail;
     private String mPassword;
@@ -29,9 +37,8 @@ public class SignInActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_in);
-        // Bind view
         binding = ActivitySignInBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         setup();
         signUp();
@@ -41,9 +48,11 @@ public class SignInActivity extends AppCompatActivity {
     private void setup() {
         lifecycleOwner = this;
         authViewModel = new AuthViewModel(new AuthRepositoryImpl(new FirebaseAuthService()));
+        userViewModel = new UserViewModel(new UserRepositoryImpl(new FirebaseUserService(FirebaseDatabase.getInstance().getReference())));
     }
 
     private void signUp() {
+
         binding.buttonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,11 +83,22 @@ public class SignInActivity extends AppCompatActivity {
             public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
 
                 if (task.isSuccessful()) {
-                    startActivity(new Intent(SignInActivity.this, MainActivity.class));
+                    startActivityByUserRole(authViewModel.getCurrentUser().getUid());
                 } else {
                     Toast.makeText(SignInActivity.this, "Cannot log in, please try again later.", Toast.LENGTH_SHORT).show();
                 }
 
+            }
+        });
+    }
+
+    private void startActivityByUserRole(String currentUserUid) {
+        userViewModel.getById(currentUserUid, "user").observe(this, user -> {
+            Log.e("TAG", "startActivityByUserRole: " + user.isAdmin() );
+            if (user.isAdmin()) {
+                startActivity(new Intent(SignInActivity.this, AdminMainActivity.class));
+            } else {
+                startActivity(new Intent(SignInActivity.this, MainActivity.class));
             }
         });
     }

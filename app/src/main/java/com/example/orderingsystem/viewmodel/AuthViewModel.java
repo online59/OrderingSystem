@@ -30,4 +30,8 @@ public class AuthViewModel extends ViewModel {
     public FirebaseUser getCurrentUser() {
         return authRepository.getCurrentUser();
     }
+
+    public void signOut() {
+        authRepository.signOut();
+    }
 }

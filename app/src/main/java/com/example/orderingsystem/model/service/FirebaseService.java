@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.example.orderingsystem.model.api.FirebaseAPI;
+import com.example.orderingsystem.model.data.GeneralMaterial;
 import com.example.orderingsystem.model.data.ShopItem;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,7 +35,7 @@ public class FirebaseService implements FirebaseAPI<ShopItem> {
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 List<ShopItem> itemList = new ArrayList<>();
                 for (DataSnapshot snap: snapshot.getChildren()) {
-                    ShopItem item = snap.getValue(ShopItem.class);
+                    ShopItem item = snap.getValue(GeneralMaterial.class);
                     itemList.add(item);
                 }
                 shopItemListMutable.postValue(itemList);
@@ -52,7 +53,7 @@ public class FirebaseService implements FirebaseAPI<ShopItem> {
     @Override
     public LiveData<ShopItem> getById(String id, String key) {
 
-        reference.child(key).addListenerForSingleValueEvent(new ValueEventListener() {
+        reference.child(key).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 shopItemMutable.postValue(snapshot.getValue(ShopItem.class));

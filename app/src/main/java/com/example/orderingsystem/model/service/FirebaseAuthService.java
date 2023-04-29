@@ -21,13 +21,15 @@ public class FirebaseAuthService {
         return firebaseAuth.signInWithEmailAndPassword(email, password);
     }
 
-
     public Task<AuthResult> createUserWithEmailPassword(String email, String password) {
         return firebaseAuth.createUserWithEmailAndPassword(email, password);
     }
 
-
     public FirebaseUser getCurrentUser() {
         return firebaseAuth.getCurrentUser();
+    }
+
+    public void signOut() {
+        firebaseAuth.signOut();
     }
 }

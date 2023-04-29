@@ -2,6 +2,7 @@ package com.example.orderingsystem.view.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,8 +38,6 @@ public class ShopFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // View binding
-        binding = FragmentShopBinding.inflate(getLayoutInflater());
         initialSetup();
     }
 
@@ -50,9 +49,11 @@ public class ShopFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        binding = FragmentShopBinding.inflate(inflater, container, false);
+
         displayShopItemOnRecycleView();
 
-        return inflater.inflate(R.layout.fragment_shop, container, false);
+        return binding.getRoot();
     }
 
     private void displayShopItemOnRecycleView() {
@@ -61,7 +62,10 @@ public class ShopFragment extends Fragment {
 
         ShopItemAdapter shopItemAdapter = new ShopItemAdapter();
 
-        itemViewModel.getAll("items").observe(getViewLifecycleOwner(), shopItemAdapter::setShopItemList);
+        itemViewModel.getAll("material").observe(getViewLifecycleOwner(), shopItems -> {
+            shopItemAdapter.setShopItemList(shopItems);
+            Log.e("TAG", "displayShopItemOnRecycleView: " + shopItems.get(0).getItemId() );
+        });
 
         shopItemAdapter.setItemClickListener(new ItemClickListener() {
             @Override

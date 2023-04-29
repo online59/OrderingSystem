@@ -53,7 +53,7 @@ public class FirebaseUserService implements FirebaseAPI<User> {
     @Override
     public LiveData<User> getById(String id, String key) {
 
-        reference.child(key).addListenerForSingleValueEvent(new ValueEventListener() {
+        reference.child(key).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 userMutable.postValue(snapshot.getValue(GeneralUser.class));
