@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.example.orderingsystem.model.api.FirebaseAPI;
-import com.example.orderingsystem.model.data.Item;
+import com.example.orderingsystem.model.data.ShopItem;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -14,30 +14,30 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FirebaseService implements FirebaseAPI<Item> {
+public class FirebaseService implements FirebaseAPI<ShopItem> {
 
     private final DatabaseReference reference;
-    private final MutableLiveData<List<Item>> itemListMutable;
-    private final MutableLiveData<Item> itemMutable;
+    private final MutableLiveData<List<ShopItem>> shopItemListMutable;
+    private final MutableLiveData<ShopItem> shopItemMutable;
 
     public FirebaseService(DatabaseReference reference) {
         this.reference = reference;
-        itemListMutable = new MutableLiveData<>();
-        itemMutable = new MutableLiveData<>();
+        shopItemListMutable = new MutableLiveData<>();
+        shopItemMutable = new MutableLiveData<>();
     }
 
     @Override
-    public LiveData<List<Item>> getAll(String key) {
+    public LiveData<List<ShopItem>> getAll(String key) {
 
         reference.child(key).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                List<Item> itemList = new ArrayList<>();
+                List<ShopItem> itemList = new ArrayList<>();
                 for (DataSnapshot snap: snapshot.getChildren()) {
-                    Item item = snap.getValue(Item.class);
+                    ShopItem item = snap.getValue(ShopItem.class);
                     itemList.add(item);
                 }
-                itemListMutable.postValue(itemList);
+                shopItemListMutable.postValue(itemList);
             }
 
             @Override
@@ -46,16 +46,16 @@ public class FirebaseService implements FirebaseAPI<Item> {
             }
         });
 
-        return itemListMutable;
+        return shopItemListMutable;
     }
 
     @Override
-    public LiveData<Item> getById(int id, String key) {
+    public LiveData<ShopItem> getById(int id, String key) {
 
         reference.child(key).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                itemMutable.postValue(snapshot.getValue(Item.class));
+                shopItemMutable.postValue(snapshot.getValue(ShopItem.class));
             }
 
             @Override
@@ -64,7 +64,7 @@ public class FirebaseService implements FirebaseAPI<Item> {
             }
         });
 
-        return itemMutable;
+        return shopItemMutable;
     }
 
     @Override
@@ -78,7 +78,7 @@ public class FirebaseService implements FirebaseAPI<Item> {
     }
 
     @Override
-    public void write(Item obj, String key) {
+    public void write(ShopItem obj, String key) {
         reference.child(key).setValue(obj);
     }
 }

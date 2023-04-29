@@ -2,40 +2,46 @@ package com.example.orderingsystem.view.ui;
 
 import android.content.Intent;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.lifecycle.LifecycleOwner;
 import com.example.orderingsystem.R;
+import com.example.orderingsystem.databinding.ActivitySignUpBinding;
 import com.example.orderingsystem.model.data.GeneralUser;
-import com.example.orderingsystem.model.data.Item;
 import com.example.orderingsystem.model.data.User;
 import com.example.orderingsystem.model.repository.AuthRepositoryImpl;
-import com.example.orderingsystem.model.repository.RepositoryImpl;
 import com.example.orderingsystem.model.service.FirebaseAuthService;
-import com.example.orderingsystem.model.service.FirebaseService;
 import com.example.orderingsystem.viewmodel.AuthViewModel;
-import com.example.orderingsystem.viewmodel.MainViewModel;
-import com.google.firebase.database.DatabaseReference;
+import com.example.orderingsystem.viewmodel.ItemViewModel;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.database.FirebaseDatabase;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
 public class SignUpActivity extends AppCompatActivity {
 
+    private ActivitySignUpBinding binding;
     private AuthViewModel authViewModel;
-    private MainViewModel mainViewModel;
+    private ItemViewModel itemViewModel;
     private LifecycleOwner lifecycleOwner;
-    private Button signUpButton;
-    private EditText email, password, confirmPassword, name, surname;
+    private String mName;
+    private String mSurname;
+    private String mEmail;
+    private String mPassword;
+    private String mConfirmPassword;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+        // Bind view
+        binding = ActivitySignUpBinding.inflate(getLayoutInflater());
 
         setup();
         signUp();
@@ -43,54 +49,66 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void setup() {
         lifecycleOwner = this;
-
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("user");
-        authViewModel = new AuthViewModel(new AuthRepositoryImpl(new FirebaseAuthService(reference)));
-
-        signUpButton = findViewById(R.id.buttonSignUp);
-        name = findViewById(R.id.editTextName);
-        surname = findViewById(R.id.editTextSurname);
-        password = findViewById(R.id.editTextPassword);
-        confirmPassword = findViewById(R.id.editTextConfirmPassword);
-        email = findViewById(R.id.editTextEmail);
+        authViewModel = new AuthViewModel(new AuthRepositoryImpl(new FirebaseAuthService(FirebaseDatabase.getInstance().getReference("user"))));
     }
 
     private void signUp() {
 
-        String mName = name.getText().toString().trim();
-        String mSurname = surname.getText().toString().trim();
-        String mEmail = email.getText().toString().trim();
-        String mPassword = password.getText().toString().trim();
-        String mConfirmPassword = confirmPassword.getText().toString().trim();
-
-        if (checkNull(mName, mSurname, mEmail, mPassword, mConfirmPassword)) return;
-
-        if (checkConfirmPassword(mPassword, mConfirmPassword)) return;
-
-        User userData = new GeneralUser();
-        userData.setName(mName);
-        userData.setSurname(mSurname);
-        userData.setUserId(getRandomId());
-        userData.setCredit(0f);
-        userData.setAuthType(false);
-
-        signUpButton.setOnClickListener(new View.OnClickListener() {
+        binding.buttonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                authViewModel.createUserWithEmailPassword(mEmail, mPassword);
-                authViewModel.getCurrentUser().observe(lifecycleOwner, user -> {
-                    if (user != null) {
-                        authViewModel.write(userData, String.valueOf(userData.getUserId()));
-                    } else {
-                        Toast.makeText(SignUpActivity.this, "Cannot sign up, please try again later.", Toast.LENGTH_SHORT).show();
-                    }
-                    startActivity(new Intent(SignUpActivity.this, SignInActivity.class));
-                });
+
+                createUserIdentityAndSaveToFirebase(getUserInfo());
+
             }
         });
     }
 
-    private boolean checkNull(String...str) {
+    private void createUserIdentityAndSaveToFirebase(User userData) {
+
+        if (isFieldsNull(mName, mSurname, mEmail, mPassword, mConfirmPassword)) {
+            Toast.makeText(SignUpActivity.this, "Cannot create your account, please try again.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (isPasswordMatchConfirmPassword(mPassword, mConfirmPassword)) {
+            Toast.makeText(SignUpActivity.this, "Cannot create your account, please try again.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        authViewModel.createUserWithEmailPassword(mEmail, mPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
+
+                if (task.isSuccessful()) {
+                    authViewModel.write(userData, String.valueOf(userData.getUserId()));
+                } else {
+                    Toast.makeText(SignUpActivity.this, "Cannot sign up, please try again later.", Toast.LENGTH_SHORT).show();
+                }
+
+                startActivity(new Intent(SignUpActivity.this, SignInActivity.class));
+            }
+        });
+    }
+
+    private User getUserInfo() {
+        mName = binding.editTextName.getText().toString().trim();
+        mSurname = binding.editTextSurname.getText().toString().trim();
+        mEmail = binding.editTextEmail.getText().toString().trim();
+        mPassword = binding.editTextPassword.getText().toString().trim();
+        mConfirmPassword = binding.editTextConfirmPassword.getText().toString().trim();
+
+        User userData = new GeneralUser();
+        userData.setName(mName);
+        userData.setSurname(mSurname);
+        userData.setEmail(mEmail);
+        userData.setUserId(getRandomInt());
+        userData.setCredit(0f);
+        userData.setAuthType(false);
+
+        return userData;
+    }
+    private boolean isFieldsNull(String...str) {
         for (String value: str) {
             if (value == null || value.isEmpty()) {
                 return true;
@@ -99,11 +117,11 @@ public class SignUpActivity extends AppCompatActivity {
         return false;
     }
 
-    private boolean checkConfirmPassword(String password, String confirmPassword) {
+    private boolean isPasswordMatchConfirmPassword(String password, String confirmPassword) {
         return !password.equals(confirmPassword);
     }
 
-    private int getRandomId() {
+    private int getRandomInt() {
         return new Random().nextInt();
     }
 }

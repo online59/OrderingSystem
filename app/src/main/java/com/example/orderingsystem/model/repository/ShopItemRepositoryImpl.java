@@ -2,28 +2,25 @@ package com.example.orderingsystem.model.repository;
 
 import androidx.lifecycle.LiveData;
 import com.example.orderingsystem.model.api.FirebaseAPI;
-import com.example.orderingsystem.model.data.Item;
-import com.example.orderingsystem.model.service.FirebaseAuthService;
-import com.example.orderingsystem.model.service.FirebaseService;
-import com.google.firebase.auth.FirebaseUser;
+import com.example.orderingsystem.model.data.ShopItem;
 
 import java.util.List;
 
-public class RepositoryImpl extends Repository{
+public class ShopItemRepositoryImpl extends ShopItemRepository {
 
-    private final FirebaseAPI<Item> service;
+    private final FirebaseAPI<ShopItem> service;
 
-    public RepositoryImpl(FirebaseAPI<Item> service) {
+    public ShopItemRepositoryImpl(FirebaseAPI<ShopItem> service) {
         this.service = service;
     }
 
     @Override
-    public LiveData<List<Item>> getAll(String key) {
+    public LiveData<List<ShopItem>> getAll(String key) {
         return service.getAll(key);
     }
 
     @Override
-    public LiveData<Item> getById(int id, String key) {
+    public LiveData<ShopItem> getById(int id, String key) {
         return service.getById(id, key);
     }
 
@@ -38,7 +35,7 @@ public class RepositoryImpl extends Repository{
     }
 
     @Override
-    public void write(Item obj, String key) {
+    public void write(ShopItem obj, String key) {
         service.write(obj, key);
     }
 }

@@ -7,22 +7,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import com.example.orderingsystem.R;
-import com.example.orderingsystem.model.data.Item;
-import com.example.orderingsystem.model.repository.RepositoryImpl;
+import com.example.orderingsystem.databinding.FragmentShopBinding;
+import com.example.orderingsystem.model.repository.ShopItemRepositoryImpl;
 import com.example.orderingsystem.model.service.FirebaseService;
-import com.example.orderingsystem.view.adapter.ItemAdapter;
+import com.example.orderingsystem.view.adapter.ShopItemAdapter;
 import com.example.orderingsystem.view.event.ItemClickListener;
-import com.example.orderingsystem.viewmodel.MainViewModel;
-import com.google.firebase.database.DatabaseReference;
+import com.example.orderingsystem.viewmodel.ItemViewModel;
 import com.google.firebase.database.FirebaseDatabase;
 
 
 public class ShopFragment extends Fragment {
 
+    private FragmentShopBinding binding;
     private static ShopFragment instance;
-    private MainViewModel viewModel;
+    private ItemViewModel itemViewModel;
 
     private ShopFragment() {
         // Required empty public constructor
@@ -38,37 +37,38 @@ public class ShopFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // View binding
+        binding = FragmentShopBinding.inflate(getLayoutInflater());
         initialSetup();
     }
 
     private void initialSetup() {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        viewModel = new MainViewModel(new RepositoryImpl(new FirebaseService(reference)));
+        itemViewModel = new ItemViewModel(new ShopItemRepositoryImpl(new FirebaseService(FirebaseDatabase.getInstance().getReference())));
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        displayShopItemOnRecycleView();
+
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_shop, container, false);
-        displayItemInRecycleView(view);
-        return view;
+        return inflater.inflate(R.layout.fragment_shop, container, false);
     }
 
-    private void displayItemInRecycleView(View view) {
-        RecyclerView itemRecyclerView = view.findViewById(R.id.recycler_view);
-        itemRecyclerView.setHasFixedSize(true);
-        itemRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+    private void displayShopItemOnRecycleView() {
+        binding.recyclerView.setHasFixedSize(true);
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
 
-        ItemAdapter adapter = new ItemAdapter();
+        ShopItemAdapter shopItemAdapter = new ShopItemAdapter();
 
-        viewModel.getAll("items").observe(getViewLifecycleOwner(), adapter::setItemList);
+        itemViewModel.getAll("items").observe(getViewLifecycleOwner(), shopItemAdapter::setShopItemList);
 
-        adapter.setItemClickListener(new ItemClickListener() {
+        shopItemAdapter.setItemClickListener(new ItemClickListener() {
             @Override
             public void setOnItemClick(int position) {
                 Intent intent = new Intent(getActivity(), ItemDetailsActivity.class);
-                intent.putExtra("item_id", adapter.getItemList(position).getItemId());
+                intent.putExtra("item_id", shopItemAdapter.getShopItemList(position).getItemId());
                 startActivity(intent);
             }
         });

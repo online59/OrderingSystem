@@ -12,6 +12,8 @@ public abstract class User {
     private String name;
     @SerializedName("surname")
     private String surname;
+    @SerializedName("email")
+    private String email;
     @SerializedName("credit")
     private float credit;
     @SerializedName("auth_type")

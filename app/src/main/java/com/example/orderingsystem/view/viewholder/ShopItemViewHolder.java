@@ -8,11 +8,11 @@ import com.example.orderingsystem.R;
 import com.example.orderingsystem.view.event.ItemClickListener;
 import org.jetbrains.annotations.NotNull;
 
-public class ItemViewHolder extends RecyclerView.ViewHolder {
+public class ShopItemViewHolder extends RecyclerView.ViewHolder {
 
     private final TextView itemName, itemDescription, itemPrice;
 
-    public ItemViewHolder(@NonNull @NotNull View itemView, ItemClickListener itemClickListener) {
+    public ShopItemViewHolder(@NonNull @NotNull View itemView, ItemClickListener itemClickListener) {
         super(itemView);
 
         itemName = itemView.findViewById(R.id.tv_title);

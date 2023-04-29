@@ -7,21 +7,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import com.example.orderingsystem.R;
-import com.example.orderingsystem.model.data.Item;
-import com.example.orderingsystem.model.repository.RepositoryImpl;
+import com.example.orderingsystem.databinding.FragmentCartBinding;
+import com.example.orderingsystem.model.repository.ShopItemRepositoryImpl;
 import com.example.orderingsystem.model.service.FirebaseService;
-import com.example.orderingsystem.view.adapter.ItemAdapter;
+import com.example.orderingsystem.view.adapter.ShopItemAdapter;
 import com.example.orderingsystem.view.event.ItemClickListener;
-import com.example.orderingsystem.viewmodel.MainViewModel;
+import com.example.orderingsystem.viewmodel.ItemViewModel;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class CartFragment extends Fragment {
 
+    private FragmentCartBinding binding;
     private static CartFragment instance;
-    private MainViewModel viewModel;
+    private ItemViewModel viewModel;
 
     private CartFragment() {
         // Required empty public constructor
@@ -37,12 +37,14 @@ public class CartFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // View biding
+        binding = FragmentCartBinding.inflate(getLayoutInflater());
         initialSetup();
     }
 
     private void initialSetup() {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        viewModel = new MainViewModel(new RepositoryImpl(new FirebaseService(reference)));
+        viewModel = new ItemViewModel(new ShopItemRepositoryImpl(new FirebaseService(reference)));
     }
 
     @Override
@@ -55,21 +57,20 @@ public class CartFragment extends Fragment {
     }
 
     private void displayItemOnCartOnRecyclerView(View view) {
-        RecyclerView itemRecyclerView = view.findViewById(R.id.recycler_view);
-        itemRecyclerView.setHasFixedSize(true);
-        itemRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        binding.recyclerView.setHasFixedSize(true);
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
 
-        ItemAdapter adapter = new ItemAdapter();
+        ShopItemAdapter adapter = new ShopItemAdapter();
 
         // TODO
         // Add user id
-        viewModel.getAll("orders/userId").observe(getViewLifecycleOwner(), adapter::setItemList);
+        viewModel.getAll("orders/userId").observe(getViewLifecycleOwner(), adapter::setShopItemList);
 
         adapter.setItemClickListener(new ItemClickListener() {
             @Override
             public void setOnItemClick(int position) {
                 Intent intent = new Intent(getActivity(), ItemDetailsActivity.class);
-                intent.putExtra("item_id", adapter.getItemList(position).getItemId());
+                intent.putExtra("item_id", adapter.getShopItemList(position).getItemId());
                 startActivity(intent);
             }
         });

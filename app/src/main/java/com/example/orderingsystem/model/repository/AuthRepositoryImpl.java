@@ -3,6 +3,8 @@ package com.example.orderingsystem.model.repository;
 import androidx.lifecycle.LiveData;
 import com.example.orderingsystem.model.data.User;
 import com.example.orderingsystem.model.service.FirebaseAuthService;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseUser;
 
 public class AuthRepositoryImpl extends AuthRepository{
@@ -14,13 +16,13 @@ public class AuthRepositoryImpl extends AuthRepository{
     }
 
     @Override
-    public void signInWithEmailPassword(String email, String password) {
-        authService.signInWithEmailPassword(email, password);
+    public Task<AuthResult> signInWithEmailPassword(String email, String password) {
+        return authService.signInWithEmailPassword(email, password);
     }
 
     @Override
-    public void createUserWithEmailPassword(String email, String password) {
-        authService.createUserWithEmailPassword(email, password);
+    public Task<AuthResult> createUserWithEmailPassword(String email, String password) {
+        return authService.createUserWithEmailPassword(email, password);
     }
 
     @Override
@@ -29,7 +31,7 @@ public class AuthRepositoryImpl extends AuthRepository{
     }
 
     @Override
-    public void write(User user, String key) {
-        authService.write(user, key);
+    public Task<Void> write(User user, String key) {
+        return authService.write(user, key);
     }
 }

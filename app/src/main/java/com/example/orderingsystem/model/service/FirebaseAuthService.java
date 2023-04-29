@@ -1,28 +1,14 @@
 package com.example.orderingsystem.model.service;
 
-import android.content.Context;
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import com.example.orderingsystem.model.api.FirebaseAPI;
-import com.example.orderingsystem.model.data.GeneralUser;
-import com.example.orderingsystem.model.data.Item;
 import com.example.orderingsystem.model.data.User;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class FirebaseAuthService {
 
@@ -36,31 +22,13 @@ public class FirebaseAuthService {
         currentUser = new MutableLiveData<>();
     }
 
-    public void signInWithEmailPassword(String email, String password) {
-        firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    currentUser.postValue(firebaseAuth.getCurrentUser());
-                } else {
-                    currentUser.setValue(null);
-                }
-            }
-        });
+    public Task<AuthResult> signInWithEmailPassword(String email, String password) {
+        return firebaseAuth.signInWithEmailAndPassword(email, password);
     }
 
 
-    public void createUserWithEmailPassword(String email, String password) {
-        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    currentUser.postValue(firebaseAuth.getCurrentUser());
-                } else {
-                    currentUser.setValue(null);
-                }
-            }
-        });
+    public Task<AuthResult> createUserWithEmailPassword(String email, String password) {
+        return firebaseAuth.createUserWithEmailAndPassword(email, password);
     }
 
 
@@ -68,7 +36,7 @@ public class FirebaseAuthService {
         return currentUser;
     }
 
-    public void write(User obj, String key) {
-        reference.child(key).setValue(obj);
+    public Task<Void> write(User obj, String key) {
+        return reference.child(key).setValue(obj);
     }
 }
