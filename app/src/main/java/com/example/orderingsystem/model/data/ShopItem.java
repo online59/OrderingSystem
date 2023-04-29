@@ -7,7 +7,7 @@ import lombok.Data;
 public abstract class ShopItem {
 
     @SerializedName("item_id")
-    private int itemId;
+    private String itemId;
     @SerializedName("item_name")
     private String itemName;
     @SerializedName("produce_year")

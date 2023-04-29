@@ -52,7 +52,6 @@ public class ShopFragment extends Fragment {
 
         displayShopItemOnRecycleView();
 
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_shop, container, false);
     }
 

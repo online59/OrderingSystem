@@ -9,11 +9,11 @@ public abstract class ShopItemRepository {
 
     public abstract LiveData<List<ShopItem>> getAll(String key);
 
-    public abstract LiveData<ShopItem> getById(int id, String key);
+    public abstract LiveData<ShopItem> getById(String id, String key);
 
     public abstract void removeAll(String key);
 
-    public abstract void removeById(int id, String key);
+    public abstract void removeById(String id, String key);
 
     public abstract void write(ShopItem obj, String key);
 

@@ -27,11 +27,7 @@ public class AuthViewModel extends ViewModel {
     }
 
 
-    public LiveData<FirebaseUser> getCurrentUser() {
+    public FirebaseUser getCurrentUser() {
         return authRepository.getCurrentUser();
-    }
-
-    public Task<Void> write(User user, String key) {
-        return authRepository.write(user, key);
     }
 }

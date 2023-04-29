@@ -19,7 +19,7 @@ public class ItemViewModel extends ViewModel {
         return shopItemRepository.getAll(key);
     }
 
-    public LiveData<ShopItem> getById(int id, String key) {
+    public LiveData<ShopItem> getById(String id, String key) {
         return shopItemRepository.getById(id, key);
     }
 
@@ -27,7 +27,7 @@ public class ItemViewModel extends ViewModel {
         shopItemRepository.removeAll(key);
     }
 
-    public void removeById(int id, String key) {
+    public void removeById(String id, String key) {
         shopItemRepository.removeById(id, key);
     }
 

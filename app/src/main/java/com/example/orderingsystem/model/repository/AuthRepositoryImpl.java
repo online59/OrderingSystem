@@ -26,12 +26,7 @@ public class AuthRepositoryImpl extends AuthRepository{
     }
 
     @Override
-    public LiveData<FirebaseUser> getCurrentUser() {
+    public FirebaseUser getCurrentUser() {
         return authService.getCurrentUser();
-    }
-
-    @Override
-    public Task<Void> write(User user, String key) {
-        return authService.write(user, key);
     }
 }

@@ -11,15 +11,10 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 
 public class FirebaseAuthService {
-
-    private final DatabaseReference reference;
     private final FirebaseAuth firebaseAuth;
-    private MutableLiveData<FirebaseUser> currentUser;
 
-    public FirebaseAuthService(@Nullable DatabaseReference reference) {
-        this.reference = reference;
+    public FirebaseAuthService() {
         firebaseAuth = FirebaseAuth.getInstance();
-        currentUser = new MutableLiveData<>();
     }
 
     public Task<AuthResult> signInWithEmailPassword(String email, String password) {
@@ -32,11 +27,7 @@ public class FirebaseAuthService {
     }
 
 
-    public LiveData<FirebaseUser> getCurrentUser() {
-        return currentUser;
-    }
-
-    public Task<Void> write(User obj, String key) {
-        return reference.child(key).setValue(obj);
+    public FirebaseUser getCurrentUser() {
+        return firebaseAuth.getCurrentUser();
     }
 }

@@ -40,7 +40,7 @@ public class SignInActivity extends AppCompatActivity {
 
     private void setup() {
         lifecycleOwner = this;
-        authViewModel = new AuthViewModel(new AuthRepositoryImpl(new FirebaseAuthService(null)));
+        authViewModel = new AuthViewModel(new AuthRepositoryImpl(new FirebaseAuthService()));
     }
 
     private void signUp() {

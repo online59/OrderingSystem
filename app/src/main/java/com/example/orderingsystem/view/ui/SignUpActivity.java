@@ -12,9 +12,12 @@ import com.example.orderingsystem.databinding.ActivitySignUpBinding;
 import com.example.orderingsystem.model.data.GeneralUser;
 import com.example.orderingsystem.model.data.User;
 import com.example.orderingsystem.model.repository.AuthRepositoryImpl;
+import com.example.orderingsystem.model.repository.UserRepositoryImpl;
 import com.example.orderingsystem.model.service.FirebaseAuthService;
+import com.example.orderingsystem.model.service.FirebaseUserService;
 import com.example.orderingsystem.viewmodel.AuthViewModel;
 import com.example.orderingsystem.viewmodel.ItemViewModel;
+import com.example.orderingsystem.viewmodel.UserViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -27,7 +30,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     private ActivitySignUpBinding binding;
     private AuthViewModel authViewModel;
-    private ItemViewModel itemViewModel;
+    private UserViewModel userViewModel;
     private LifecycleOwner lifecycleOwner;
     private String mName;
     private String mSurname;
@@ -49,7 +52,8 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void setup() {
         lifecycleOwner = this;
-        authViewModel = new AuthViewModel(new AuthRepositoryImpl(new FirebaseAuthService(FirebaseDatabase.getInstance().getReference("user"))));
+        authViewModel = new AuthViewModel(new AuthRepositoryImpl(new FirebaseAuthService()));
+        userViewModel = new UserViewModel(new UserRepositoryImpl(new FirebaseUserService(FirebaseDatabase.getInstance().getReference("user"))));
     }
 
     private void signUp() {
@@ -58,13 +62,14 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                createUserIdentityAndSaveToFirebase(getUserInfo());
+                getUserInputInfo();
+                createUserIdentityAndSaveToFirebase();
 
             }
         });
     }
 
-    private void createUserIdentityAndSaveToFirebase(User userData) {
+    private void createUserIdentityAndSaveToFirebase() {
 
         if (isFieldsNull(mName, mSurname, mEmail, mPassword, mConfirmPassword)) {
             Toast.makeText(SignUpActivity.this, "Cannot create your account, please try again.", Toast.LENGTH_SHORT).show();
@@ -81,7 +86,9 @@ public class SignUpActivity extends AppCompatActivity {
             public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
 
                 if (task.isSuccessful()) {
-                    authViewModel.write(userData, String.valueOf(userData.getUserId()));
+
+                    userViewModel.write(createUserData(getFirebaseAuthUserUID()), getFirebaseAuthUserUID());
+
                 } else {
                     Toast.makeText(SignUpActivity.this, "Cannot sign up, please try again later.", Toast.LENGTH_SHORT).show();
                 }
@@ -91,23 +98,31 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
-    private User getUserInfo() {
+    private String getFirebaseAuthUserUID() {
+        return authViewModel.getCurrentUser().getUid();
+    }
+
+    private void getUserInputInfo() {
         mName = binding.editTextName.getText().toString().trim();
         mSurname = binding.editTextSurname.getText().toString().trim();
         mEmail = binding.editTextEmail.getText().toString().trim();
         mPassword = binding.editTextPassword.getText().toString().trim();
         mConfirmPassword = binding.editTextConfirmPassword.getText().toString().trim();
+    }
+
+    private User createUserData(String uid) {
 
         User userData = new GeneralUser();
         userData.setName(mName);
         userData.setSurname(mSurname);
         userData.setEmail(mEmail);
-        userData.setUserId(getRandomInt());
-        userData.setCredit(0f);
+        userData.setUserId(uid);
+        userData.setCredit(getRandomFloat());
         userData.setAuthType(false);
 
         return userData;
     }
+
     private boolean isFieldsNull(String...str) {
         for (String value: str) {
             if (value == null || value.isEmpty()) {
@@ -121,7 +136,7 @@ public class SignUpActivity extends AppCompatActivity {
         return !password.equals(confirmPassword);
     }
 
-    private int getRandomInt() {
-        return new Random().nextInt();
+    private float getRandomFloat() {
+        return new Random().nextFloat();
     }
 }

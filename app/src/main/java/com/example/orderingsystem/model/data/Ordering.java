@@ -7,7 +7,7 @@ import lombok.Data;
 public abstract class Ordering {
 
     @SerializedName("order_id")
-    private int orderId;
+    private String orderId;
     @SerializedName("item_id")
     private int itemId;
     @SerializedName("user_id")
