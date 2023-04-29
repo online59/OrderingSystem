@@ -67,7 +67,7 @@ public class CartFragment extends Fragment {
 
         ShopItemAdapter shopItemAdapter = new ShopItemAdapter();
 
-        itemViewModel.getAll("orders/" + getCurrentUserUid()).observe(getViewLifecycleOwner(), shopItemAdapter::setShopItemList);
+        itemViewModel.getAll("cart/" + getCurrentUserUid()).observe(getViewLifecycleOwner(), shopItemAdapter::setShopItemList);
 
         shopItemAdapter.setItemClickListener(new ItemClickListener() {
             @Override

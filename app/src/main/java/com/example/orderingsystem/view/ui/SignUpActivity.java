@@ -53,7 +53,7 @@ public class SignUpActivity extends AppCompatActivity {
     private void setup() {
         lifecycleOwner = this;
         authViewModel = new AuthViewModel(new AuthRepositoryImpl(new FirebaseAuthService()));
-        userViewModel = new UserViewModel(new UserRepositoryImpl(new FirebaseUserService(FirebaseDatabase.getInstance().getReference("user"))));
+        userViewModel = new UserViewModel(new UserRepositoryImpl(new FirebaseUserService(FirebaseDatabase.getInstance().getReference())));
     }
 
     private void signUp() {
@@ -87,7 +87,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                 if (task.isSuccessful()) {
 
-                    userViewModel.write(createUserData(getFirebaseAuthUserUID()), getFirebaseAuthUserUID());
+                    userViewModel.write(createUserData(getFirebaseAuthUserUID()), "user" + getFirebaseAuthUserUID());
 
                 } else {
                     Toast.makeText(SignUpActivity.this, "Cannot sign up, please try again later.", Toast.LENGTH_SHORT).show();

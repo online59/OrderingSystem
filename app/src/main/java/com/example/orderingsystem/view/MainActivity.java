@@ -20,7 +20,6 @@ import org.jetbrains.annotations.NotNull;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
-    private ItemViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,12 +28,7 @@ public class MainActivity extends AppCompatActivity {
         // View biding
         binding = ActivityMainBinding.inflate(getLayoutInflater());
 
-        setup();
         setupBottomNavBar();
-    }
-
-    private void setup() {
-        viewModel = new ItemViewModel(new ShopItemRepositoryImpl(new FirebaseService(FirebaseDatabase.getInstance().getReference())));
     }
 
     private void setupBottomNavBar() {
