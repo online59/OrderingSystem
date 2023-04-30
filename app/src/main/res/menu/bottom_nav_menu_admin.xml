@@ -4,10 +4,6 @@
             android:id="@+id/shop"
             android:title="Shop"
             android:icon="@drawable/baseline_home_24"/>
-    <item
-            android:id="@+id/cart"
-            android:title="Cart"
-            android:icon="@drawable/baseline_cart_24"/>
 
     <item
             android:id="@+id/order"
@@ -19,7 +15,7 @@
             android:title="Report"
             android:icon="@drawable/baseline_chart_24"/>
     <item
-            android:id="@+id/profile"
-            android:title="Profile"
+            android:id="@+id/store"
+            android:title="Store"
             android:icon="@drawable/baseline_profile_24"/>
 </menu>

@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.example.orderingsystem.R;
 import com.example.orderingsystem.databinding.FragmentProfileBinding;
 import com.example.orderingsystem.model.repository.AuthRepositoryImpl;
 import com.example.orderingsystem.model.service.FirebaseAuthService;

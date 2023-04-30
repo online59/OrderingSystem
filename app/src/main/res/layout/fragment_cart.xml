@@ -12,6 +12,6 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            tools:listitem="@layout/item_card"
+            tools:listitem="@layout/material_card"
             android:id="@+id/recycler_view"/>
 </FrameLayout>

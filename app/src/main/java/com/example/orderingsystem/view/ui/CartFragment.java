@@ -8,12 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.orderingsystem.databinding.FragmentCartBinding;
-import com.example.orderingsystem.model.data.ShopItem;
+import com.example.orderingsystem.model.data.Material;
 import com.example.orderingsystem.model.repository.AuthRepositoryImpl;
-import com.example.orderingsystem.model.repository.ShopItemRepositoryImpl;
+import com.example.orderingsystem.model.repository.MaterialRepositoryImpl;
 import com.example.orderingsystem.model.service.FirebaseAuthService;
 import com.example.orderingsystem.model.service.FirebaseItemService;
-import com.example.orderingsystem.view.adapter.ShopItemAdapter;
+import com.example.orderingsystem.view.adapter.MaterialAdapter;
 import com.example.orderingsystem.view.event.ItemClickListener;
 import com.example.orderingsystem.viewmodel.AuthViewModel;
 import com.example.orderingsystem.viewmodel.MainViewModel;
@@ -23,7 +23,7 @@ public class CartFragment extends Fragment {
 
     private FragmentCartBinding binding;
     private static CartFragment instance;
-    private MainViewModel<ShopItem> itemViewModel;
+    private MainViewModel<Material> itemViewModel;
     private AuthViewModel authViewModel;
 
     private CartFragment() {
@@ -43,7 +43,7 @@ public class CartFragment extends Fragment {
     }
 
     private void initialSetup() {
-        itemViewModel = new MainViewModel<>(new ShopItemRepositoryImpl(new FirebaseItemService(FirebaseDatabase.getInstance().getReference())));
+        itemViewModel = new MainViewModel<>(new MaterialRepositoryImpl(new FirebaseItemService(FirebaseDatabase.getInstance().getReference())));
         authViewModel = new AuthViewModel(new AuthRepositoryImpl(new FirebaseAuthService()));
     }
 
@@ -62,15 +62,15 @@ public class CartFragment extends Fragment {
         binding.recyclerView.setHasFixedSize(true);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
 
-        ShopItemAdapter shopItemAdapter = new ShopItemAdapter();
+        MaterialAdapter materialAdapter = new MaterialAdapter();
 
-        itemViewModel.getAll("cart/" + getCurrentUserUid()).observe(getViewLifecycleOwner(), shopItemAdapter::setShopItemList);
+        itemViewModel.getAll("cart/" + getCurrentUserUid()).observe(getViewLifecycleOwner(), materialAdapter::setShopItemList);
 
-        shopItemAdapter.setItemClickListener(new ItemClickListener() {
+        materialAdapter.setItemClickListener(new ItemClickListener() {
             @Override
             public void setOnItemClick(int position) {
                 Intent intent = new Intent(getActivity(), ItemDetailsActivity.class);
-                intent.putExtra("item_id", shopItemAdapter.getShopItemList(position).getItemId());
+                intent.putExtra("item_id", materialAdapter.getShopItemList(position).getItemId());
                 startActivity(intent);
             }
         });

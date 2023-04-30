@@ -2,25 +2,25 @@ package com.example.orderingsystem.model.repository;
 
 import androidx.lifecycle.LiveData;
 import com.example.orderingsystem.model.api.FirebaseAPI;
-import com.example.orderingsystem.model.data.Ordering;
+import com.example.orderingsystem.model.data.Order;
 
 import java.util.List;
 
-public class OrderRepositoryImpl extends MainRepository<Ordering>{
+public class OrderRepositoryImpl extends MainRepository<Order>{
 
-    private FirebaseAPI<Ordering> service;
+    private FirebaseAPI<Order> service;
 
-    public OrderRepositoryImpl(FirebaseAPI<Ordering> service) {
+    public OrderRepositoryImpl(FirebaseAPI<Order> service) {
         this.service = service;
     }
 
     @Override
-    public LiveData<List<Ordering>> getAll(String key) {
+    public LiveData<List<Order>> getAll(String key) {
         return service.getAll(key);
     }
 
     @Override
-    public LiveData<Ordering> getById(String id, String key) {
+    public LiveData<Order> getById(String id, String key) {
         return service.getById(id, key);
     }
 
@@ -35,7 +35,7 @@ public class OrderRepositoryImpl extends MainRepository<Ordering>{
     }
 
     @Override
-    public void write(Ordering obj, String key) {
+    public void write(Order obj, String key) {
         service.write(obj, key);
     }
 }

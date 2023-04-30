@@ -1,16 +1,15 @@
 package com.example.orderingsystem.view.ui;
 
-import android.content.Intent;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.example.orderingsystem.databinding.ActivityItemDetailsBinding;
 import com.example.orderingsystem.model.data.GeneralOrder;
-import com.example.orderingsystem.model.data.Ordering;
-import com.example.orderingsystem.model.data.ShopItem;
+import com.example.orderingsystem.model.data.Order;
+import com.example.orderingsystem.model.data.Material;
 import com.example.orderingsystem.model.repository.AuthRepositoryImpl;
 import com.example.orderingsystem.model.repository.OrderRepositoryImpl;
-import com.example.orderingsystem.model.repository.ShopItemRepositoryImpl;
+import com.example.orderingsystem.model.repository.MaterialRepositoryImpl;
 import com.example.orderingsystem.model.service.FirebaseAuthService;
 import com.example.orderingsystem.model.service.FirebaseItemService;
 import com.example.orderingsystem.model.service.FirebaseOrderService;
@@ -24,8 +23,8 @@ public class ItemDetailsActivity extends AppCompatActivity {
 
     private ActivityItemDetailsBinding binding;
     private AuthViewModel authViewModel;
-    private MainViewModel<ShopItem>  itemViewModel;
-    private MainViewModel<Ordering> orderViewModel;
+    private MainViewModel<Material>  itemViewModel;
+    private MainViewModel<Order> orderViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +40,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
 
     private void setup() {
         authViewModel = new AuthViewModel(new AuthRepositoryImpl(new FirebaseAuthService()));
-        itemViewModel = new MainViewModel<>(new ShopItemRepositoryImpl(new FirebaseItemService(FirebaseDatabase.getInstance().getReference())));
+        itemViewModel = new MainViewModel<>(new MaterialRepositoryImpl(new FirebaseItemService(FirebaseDatabase.getInstance().getReference())));
         orderViewModel = new MainViewModel<>(new OrderRepositoryImpl(new FirebaseOrderService(FirebaseDatabase.getInstance().getReference())));
     }
 
@@ -51,22 +50,22 @@ public class ItemDetailsActivity extends AppCompatActivity {
             binding.itemPrice.setText(String.valueOf(shopItem.getPrice()));
             binding.itemQuantity.setText(String.valueOf(shopItem.getRemaining()));
             binding.itemDetails.setText(shopItem.getDescription());
-            binding.itemYear.setText(shopItem.getProduceYear());
+            binding.itemYear.setText(String.valueOf(shopItem.getProduceYear()));
 
             setWhenOrderButtonClick(shopItem);
         });
     }
 
     private String getItemIdFromIntent() {
-        return new Intent().getStringExtra("item_id");
+        return getIntent().getStringExtra("item_id");
     }
 
-    private void setWhenOrderButtonClick(ShopItem shopItem) {
+    private void setWhenOrderButtonClick(Material material) {
         binding.buyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Ordering order = createOrderData(shopItem);
+                Order order = createOrderData(material);
 
                 orderViewModel.write(order, getCurrentUserOrderingPath(order));
             }
@@ -74,20 +73,20 @@ public class ItemDetailsActivity extends AppCompatActivity {
     }
 
 
-    private Ordering createOrderData(ShopItem shopItem) {
+    private Order createOrderData(Material material) {
 
-        Ordering order = new GeneralOrder();
-        order.setItemId(String.valueOf(shopItem.getItemId()));
+        Order order = new GeneralOrder();
+        order.setItemId(String.valueOf(material.getItemId()));
         order.setOrderId(String.valueOf(getRandomInt()));
         order.setNumberItemOrdered(1);
-        order.setPrice(shopItem.getPrice());
+        order.setPrice(material.getPrice());
 
         return order;
     }
 
 
-    private String getCurrentUserOrderingPath(Ordering ordering) {
-        return "order/" + authViewModel.getCurrentUser().getUid() + "/" + ordering.getOrderId();
+    private String getCurrentUserOrderingPath(Order order) {
+        return "order/" + authViewModel.getCurrentUser().getUid() + "/" + order.getOrderId();
     }
 
     private int getRandomInt() {

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="24dp"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:id="@+id/iv_item"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:src="@drawable/ic_launcher_background"
+            android:cropToPadding="true"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/material_image"/>
+
+    <TextView android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:text="@string/common_google_play_services_enable_title"
+              android:id="@+id/tv_name"
+              android:textStyle="bold"
+              android:ellipsize="end"
+              android:layout_marginStart="8dp"
+              android:maxLines="1"
+              style="@style/NormalTextStyle"
+              app:layout_constraintTop_toTopOf="parent"
+              app:layout_constraintRight_toRightOf="parent"
+              app:layout_constraintLeft_toRightOf="@id/iv_item"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tv_name"
+            app:layout_constraintLeft_toRightOf="@id/iv_item"
+            android:layout_marginStart="8dp"
+            style="@style/NormalTextStyle"
+            android:id="@+id/price_title"
+            android:text="Price: "/>
+
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="@string/app_name"
+              android:gravity="right"
+              style="@style/NormalTextStyle"
+              app:layout_constraintTop_toBottomOf="@id/tv_name"
+              app:layout_constraintLeft_toRightOf="@id/price_title"
+              android:id="@+id/tv_price"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/price_title"
+            app:layout_constraintLeft_toRightOf="@id/iv_item"
+            android:layout_marginStart="8dp"
+            style="@style/NormalTextStyle"
+            android:id="@+id/quantity_title"
+            android:text="Quantity: "/>
+
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="@string/app_name"
+              style="@style/NormalTextStyle"
+              android:gravity="right"
+              app:layout_constraintTop_toBottomOf="@id/price_title"
+              app:layout_constraintLeft_toRightOf="@id/quantity_title"
+              android:id="@+id/tv_quantity"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

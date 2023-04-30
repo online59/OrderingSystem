@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
 @Data
-public abstract class ShopItem {
+public abstract class Material {
 
     @SerializedName("item_id")
     private String itemId;

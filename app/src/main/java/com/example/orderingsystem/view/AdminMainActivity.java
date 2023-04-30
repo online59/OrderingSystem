@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment;
 import com.example.orderingsystem.R;
 import com.example.orderingsystem.databinding.ActivityAdminMainBinding;
 import com.example.orderingsystem.view.ui.*;
+import com.example.orderingsystem.view.ui.CartFragment;
+import com.example.orderingsystem.view.ui.ProfileFragment;
 import com.google.android.material.navigation.NavigationBarView;
 import org.jetbrains.annotations.NotNull;
 

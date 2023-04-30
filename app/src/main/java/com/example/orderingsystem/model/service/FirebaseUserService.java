@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.example.orderingsystem.model.api.FirebaseAPI;
 import com.example.orderingsystem.model.data.GeneralUser;
-import com.example.orderingsystem.model.data.ShopItem;
 import com.example.orderingsystem.model.data.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

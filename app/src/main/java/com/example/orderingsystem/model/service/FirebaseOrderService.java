@@ -5,9 +5,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.example.orderingsystem.model.api.FirebaseAPI;
 import com.example.orderingsystem.model.data.GeneralOrder;
-import com.example.orderingsystem.model.data.GeneralUser;
-import com.example.orderingsystem.model.data.Ordering;
-import com.example.orderingsystem.model.data.User;
+import com.example.orderingsystem.model.data.Order;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -17,11 +15,11 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FirebaseOrderService implements FirebaseAPI<Ordering> {
+public class FirebaseOrderService implements FirebaseAPI<Order> {
 
     private final DatabaseReference reference;
-    private final MutableLiveData<List<Ordering>> orderListMutable;
-    private final MutableLiveData<Ordering> orderMutable;
+    private final MutableLiveData<List<Order>> orderListMutable;
+    private final MutableLiveData<Order> orderMutable;
 
     public FirebaseOrderService(DatabaseReference reference) {
         this.reference = reference;
@@ -30,12 +28,12 @@ public class FirebaseOrderService implements FirebaseAPI<Ordering> {
     }
 
     @Override
-    public LiveData<List<Ordering>> getAll(String key) {
+    public LiveData<List<Order>> getAll(String key) {
 
         reference.child(key).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                List<Ordering> userList = new ArrayList<>();
+                List<Order> userList = new ArrayList<>();
                 for (DataSnapshot snap: snapshot.getChildren()) {
                     userList.add(snap.getValue(GeneralOrder.class));
                 }
@@ -52,7 +50,7 @@ public class FirebaseOrderService implements FirebaseAPI<Ordering> {
     }
 
     @Override
-    public LiveData<Ordering> getById(String id, String key) {
+    public LiveData<Order> getById(String id, String key) {
 
         reference.child(key).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -80,7 +78,7 @@ public class FirebaseOrderService implements FirebaseAPI<Ordering> {
     }
 
     @Override
-    public void write(Ordering obj, String key) {
+    public void write(Order obj, String key) {
         reference.child(key).setValue(obj);
     }
 }
