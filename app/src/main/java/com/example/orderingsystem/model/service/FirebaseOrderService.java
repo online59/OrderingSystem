@@ -4,8 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.example.orderingsystem.model.api.FirebaseAPI;
-import com.example.orderingsystem.model.data.GeneralMaterial;
-import com.example.orderingsystem.model.data.ShopItem;
+import com.example.orderingsystem.model.data.GeneralOrder;
+import com.example.orderingsystem.model.data.GeneralUser;
+import com.example.orderingsystem.model.data.Ordering;
+import com.example.orderingsystem.model.data.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -15,30 +17,29 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FirebaseService implements FirebaseAPI<ShopItem> {
+public class FirebaseOrderService implements FirebaseAPI<Ordering> {
 
     private final DatabaseReference reference;
-    private final MutableLiveData<List<ShopItem>> shopItemListMutable;
-    private final MutableLiveData<ShopItem> shopItemMutable;
+    private final MutableLiveData<List<Ordering>> orderListMutable;
+    private final MutableLiveData<Ordering> orderMutable;
 
-    public FirebaseService(DatabaseReference reference) {
+    public FirebaseOrderService(DatabaseReference reference) {
         this.reference = reference;
-        shopItemListMutable = new MutableLiveData<>();
-        shopItemMutable = new MutableLiveData<>();
+        orderListMutable = new MutableLiveData<>();
+        orderMutable = new MutableLiveData<>();
     }
 
     @Override
-    public LiveData<List<ShopItem>> getAll(String key) {
+    public LiveData<List<Ordering>> getAll(String key) {
 
         reference.child(key).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                List<ShopItem> itemList = new ArrayList<>();
+                List<Ordering> userList = new ArrayList<>();
                 for (DataSnapshot snap: snapshot.getChildren()) {
-                    ShopItem item = snap.getValue(GeneralMaterial.class);
-                    itemList.add(item);
+                    userList.add(snap.getValue(GeneralOrder.class));
                 }
-                shopItemListMutable.postValue(itemList);
+                orderListMutable.postValue(userList);
             }
 
             @Override
@@ -47,16 +48,16 @@ public class FirebaseService implements FirebaseAPI<ShopItem> {
             }
         });
 
-        return shopItemListMutable;
+        return orderListMutable;
     }
 
     @Override
-    public LiveData<ShopItem> getById(String id, String key) {
+    public LiveData<Ordering> getById(String id, String key) {
 
         reference.child(key).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                shopItemMutable.postValue(snapshot.getValue(ShopItem.class));
+                orderMutable.postValue(snapshot.getValue(GeneralOrder.class));
             }
 
             @Override
@@ -65,7 +66,7 @@ public class FirebaseService implements FirebaseAPI<ShopItem> {
             }
         });
 
-        return shopItemMutable;
+        return orderMutable;
     }
 
     @Override
@@ -79,7 +80,7 @@ public class FirebaseService implements FirebaseAPI<ShopItem> {
     }
 
     @Override
-    public void write(ShopItem obj, String key) {
+    public void write(Ordering obj, String key) {
         reference.child(key).setValue(obj);
     }
 }

@@ -7,15 +7,11 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import com.example.orderingsystem.R;
 import com.example.orderingsystem.databinding.ActivityMainBinding;
-import com.example.orderingsystem.model.repository.ShopItemRepositoryImpl;
-import com.example.orderingsystem.model.service.FirebaseService;
 import com.example.orderingsystem.view.ui.CartFragment;
 import com.example.orderingsystem.view.ui.OrderFragment;
 import com.example.orderingsystem.view.ui.ProfileFragment;
 import com.example.orderingsystem.view.ui.ShopFragment;
-import com.example.orderingsystem.viewmodel.ItemViewModel;
 import com.google.android.material.navigation.NavigationBarView;
-import com.google.firebase.database.FirebaseDatabase;
 import org.jetbrains.annotations.NotNull;
 
 public class MainActivity extends AppCompatActivity {

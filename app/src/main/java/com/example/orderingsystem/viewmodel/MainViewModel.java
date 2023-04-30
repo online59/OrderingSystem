@@ -3,23 +3,23 @@ package com.example.orderingsystem.viewmodel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 import com.example.orderingsystem.model.data.ShopItem;
-import com.example.orderingsystem.model.repository.ShopItemRepository;
+import com.example.orderingsystem.model.repository.MainRepository;
 
 import java.util.List;
 
-public class ItemViewModel extends ViewModel {
+public class MainViewModel<T> extends ViewModel {
 
-    private final ShopItemRepository shopItemRepository;
+    private final MainRepository<T> shopItemRepository;
 
-    public ItemViewModel(ShopItemRepository shopItemRepository) {
+    public MainViewModel(MainRepository<T> shopItemRepository) {
         this.shopItemRepository = shopItemRepository;
     }
 
-    public LiveData<List<ShopItem>> getAll(String key) {
+    public LiveData<List<T>> getAll(String key) {
         return shopItemRepository.getAll(key);
     }
 
-    public LiveData<ShopItem> getById(String id, String key) {
+    public LiveData<T> getById(String id, String key) {
         return shopItemRepository.getById(id, key);
     }
 
@@ -31,7 +31,7 @@ public class ItemViewModel extends ViewModel {
         shopItemRepository.removeById(id, key);
     }
 
-    public void write(ShopItem obj, String key) {
+    public void write(T obj, String key) {
         shopItemRepository.write(obj, key);
     }
 }

@@ -16,8 +16,7 @@ import com.example.orderingsystem.model.repository.UserRepositoryImpl;
 import com.example.orderingsystem.model.service.FirebaseAuthService;
 import com.example.orderingsystem.model.service.FirebaseUserService;
 import com.example.orderingsystem.viewmodel.AuthViewModel;
-import com.example.orderingsystem.viewmodel.ItemViewModel;
-import com.example.orderingsystem.viewmodel.UserViewModel;
+import com.example.orderingsystem.viewmodel.MainViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -30,7 +29,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     private ActivitySignUpBinding binding;
     private AuthViewModel authViewModel;
-    private UserViewModel userViewModel;
+    private MainViewModel<User> userViewModel;
     private LifecycleOwner lifecycleOwner;
     private String mName;
     private String mSurname;
@@ -52,7 +51,7 @@ public class SignUpActivity extends AppCompatActivity {
     private void setup() {
         lifecycleOwner = this;
         authViewModel = new AuthViewModel(new AuthRepositoryImpl(new FirebaseAuthService()));
-        userViewModel = new UserViewModel(new UserRepositoryImpl(new FirebaseUserService(FirebaseDatabase.getInstance().getReference())));
+        userViewModel = new MainViewModel<>(new UserRepositoryImpl(new FirebaseUserService(FirebaseDatabase.getInstance().getReference())));
     }
 
     private void signUp() {

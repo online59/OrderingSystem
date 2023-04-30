@@ -6,7 +6,7 @@ import com.example.orderingsystem.model.data.ShopItem;
 
 import java.util.List;
 
-public class ShopItemRepositoryImpl extends ShopItemRepository {
+public class ShopItemRepositoryImpl extends MainRepository<ShopItem> {
 
     private final FirebaseAPI<ShopItem> service;
 

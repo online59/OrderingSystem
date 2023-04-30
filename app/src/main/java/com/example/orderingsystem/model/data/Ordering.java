@@ -9,9 +9,9 @@ public abstract class Ordering {
     @SerializedName("order_id")
     private String orderId;
     @SerializedName("item_id")
-    private int itemId;
+    private String itemId;
     @SerializedName("user_id")
-    private int userId;
+    private String userId;
     @SerializedName("number_order")
     private int numberItemOrdered;
     @SerializedName("price")

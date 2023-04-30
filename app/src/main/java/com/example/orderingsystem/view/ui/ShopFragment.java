@@ -8,13 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import com.example.orderingsystem.R;
 import com.example.orderingsystem.databinding.FragmentShopBinding;
+import com.example.orderingsystem.model.data.ShopItem;
 import com.example.orderingsystem.model.repository.ShopItemRepositoryImpl;
-import com.example.orderingsystem.model.service.FirebaseService;
+import com.example.orderingsystem.model.service.FirebaseItemService;
 import com.example.orderingsystem.view.adapter.ShopItemAdapter;
 import com.example.orderingsystem.view.event.ItemClickListener;
-import com.example.orderingsystem.viewmodel.ItemViewModel;
+import com.example.orderingsystem.viewmodel.MainViewModel;
 import com.google.firebase.database.FirebaseDatabase;
 
 
@@ -22,7 +22,7 @@ public class ShopFragment extends Fragment {
 
     private FragmentShopBinding binding;
     private static ShopFragment instance;
-    private ItemViewModel itemViewModel;
+    private MainViewModel<ShopItem> itemViewModel;
 
     private ShopFragment() {
         // Required empty public constructor
@@ -42,7 +42,7 @@ public class ShopFragment extends Fragment {
     }
 
     private void initialSetup() {
-        itemViewModel = new ItemViewModel(new ShopItemRepositoryImpl(new FirebaseService(FirebaseDatabase.getInstance().getReference())));
+        itemViewModel = new MainViewModel<>(new ShopItemRepositoryImpl(new FirebaseItemService(FirebaseDatabase.getInstance().getReference())));
     }
 
     @Override
@@ -62,15 +62,15 @@ public class ShopFragment extends Fragment {
 
         ShopItemAdapter shopItemAdapter = new ShopItemAdapter();
 
-        itemViewModel.getAll("material").observe(getViewLifecycleOwner(), shopItems -> {
-            shopItemAdapter.setShopItemList(shopItems);
-            Log.e("TAG", "displayShopItemOnRecycleView: " + shopItems.get(0).getItemId() );
-        });
+        itemViewModel.getAll("material").observe(getViewLifecycleOwner(), shopItemAdapter::setShopItemList);
+
+        binding.recyclerView.setAdapter(shopItemAdapter);
 
         shopItemAdapter.setItemClickListener(new ItemClickListener() {
             @Override
             public void setOnItemClick(int position) {
                 Intent intent = new Intent(getActivity(), ItemDetailsActivity.class);
+                Log.e("TAG", "setOnItemClick: " + shopItemAdapter.getShopItemList(position).getItemId() );
                 intent.putExtra("item_id", shopItemAdapter.getShopItemList(position).getItemId());
                 startActivity(intent);
             }
