@@ -15,11 +15,11 @@ public abstract class Order {
     @SerializedName("material_name")
     private String itemName;
     @SerializedName("number_order")
-    private int numberItemOrdered;
+    private int quantity;
     @SerializedName("price")
     private float price;
 
     public float getTotalPrice() {
-        return numberItemOrdered * price;
+        return quantity * price;
     }
 }

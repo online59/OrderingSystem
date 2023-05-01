@@ -9,12 +9,17 @@ import android.view.ViewGroup;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.orderingsystem.databinding.FragmentCartBinding;
 import com.example.orderingsystem.model.data.Material;
+import com.example.orderingsystem.model.data.Order;
 import com.example.orderingsystem.model.repository.AuthRepositoryImpl;
 import com.example.orderingsystem.model.repository.MaterialRepositoryImpl;
+import com.example.orderingsystem.model.repository.OrderRepositoryImpl;
 import com.example.orderingsystem.model.service.FirebaseAuthService;
-import com.example.orderingsystem.model.service.FirebaseItemService;
+import com.example.orderingsystem.model.service.FirebaseMaterialService;
+import com.example.orderingsystem.model.service.FirebaseOrderService;
+import com.example.orderingsystem.utils.FirebasePath;
 import com.example.orderingsystem.view.adapter.MaterialAdapter;
-import com.example.orderingsystem.view.event.ItemClickListener;
+import com.example.orderingsystem.utils.ItemClickListener;
+import com.example.orderingsystem.view.adapter.OrderAdapter;
 import com.example.orderingsystem.viewmodel.AuthViewModel;
 import com.example.orderingsystem.viewmodel.MainViewModel;
 import com.google.firebase.database.FirebaseDatabase;
@@ -23,7 +28,7 @@ public class CartFragment extends Fragment {
 
     private FragmentCartBinding binding;
     private static CartFragment instance;
-    private MainViewModel<Material> itemViewModel;
+    private MainViewModel<Order> itemViewModel;
     private AuthViewModel authViewModel;
 
     private CartFragment() {
@@ -43,7 +48,7 @@ public class CartFragment extends Fragment {
     }
 
     private void initialSetup() {
-        itemViewModel = new MainViewModel<>(new MaterialRepositoryImpl(new FirebaseItemService(FirebaseDatabase.getInstance().getReference())));
+        itemViewModel = new MainViewModel<>(new OrderRepositoryImpl(new FirebaseOrderService(FirebaseDatabase.getInstance().getReference())));
         authViewModel = new AuthViewModel(new AuthRepositoryImpl(new FirebaseAuthService()));
     }
 
@@ -62,15 +67,17 @@ public class CartFragment extends Fragment {
         binding.recyclerView.setHasFixedSize(true);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
 
-        MaterialAdapter materialAdapter = new MaterialAdapter();
+        OrderAdapter orderAdapter = new OrderAdapter();
 
-        itemViewModel.getAll("cart/" + getCurrentUserUid()).observe(getViewLifecycleOwner(), materialAdapter::setShopItemList);
+        itemViewModel.getAll(FirebasePath.PATH_CART + "/" + getCurrentUserUid()).observe(getViewLifecycleOwner(), orderAdapter::setOrderList);
 
-        materialAdapter.setItemClickListener(new ItemClickListener() {
+        binding.recyclerView.setAdapter(orderAdapter);
+
+        orderAdapter.setItemClickListener(new ItemClickListener() {
             @Override
             public void setOnItemClick(int position) {
-                Intent intent = new Intent(getActivity(), ItemDetailsActivity.class);
-                intent.putExtra("item_id", materialAdapter.getShopItemList(position).getItemId());
+                Intent intent = new Intent(getActivity(), MaterialDetailsActivity.class);
+                intent.putExtra("item_id", orderAdapter.getOder(position).getItemId());
                 startActivity(intent);
             }
         });

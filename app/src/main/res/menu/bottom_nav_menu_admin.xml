@@ -17,5 +17,5 @@
     <item
             android:id="@+id/store"
             android:title="Store"
-            android:icon="@drawable/baseline_profile_24"/>
+            android:icon="@drawable/garage"/>
 </menu>

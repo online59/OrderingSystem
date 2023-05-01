@@ -7,13 +7,15 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import com.example.orderingsystem.databinding.FragmentShopBinding;
 import com.example.orderingsystem.model.data.Material;
 import com.example.orderingsystem.model.repository.MaterialRepositoryImpl;
-import com.example.orderingsystem.model.service.FirebaseItemService;
+import com.example.orderingsystem.model.service.FirebaseMaterialService;
+import com.example.orderingsystem.utils.FirebasePath;
 import com.example.orderingsystem.view.adapter.MaterialAdapter;
-import com.example.orderingsystem.view.event.ItemClickListener;
+import com.example.orderingsystem.utils.ItemClickListener;
+import com.example.orderingsystem.view.decor.GridLayoutItemDecoration;
 import com.example.orderingsystem.viewmodel.MainViewModel;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -25,7 +27,7 @@ public class ShopFragment extends Fragment {
     private MainViewModel<Material> itemViewModel;
 
     private ShopFragment() {
-        // Required empty public constructor
+
     }
 
     public static ShopFragment getInstance() {
@@ -42,7 +44,7 @@ public class ShopFragment extends Fragment {
     }
 
     private void initialSetup() {
-        itemViewModel = new MainViewModel<>(new MaterialRepositoryImpl(new FirebaseItemService(FirebaseDatabase.getInstance().getReference())));
+        itemViewModel = new MainViewModel<>(new MaterialRepositoryImpl(new FirebaseMaterialService(FirebaseDatabase.getInstance().getReference())));
     }
 
     @Override
@@ -57,21 +59,27 @@ public class ShopFragment extends Fragment {
     }
 
     private void displayShopItemOnRecycleView() {
+
+        int columnNumber = 2;
+        int columnSpace = 50; // px
+        boolean includeEdge = true;
+
+        binding.recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), columnNumber));
+
         binding.recyclerView.setHasFixedSize(true);
-        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
 
         MaterialAdapter materialAdapter = new MaterialAdapter();
 
-        itemViewModel.getAll("material").observe(getViewLifecycleOwner(), materialAdapter::setShopItemList);
+        itemViewModel.getAll(FirebasePath.PATH_MATERIAL).observe(getViewLifecycleOwner(), materialAdapter::setShopItemList);
 
         binding.recyclerView.setAdapter(materialAdapter);
 
         materialAdapter.setItemClickListener(new ItemClickListener() {
             @Override
             public void setOnItemClick(int position) {
-                Intent intent = new Intent(getActivity(), ItemDetailsActivity.class);
-                Log.e("TAG", "setOnItemClick: " + materialAdapter.getShopItemList(position).getItemId() );
-                intent.putExtra("item_id", materialAdapter.getShopItemList(position).getItemId());
+                Intent intent = new Intent(getActivity(), MaterialDetailsActivity.class);
+                Log.e("TAG", "setOnItemClick: " + materialAdapter.getMaterial(position).getItemId() );
+                intent.putExtra("item_id", materialAdapter.getMaterial(position).getItemId());
                 startActivity(intent);
             }
         });

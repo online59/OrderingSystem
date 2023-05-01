@@ -1,4 +1,4 @@
-package com.example.orderingsystem.view.event;
+package com.example.orderingsystem.utils;
 
 public interface ItemClickListener {
 

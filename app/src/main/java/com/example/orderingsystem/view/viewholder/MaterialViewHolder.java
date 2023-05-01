@@ -5,37 +5,26 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.orderingsystem.R;
-import com.example.orderingsystem.view.event.ItemClickListener;
+import com.example.orderingsystem.databinding.MaterialCardBinding;
+import com.example.orderingsystem.utils.ItemClickListener;
 import org.jetbrains.annotations.NotNull;
 
 public class MaterialViewHolder extends RecyclerView.ViewHolder {
 
-    private final TextView itemName, itemDescription, itemPrice;
+    private MaterialCardBinding binding;
 
-    public MaterialViewHolder(@NonNull @NotNull View itemView, ItemClickListener itemClickListener) {
-        super(itemView);
+    public MaterialViewHolder(MaterialCardBinding binding, ItemClickListener itemClickListener) {
+        super(binding.getRoot());
+        this.binding = binding;
 
-        itemName = itemView.findViewById(R.id.tv_name);
-        itemDescription = itemView.findViewById(R.id.tv_description);
-        itemPrice = itemView.findViewById(R.id.tv_price);
-
-        itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                itemClickListener.setOnItemClick(getAdapterPosition());
-            }
-        });
+        binding.getRoot().setOnClickListener(v -> itemClickListener.setOnItemClick(getAdapterPosition()));
     }
 
     public TextView getItemName() {
-        return itemName;
-    }
-
-    public TextView getItemDescription() {
-        return itemDescription;
+        return binding.itemName;
     }
 
     public TextView getItemPrice() {
-        return itemPrice;
+        return binding.price;
     }
 }

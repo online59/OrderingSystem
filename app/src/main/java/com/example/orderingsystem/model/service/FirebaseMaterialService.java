@@ -15,13 +15,13 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FirebaseItemService implements FirebaseAPI<Material> {
+public class FirebaseMaterialService implements FirebaseAPI<Material> {
 
     private final DatabaseReference reference;
     private final MutableLiveData<List<Material>> shopItemListMutable;
     private final MutableLiveData<Material> shopItemMutable;
 
-    public FirebaseItemService(DatabaseReference reference) {
+    public FirebaseMaterialService(DatabaseReference reference) {
         this.reference = reference;
         shopItemListMutable = new MutableLiveData<>();
         shopItemMutable = new MutableLiveData<>();

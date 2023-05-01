@@ -7,15 +7,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.example.orderingsystem.databinding.FragmentProfileBinding;
+import com.example.orderingsystem.model.data.Order;
+import com.example.orderingsystem.model.data.User;
 import com.example.orderingsystem.model.repository.AuthRepositoryImpl;
+import com.example.orderingsystem.model.repository.UserRepositoryImpl;
 import com.example.orderingsystem.model.service.FirebaseAuthService;
+import com.example.orderingsystem.model.service.FirebaseUserService;
+import com.example.orderingsystem.utils.FirebasePath;
 import com.example.orderingsystem.viewmodel.AuthViewModel;
+import com.example.orderingsystem.viewmodel.MainViewModel;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class ProfileFragment extends Fragment {
 
     private FragmentProfileBinding binding;
     private static ProfileFragment instance;
     private AuthViewModel authViewModel;
+    private MainViewModel<User> userViewModel;
 
     private ProfileFragment() {
         // Required empty public constructor
@@ -32,6 +40,7 @@ public class ProfileFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         authViewModel = new AuthViewModel(new AuthRepositoryImpl(new FirebaseAuthService()));
+        userViewModel = new MainViewModel<>(new UserRepositoryImpl(new FirebaseUserService(FirebaseDatabase.getInstance().getReference())));
     }
 
     @Override
@@ -39,6 +48,22 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         binding = FragmentProfileBinding.inflate(inflater, container, false);
+
+        setValueForView();
+        whenSignOutButtonClick();
+
+        return binding.getRoot();
+    }
+
+    private void setValueForView() {
+        userViewModel.getById(authViewModel.getCurrentUser().getUid(), FirebasePath.PATH_USER).observe(getViewLifecycleOwner(), user -> {
+            binding.userFullName.setText(user.getFullName());
+            binding.userEmail.setText(user.getEmail());
+            binding.userEmailDetail.setText(user.getEmail());
+        });
+    }
+
+    private void whenSignOutButtonClick() {
         binding.buttonSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -46,8 +71,6 @@ public class ProfileFragment extends Fragment {
                 startActivity(new Intent(getActivity(), SignInActivity.class));
             }
         });
-
-        return binding.getRoot();
     }
 
     private void signUserOut() {

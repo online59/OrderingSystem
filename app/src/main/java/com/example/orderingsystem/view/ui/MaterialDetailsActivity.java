@@ -11,20 +11,22 @@ import com.example.orderingsystem.model.repository.AuthRepositoryImpl;
 import com.example.orderingsystem.model.repository.OrderRepositoryImpl;
 import com.example.orderingsystem.model.repository.MaterialRepositoryImpl;
 import com.example.orderingsystem.model.service.FirebaseAuthService;
-import com.example.orderingsystem.model.service.FirebaseItemService;
+import com.example.orderingsystem.model.service.FirebaseMaterialService;
 import com.example.orderingsystem.model.service.FirebaseOrderService;
+import com.example.orderingsystem.utils.FirebasePath;
 import com.example.orderingsystem.viewmodel.AuthViewModel;
 import com.example.orderingsystem.viewmodel.MainViewModel;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.Random;
-
-public class ItemDetailsActivity extends AppCompatActivity {
+public class MaterialDetailsActivity extends AppCompatActivity {
 
     private ActivityItemDetailsBinding binding;
     private AuthViewModel authViewModel;
     private MainViewModel<Material>  itemViewModel;
     private MainViewModel<Order> orderViewModel;
+    private DatabaseReference reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,13 +41,15 @@ public class ItemDetailsActivity extends AppCompatActivity {
     }
 
     private void setup() {
+        reference = FirebaseDatabase.getInstance().getReference();
         authViewModel = new AuthViewModel(new AuthRepositoryImpl(new FirebaseAuthService()));
-        itemViewModel = new MainViewModel<>(new MaterialRepositoryImpl(new FirebaseItemService(FirebaseDatabase.getInstance().getReference())));
-        orderViewModel = new MainViewModel<>(new OrderRepositoryImpl(new FirebaseOrderService(FirebaseDatabase.getInstance().getReference())));
+        itemViewModel = new MainViewModel<>(new MaterialRepositoryImpl(new FirebaseMaterialService(reference)));
+        orderViewModel = new MainViewModel<>(new OrderRepositoryImpl(new FirebaseOrderService(reference)));
     }
 
     private void displaySelectedItemDetails() {
-        itemViewModel.getById(getItemIdFromIntent(), "material").observe(this, shopItem -> {
+        itemViewModel.getById(getMaterialIdFromIntent(), FirebasePath.PATH_MATERIAL).observe(this, shopItem -> {
+
             binding.itemName.setText(shopItem.getItemName());
             binding.itemPrice.setText(String.valueOf(shopItem.getPrice()));
             binding.itemQuantity.setText(String.valueOf(shopItem.getRemaining()));
@@ -53,57 +57,64 @@ public class ItemDetailsActivity extends AppCompatActivity {
             binding.itemYear.setText(String.valueOf(shopItem.getProduceYear()));
 
             setWhenOrderButtonClick(shopItem);
+            setWhenAddToCartButtonClick(shopItem);
         });
     }
 
-    private String getItemIdFromIntent() {
+    private String getMaterialIdFromIntent() {
         return getIntent().getStringExtra("item_id");
     }
 
-    private void setWhenOrderButtonClick(Material material) {
-        binding.buyButton.setOnClickListener(new View.OnClickListener() {
+    private void setWhenOrderButtonClick(Material shopItem) {
+        binding.buttonBuyItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Order order = createOrderData(material);
+                Order order = createOrderData(shopItem);
 
                 orderViewModel.write(order, getCurrentUserOrderingPath(order));
+                
+                showSnackBar(view);
             }
         });
     }
 
+    private void setWhenAddToCartButtonClick(Material shopItem) {
+        binding.buttonAddToCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Order order = createOrderData(shopItem);
+
+                orderViewModel.write(order, getCurrentUserCartPath(order));
+
+                showSnackBar(view);
+            }
+        });
+    }
 
     private Order createOrderData(Material material) {
 
         Order order = new GeneralOrder();
+        order.setOrderId(reference.push().getKey());
         order.setItemId(String.valueOf(material.getItemId()));
-        order.setOrderId(String.valueOf(getRandomInt()));
-        order.setNumberItemOrdered(1);
+        order.setItemName(material.getItemName());
+        order.setQuantity(1);
         order.setPrice(material.getPrice());
 
         return order;
     }
 
-
     private String getCurrentUserOrderingPath(Order order) {
-        return "order/" + authViewModel.getCurrentUser().getUid() + "/" + order.getOrderId();
+        return FirebasePath.PATH_ORDER+ "/" + authViewModel.getCurrentUser().getUid() + "/" + order.getOrderId();
     }
 
-    private int getRandomInt() {
-        return new Random().nextInt();
+    private String getCurrentUserCartPath(Order order) {
+        return FirebasePath.PATH_CART+ "/" + authViewModel.getCurrentUser().getUid() + "/" + order.getOrderId();
     }
 
-    private boolean isFieldsNull(String...str) {
-        for (String value: str) {
-            if (value == null || value.isEmpty()) {
-                return true;
-            }
-        }
-        return false;
+    private void showSnackBar(View view) {
+        Snackbar.make(MaterialDetailsActivity.this, view, "Add item successfully", Snackbar.LENGTH_SHORT).show();
     }
 
-    @Override
-    public void onBackPressed() {
-        finish();
-    }
 }

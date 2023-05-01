@@ -15,6 +15,8 @@ import com.example.orderingsystem.model.repository.AuthRepositoryImpl;
 import com.example.orderingsystem.model.repository.UserRepositoryImpl;
 import com.example.orderingsystem.model.service.FirebaseAuthService;
 import com.example.orderingsystem.model.service.FirebaseUserService;
+import com.example.orderingsystem.utils.FirebasePath;
+import com.example.orderingsystem.utils.MyUtils;
 import com.example.orderingsystem.viewmodel.AuthViewModel;
 import com.example.orderingsystem.viewmodel.MainViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -69,12 +71,12 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void createUserIdentityAndSaveToFirebase() {
 
-        if (isFieldsNull(mName, mSurname, mEmail, mPassword, mConfirmPassword)) {
+        if (MyUtils.isFieldsNull(mName, mSurname, mEmail, mPassword, mConfirmPassword)) {
             Toast.makeText(SignUpActivity.this, "Cannot create your account, please try again.", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (isPasswordMatchConfirmPassword(mPassword, mConfirmPassword)) {
+        if (MyUtils.isStringMatch(mPassword, mConfirmPassword)) {
             Toast.makeText(SignUpActivity.this, "Cannot create your account, please try again.", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -85,7 +87,8 @@ public class SignUpActivity extends AppCompatActivity {
 
                 if (task.isSuccessful()) {
 
-                    userViewModel.write(createUserData(getFirebaseAuthUserUID()), "user/" + getFirebaseAuthUserUID());
+                    userViewModel.write(createUserData(getFirebaseAuthUserUID()),  FirebasePath.PATH_USER + "/" + getFirebaseAuthUserUID());
+
                     Toast.makeText(SignUpActivity.this, "Sign up successfully.", Toast.LENGTH_SHORT).show();
 
                 } else {
@@ -116,26 +119,9 @@ public class SignUpActivity extends AppCompatActivity {
         userData.setSurname(mSurname);
         userData.setEmail(mEmail);
         userData.setUserId(uid);
-        userData.setCredit(getRandomFloat());
+        userData.setCredit(MyUtils.getRandomFloat());
         userData.setAuthType(false);
 
         return userData;
-    }
-
-    private boolean isFieldsNull(String...str) {
-        for (String value: str) {
-            if (value == null || value.isEmpty()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean isPasswordMatchConfirmPassword(String password, String confirmPassword) {
-        return !password.equals(confirmPassword);
-    }
-
-    private float getRandomFloat() {
-        return new Random().nextFloat();
     }
 }

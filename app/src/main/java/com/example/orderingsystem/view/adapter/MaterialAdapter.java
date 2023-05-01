@@ -1,19 +1,20 @@
 package com.example.orderingsystem.view.adapter;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.orderingsystem.R;
+import com.example.orderingsystem.databinding.MaterialCardBinding;
 import com.example.orderingsystem.model.data.Material;
-import com.example.orderingsystem.view.event.ItemClickListener;
+import com.example.orderingsystem.utils.ItemClickListener;
 import com.example.orderingsystem.view.viewholder.MaterialViewHolder;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 public class MaterialAdapter extends RecyclerView.Adapter<MaterialViewHolder>{
+
+    private MaterialCardBinding binding;
 
     private List<Material> materialList;
     private ItemClickListener itemClickListener;
@@ -26,7 +27,7 @@ public class MaterialAdapter extends RecyclerView.Adapter<MaterialViewHolder>{
         notifyDataSetChanged();
     }
 
-    public Material getShopItemList(int position) {
+    public Material getMaterial(int position) {
         return materialList.get(position);
     }
 
@@ -38,15 +39,14 @@ public class MaterialAdapter extends RecyclerView.Adapter<MaterialViewHolder>{
     @NotNull
     @Override
     public MaterialViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.material_card, parent, false);
-        return new MaterialViewHolder(view, itemClickListener);
+        binding = MaterialCardBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        return new MaterialViewHolder(binding, itemClickListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull MaterialViewHolder holder, int position) {
         Material material = materialList.get(position);
         holder.getItemName().setText(material.getItemName());
-        holder.getItemDescription().setText(material.getDescription());
         holder.getItemPrice().setText(String.valueOf(material.getPrice()));
     }
 

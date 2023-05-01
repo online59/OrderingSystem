@@ -4,7 +4,9 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.orderingsystem.databinding.OrderCardBinding;
 import com.example.orderingsystem.model.data.Order;
+import com.example.orderingsystem.utils.ItemClickListener;
 import com.example.orderingsystem.view.viewholder.OrderViewHolder;
 import org.jetbrains.annotations.NotNull;
 
@@ -12,9 +14,13 @@ import java.util.List;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderViewHolder> {
 
-
-    private com.example.orderingsystem.databinding.OrderCardBinding binding;
+    private OrderCardBinding binding;
+    private ItemClickListener itemClickListener;
     private List<Order> orderList;
+
+    public void setItemClickListener(ItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
+    }
 
     public void setOrderList(List<Order> orderList) {
         this.orderList = orderList;
@@ -29,17 +35,20 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderViewHolder> {
     @NotNull
     @Override
     public OrderViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-        binding = com.example.orderingsystem.databinding.OrderCardBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
-        return new OrderViewHolder(binding);
+        binding = OrderCardBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        return new OrderViewHolder(binding, itemClickListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull OrderViewHolder holder, int position) {
-
+        Order order = orderList.get(position);
+        holder.getMaterialName().setText(order.getItemName());
+        holder.getQuantity().setText(String.valueOf(order.getQuantity()));
+        holder.getMaterialPrice().setText(String.valueOf(order.getTotalPrice()));
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return (orderList != null)? orderList.size() : 0;
     }
 }

@@ -12,7 +12,9 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toRightOf="parent"
+            android:padding="8dp"
             tools:listitem="@layout/material_card"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             android:id="@+id/recycler_view"/>
 
 </FrameLayout>

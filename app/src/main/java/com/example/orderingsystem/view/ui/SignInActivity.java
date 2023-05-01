@@ -16,6 +16,8 @@ import com.example.orderingsystem.model.repository.AuthRepositoryImpl;
 import com.example.orderingsystem.model.repository.UserRepositoryImpl;
 import com.example.orderingsystem.model.service.FirebaseAuthService;
 import com.example.orderingsystem.model.service.FirebaseUserService;
+import com.example.orderingsystem.utils.FirebasePath;
+import com.example.orderingsystem.utils.MyUtils;
 import com.example.orderingsystem.view.AdminMainActivity;
 import com.example.orderingsystem.view.MainActivity;
 import com.example.orderingsystem.viewmodel.AuthViewModel;
@@ -31,7 +33,6 @@ public class SignInActivity extends AppCompatActivity {
     private ActivitySignInBinding binding;
     private AuthViewModel authViewModel;
     private MainViewModel<User> userViewModel;
-    private LifecycleOwner lifecycleOwner;
     private String mEmail;
     private String mPassword;
 
@@ -47,7 +48,6 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private void setup() {
-        lifecycleOwner = this;
         authViewModel = new AuthViewModel(new AuthRepositoryImpl(new FirebaseAuthService()));
         userViewModel = new MainViewModel<>(new UserRepositoryImpl(new FirebaseUserService(FirebaseDatabase.getInstance().getReference())));
     }
@@ -74,7 +74,7 @@ public class SignInActivity extends AppCompatActivity {
 
     private void signUserUpWithEmailPassword(String[] signInData) {
 
-        if (isFieldsNull(mEmail, mPassword)) {
+        if (MyUtils.isFieldsNull(mEmail, mPassword)) {
             Toast.makeText(SignInActivity.this, "Cannot sign in, please try again.", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -84,22 +84,14 @@ public class SignInActivity extends AppCompatActivity {
             public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
 
                 if (task.isSuccessful()) {
+
                     startActivityByUserRole(authViewModel.getCurrentUser().getUid());
+
                 } else {
+
                     Toast.makeText(SignInActivity.this, "Cannot log in, please try again later.", Toast.LENGTH_SHORT).show();
                 }
 
-            }
-        });
-    }
-
-    private void startActivityByUserRole(String currentUserUid) {
-        userViewModel.getById(currentUserUid, "user").observe(this, user -> {
-            Log.e("TAG", "startActivityByUserRole: " + user.isAdmin() );
-            if (user.isAdmin()) {
-                startActivity(new Intent(SignInActivity.this, AdminMainActivity.class));
-            } else {
-                startActivity(new Intent(SignInActivity.this, MainActivity.class));
             }
         });
     }
@@ -111,12 +103,18 @@ public class SignInActivity extends AppCompatActivity {
         return new String[]{mEmail, mPassword};
     }
 
-    private boolean isFieldsNull(String...str) {
-        for (String value: str) {
-            if (value == null || value.isEmpty()) {
-                return true;
+    private void startActivityByUserRole(String currentUserUid) {
+
+        userViewModel.getById(currentUserUid, FirebasePath.PATH_USER).observe(this, user -> {
+
+            if (user.isAdmin()) {
+
+                startActivity(new Intent(SignInActivity.this, AdminMainActivity.class));
+
+            } else {
+
+                startActivity(new Intent(SignInActivity.this, MainActivity.class));
             }
-        }
-        return false;
+        });
     }
 }
