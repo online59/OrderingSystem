@@ -13,11 +13,16 @@ public class OrderViewHolder extends RecyclerView.ViewHolder {
 
     private OrderCardBinding binding;
 
-    public OrderViewHolder(OrderCardBinding binding, ItemClickListener itemClickListener) {
+    public OrderViewHolder(OrderCardBinding binding, boolean isAdmin, ItemClickListener itemClickListener) {
         super(binding.getRoot());
         this.binding = binding;
 
-        binding.getRoot().setOnClickListener(view -> itemClickListener.setOnItemClick(getAdapterPosition()));
+        if (isAdmin) {
+            binding.buttonAccept.setVisibility(View.VISIBLE);
+            binding.buttonAccept.setOnClickListener(view -> itemClickListener.setOnItemClick(getAdapterPosition()));
+        } else {
+            binding.getRoot().setOnClickListener(view -> itemClickListener.setOnItemClick(getAdapterPosition()));
+        }
     }
 
     public ImageView getMaterialImage() {

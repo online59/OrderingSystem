@@ -7,54 +7,90 @@
         android:layout_height="match_parent"
         tools:context=".view.ui.SignInActivity">
 
-    <LinearLayout
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp">
-
         <TextView
+                android:id="@+id/appname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Login"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:layout_gravity="center"/>
+                android:text="@string/app_name"
+                android:layout_marginTop="120dp"
+                android:layout_gravity="center"
+                style="@style/HeaderTextStyle"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
-        <EditText
-                android:id="@+id/editTextEmail"
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editTextEmailContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Email"
-                android:inputType="textEmailAddress"
-                android:layout_marginTop="16dp"/>
+                android:layout_marginTop="44dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                app:endIconMode="clear_text"
+                app:layout_constraintTop_toBottomOf="@id/appname"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-        <EditText
-                android:id="@+id/editTextPassword"
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editTextPasswordContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Password"
-                android:inputType="textPassword"
-                android:layout_marginTop="16dp"/>
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                app:endIconMode="password_toggle"
+                app:layout_constraintTop_toBottomOf="@id/editTextEmailContainer"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-        <Button
-                android:id="@+id/buttonSignIn"
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+                android:id="@+id/register"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="Sign In"
-                android:layout_marginTop="16dp"/>
+                android:text="Don't have an account?"
+                style="@style/NormalTextStyle"
+                app:layout_constraintBottom_toTopOf="@id/buttonSignUp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
 
-        <Button
+        <TextView
                 android:id="@+id/buttonSignUp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="Sign Up"
-                android:layout_marginTop="16dp"/>
+                android:text="Register"
+                android:textStyle="bold"
+                android:padding="16dp"
+                android:layout_marginBottom="24dp"
+                style="@style/TextButton"
+                app:layout_constraintBottom_toTopOf="@id/buttonSignIn"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
 
-    </LinearLayout>
+        <Button
+                android:id="@+id/buttonSignIn"
+                android:layout_width="0dp"
+                android:layout_height="?actionBarSize"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="24dp"
+                android:text="Sign In"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

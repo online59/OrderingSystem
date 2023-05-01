@@ -32,7 +32,6 @@ public class SignUpActivity extends AppCompatActivity {
     private ActivitySignUpBinding binding;
     private AuthViewModel authViewModel;
     private MainViewModel<User> userViewModel;
-    private LifecycleOwner lifecycleOwner;
     private String mName;
     private String mSurname;
     private String mEmail;
@@ -51,7 +50,6 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void setup() {
-        lifecycleOwner = this;
         authViewModel = new AuthViewModel(new AuthRepositoryImpl(new FirebaseAuthService()));
         userViewModel = new MainViewModel<>(new UserRepositoryImpl(new FirebaseUserService(FirebaseDatabase.getInstance().getReference())));
     }

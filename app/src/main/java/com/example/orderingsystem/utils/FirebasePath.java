@@ -8,6 +8,7 @@ public class FirebasePath {
     public static final String PATH_CART = "cart";
     public static final String PATH_REPORT = "report";
     public static final String PATH_INCOMING_ORDER = "orderIn";
+    public static final String PATH_COMPLETE_ORDER = "orderCom";
 
 
 }

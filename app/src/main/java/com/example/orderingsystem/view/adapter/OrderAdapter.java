@@ -17,6 +17,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderViewHolder> {
     private OrderCardBinding binding;
     private ItemClickListener itemClickListener;
     private List<Order> orderList;
+    private boolean isAdmin;
 
     public void setItemClickListener(ItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
@@ -25,6 +26,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderViewHolder> {
     public void setOrderList(List<Order> orderList) {
         this.orderList = orderList;
         notifyDataSetChanged();
+    }
+
+    public void setAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
     }
 
     public Order getOder(int position) {
@@ -36,7 +41,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderViewHolder> {
     @Override
     public OrderViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
         binding = OrderCardBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
-        return new OrderViewHolder(binding, itemClickListener);
+        return new OrderViewHolder(binding, isAdmin, itemClickListener);
     }
 
     @Override

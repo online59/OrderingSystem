@@ -8,8 +8,6 @@ import androidx.fragment.app.Fragment;
 import com.example.orderingsystem.R;
 import com.example.orderingsystem.databinding.ActivityAdminMainBinding;
 import com.example.orderingsystem.view.ui.*;
-import com.example.orderingsystem.view.ui.CartFragment;
-import com.example.orderingsystem.view.ui.ProfileFragment;
 import com.google.android.material.navigation.NavigationBarView;
 import org.jetbrains.annotations.NotNull;
 
@@ -39,7 +37,7 @@ public class AdminMainActivity extends AppCompatActivity {
                     translateFragment(R.id.ui_container, ShopFragment.getInstance());
                     return true;
                 case R.id.order:
-                    translateFragment(R.id.ui_container, OrderFragment.getInstance());
+                    translateFragment(R.id.ui_container, StoreOrderFragment.getInstance());
                     return true;
                 case R.id.report:
                     translateFragment(R.id.ui_container, ReportFragment.getInstance());

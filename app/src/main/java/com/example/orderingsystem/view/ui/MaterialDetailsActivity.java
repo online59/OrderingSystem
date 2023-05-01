@@ -167,7 +167,7 @@ public class MaterialDetailsActivity extends AppCompatActivity {
                 orderViewModel.write(order, getCurrentUserOrderingPath(order.getOrderId()));
 
                 // Add order to store relative path
-                // orderViewModel.write(order, getStorePath(order.getOrderId()));
+                orderViewModel.write(order, getStorePath(order.getOrderId()));
 
                 // If the ordered item is also in cart
                 removeItemFromCart(shopItem.getItemId());
@@ -193,6 +193,7 @@ public class MaterialDetailsActivity extends AppCompatActivity {
         Order order = new GeneralOrder();
         order.setOrderId(reference.push().getKey());
         order.setItemId(String.valueOf(material.getItemId()));
+        order.setUserId(authViewModel.getCurrentUser().getUid());
         order.setItemName(material.getItemName());
         order.setQuantity(Integer.parseInt(quantity));
         order.setPrice(material.getPrice());
