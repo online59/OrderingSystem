@@ -10,5 +10,5 @@
 
     <!-- Custom colors -->
     <color name="separator">#FFE4E4E4</color>
-    <color name="bottomBar">#FFFAFAFA</color>
+    <color name="bottomBar">#FFEFEFEF</color>
 </resources>

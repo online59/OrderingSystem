@@ -38,17 +38,14 @@ public class AdminMainActivity extends AppCompatActivity {
                 case R.id.shop:
                     translateFragment(R.id.ui_container, ShopFragment.getInstance());
                     return true;
-                case R.id.cart:
-                    translateFragment(R.id.ui_container, CartFragment.getInstance());
-                    return true;
                 case R.id.order:
                     translateFragment(R.id.ui_container, OrderFragment.getInstance());
                     return true;
                 case R.id.report:
                     translateFragment(R.id.ui_container, ReportFragment.getInstance());
                     return true;
-                case R.id.profile:
-                    translateFragment(R.id.ui_container, ProfileFragment.getInstance());
+                case R.id.store:
+                    translateFragment(R.id.ui_container, StoreFragment.getInstance());
                     return true;
             }
             return false;

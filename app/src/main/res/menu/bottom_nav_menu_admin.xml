@@ -3,17 +3,17 @@
     <item
             android:id="@+id/shop"
             android:title="Shop"
-            android:icon="@drawable/baseline_home_24"/>
+            android:icon="@drawable/ic_home"/>
 
     <item
             android:id="@+id/order"
             android:title="Order"
-            android:icon="@drawable/baseline_order_24"/>
+            android:icon="@drawable/ic_truck"/>
 
     <item
             android:id="@+id/report"
             android:title="Report"
-            android:icon="@drawable/baseline_chart_24"/>
+            android:icon="@drawable/ic_chart"/>
     <item
             android:id="@+id/store"
             android:title="Store"
