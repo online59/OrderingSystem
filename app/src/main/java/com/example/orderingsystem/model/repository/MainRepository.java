@@ -16,4 +16,6 @@ public abstract class MainRepository<T> {
     public abstract void removeById(String id, String key);
 
     public abstract void write(T obj, String key);
+
+    public abstract void update(T obj, String key);
 }

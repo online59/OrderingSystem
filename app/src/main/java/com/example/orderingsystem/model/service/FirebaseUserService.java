@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.example.orderingsystem.model.api.FirebaseAPI;
-import com.example.orderingsystem.model.data.GeneralUser;
 import com.example.orderingsystem.model.data.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -13,7 +12,9 @@ import com.google.firebase.database.ValueEventListener;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FirebaseUserService implements FirebaseAPI<User> {
 
@@ -35,7 +36,7 @@ public class FirebaseUserService implements FirebaseAPI<User> {
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 List<User> userList = new ArrayList<>();
                 for (DataSnapshot snap: snapshot.getChildren()) {
-                    userList.add(snap.getValue(GeneralUser.class));
+                    userList.add(snap.getValue(User.class));
                 }
                 userListMutable.postValue(userList);
             }
@@ -55,7 +56,7 @@ public class FirebaseUserService implements FirebaseAPI<User> {
         reference.child(key).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                userMutable.postValue(snapshot.getValue(GeneralUser.class));
+                userMutable.postValue(snapshot.getValue(User.class));
             }
 
             @Override
@@ -80,5 +81,14 @@ public class FirebaseUserService implements FirebaseAPI<User> {
     @Override
     public void write(User obj, String key) {
         reference.child(key).setValue(obj);
+    }
+
+    @Override
+    public void update(User obj, String key) {
+
+        Map<String, Object> childUpdate = new HashMap<>();
+        childUpdate.put(key, obj);
+
+        reference.updateChildren(childUpdate);
     }
 }

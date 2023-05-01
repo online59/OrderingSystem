@@ -1,10 +1,11 @@
 package com.example.orderingsystem.model.data;
 
+import com.google.firebase.database.Exclude;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
 @Data
-public abstract class User {
+public class User {
 
     @SerializedName("user_id")
     private String userId;
@@ -19,10 +20,12 @@ public abstract class User {
     @SerializedName("auth_type")
     private boolean authType;
 
+    @Exclude
     public String getFullName() {
         return name + " " + surname;
     }
 
+    @Exclude
     public boolean isAdmin() {
         return authType;
     }

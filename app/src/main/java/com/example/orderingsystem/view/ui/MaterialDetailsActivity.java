@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.example.orderingsystem.databinding.ActivityItemDetailsBinding;
 import com.example.orderingsystem.databinding.BottomSheetOrderQuantityBinding;
-import com.example.orderingsystem.model.data.GeneralOrder;
 import com.example.orderingsystem.model.data.Order;
 import com.example.orderingsystem.model.data.Material;
 import com.example.orderingsystem.model.repository.AuthRepositoryImpl;
@@ -191,14 +190,14 @@ public class MaterialDetailsActivity extends AppCompatActivity {
 
     private Order createOrderData(Material material, String quantity) {
 
-        Order order = new GeneralOrder();
+        Order order = new Order();
         order.setOrderId(reference.push().getKey());
         order.setItemId(String.valueOf(material.getItemId()));
         order.setUserId(authViewModel.getCurrentUser().getUid());
         order.setItemName(material.getItemName());
         order.setQuantity(Integer.parseInt(quantity));
         order.setPrice(material.getPrice());
-        order.setPurchaseDate(System.currentTimeMillis());
+        order.setPurchaseDate(MyUtils.getFormattedDate(System.currentTimeMillis()));
 
         return order;
     }

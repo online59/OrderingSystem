@@ -38,4 +38,9 @@ public class UserRepositoryImpl extends MainRepository<User> {
     public void write(User obj, String key) {
         service.write(obj, key);
     }
+
+    @Override
+    public void update(User obj, String key) {
+        service.update(obj, key);
+    }
 }

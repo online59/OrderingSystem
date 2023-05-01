@@ -1,10 +1,18 @@
 package com.example.orderingsystem.model.data;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+import com.google.firebase.database.Exclude;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
-
+import lombok.NonNull;
+@Entity(tableName = "orders")
 @Data
-public abstract class Order {
+public class Order {
+
+    @PrimaryKey(autoGenerate = true)
+    @Exclude
+    private int id;
 
     @SerializedName("order_id")
     private String orderId;
@@ -19,7 +27,7 @@ public abstract class Order {
     @SerializedName("price")
     private float price;
     @SerializedName("date")
-    private long purchaseDate;
+    private String purchaseDate;
 
     public float getTotalPrice() {
         return quantity * price;

@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.example.orderingsystem.model.api.FirebaseAPI;
-import com.example.orderingsystem.model.data.GeneralMaterial;
 import com.example.orderingsystem.model.data.Material;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -13,7 +12,9 @@ import com.google.firebase.database.ValueEventListener;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FirebaseMaterialService implements FirebaseAPI<Material> {
 
@@ -35,7 +36,7 @@ public class FirebaseMaterialService implements FirebaseAPI<Material> {
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 List<Material> itemList = new ArrayList<>();
                 for (DataSnapshot snap: snapshot.getChildren()) {
-                    Material item = snap.getValue(GeneralMaterial.class);
+                    Material item = snap.getValue(Material.class);
                     itemList.add(item);
                 }
                 shopItemListMutable.postValue(itemList);
@@ -56,7 +57,7 @@ public class FirebaseMaterialService implements FirebaseAPI<Material> {
         reference.child(key).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                shopItemMutable.postValue(snapshot.getValue(GeneralMaterial.class));
+                shopItemMutable.postValue(snapshot.getValue(Material.class));
             }
 
             @Override
@@ -81,5 +82,14 @@ public class FirebaseMaterialService implements FirebaseAPI<Material> {
     @Override
     public void write(Material obj, String key) {
         reference.child(key).setValue(obj);
+    }
+
+    @Override
+    public void update(Material obj, String key) {
+
+        Map<String, Object> childUpdate = new HashMap<>();
+        childUpdate.put(key, obj);
+
+        reference.updateChildren(childUpdate);
     }
 }

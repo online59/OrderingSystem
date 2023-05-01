@@ -38,4 +38,9 @@ public class OrderRepositoryImpl extends MainRepository<Order>{
     public void write(Order obj, String key) {
         service.write(obj, key);
     }
+
+    @Override
+    public void update(Order obj, String key) {
+        service.update(obj, key);
+    }
 }

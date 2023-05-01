@@ -1,6 +1,5 @@
 package com.example.orderingsystem.view.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 import androidx.fragment.app.Fragment;
@@ -11,16 +10,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.orderingsystem.databinding.FragmentStoreOrderBinding;
 import com.example.orderingsystem.model.data.Material;
 import com.example.orderingsystem.model.data.Order;
-import com.example.orderingsystem.model.repository.AuthRepositoryImpl;
 import com.example.orderingsystem.model.repository.MaterialRepositoryImpl;
 import com.example.orderingsystem.model.repository.OrderRepositoryImpl;
-import com.example.orderingsystem.model.service.FirebaseAuthService;
 import com.example.orderingsystem.model.service.FirebaseMaterialService;
 import com.example.orderingsystem.model.service.FirebaseOrderService;
 import com.example.orderingsystem.utils.FirebasePath;
 import com.example.orderingsystem.utils.ItemClickListener;
+import com.example.orderingsystem.utils.MyUtils;
 import com.example.orderingsystem.view.adapter.OrderAdapter;
-import com.example.orderingsystem.viewmodel.AuthViewModel;
 import com.example.orderingsystem.viewmodel.MainViewModel;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -76,6 +73,7 @@ public class StoreOrderFragment extends Fragment {
 
         // Whoever can get to this page is a system admin
         orderAdapter.setAdmin(true);
+
         orderAdapter.setItemClickListener(new ItemClickListener() {
             @Override
             public void setOnItemClick(int position) {
@@ -83,16 +81,24 @@ public class StoreOrderFragment extends Fragment {
                 Order order = orderAdapter.getOder(position);
 
                 // Record complete order
-                orderViewModel.write(order, FirebasePath.PATH_COMPLETE_ORDER + "/" + order.getOrderId());
+                orderViewModel.write(order, getOrderCompletePath(order));
 
                 // Remove order from store relative path
                 orderViewModel.removeById(order.getOrderId(), FirebasePath.PATH_INCOMING_ORDER);
 
                 // Remove order from user relative path
-                itemViewModel.removeById(order.getOrderId(), FirebasePath.PATH_ORDER + "/" + order.getUserId());
+                itemViewModel.removeById(order.getOrderId(), getIncomingOrderPath(order));
 
                 Toast.makeText(getActivity(), "Order accepted", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private String getOrderCompletePath(Order order) {
+        return MyUtils.addItemsWithSlashSeparator(FirebasePath.PATH_COMPLETE_ORDER, order.getOrderId());
+    }
+
+    private String getIncomingOrderPath(Order order) {
+        return MyUtils.addItemsWithSlashSeparator(FirebasePath.PATH_ORDER, order.getUserId());
     }
 }

@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.example.orderingsystem.databinding.ActivitySignUpBinding;
-import com.example.orderingsystem.model.data.GeneralUser;
 import com.example.orderingsystem.model.data.User;
 import com.example.orderingsystem.model.repository.AuthRepositoryImpl;
 import com.example.orderingsystem.model.repository.UserRepositoryImpl;
@@ -112,7 +111,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     private User createUserData(String uid) {
 
-        User userData = new GeneralUser();
+        User userData = new User();
         userData.setName(mName);
         userData.setSurname(mSurname);
         userData.setEmail(mEmail);

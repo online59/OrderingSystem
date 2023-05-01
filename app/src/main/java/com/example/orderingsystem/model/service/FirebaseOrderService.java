@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.example.orderingsystem.model.api.FirebaseAPI;
-import com.example.orderingsystem.model.data.GeneralOrder;
 import com.example.orderingsystem.model.data.Order;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -13,7 +12,9 @@ import com.google.firebase.database.ValueEventListener;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FirebaseOrderService implements FirebaseAPI<Order> {
 
@@ -35,7 +36,7 @@ public class FirebaseOrderService implements FirebaseAPI<Order> {
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 List<Order> userList = new ArrayList<>();
                 for (DataSnapshot snap: snapshot.getChildren()) {
-                    userList.add(snap.getValue(GeneralOrder.class));
+                    userList.add(snap.getValue(Order.class));
                 }
                 orderListMutable.postValue(userList);
             }
@@ -55,7 +56,7 @@ public class FirebaseOrderService implements FirebaseAPI<Order> {
         reference.child(key).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                orderMutable.postValue(snapshot.getValue(GeneralOrder.class));
+                orderMutable.postValue(snapshot.getValue(Order.class));
             }
 
             @Override
@@ -80,5 +81,14 @@ public class FirebaseOrderService implements FirebaseAPI<Order> {
     @Override
     public void write(Order obj, String key) {
         reference.child(key).setValue(obj);
+    }
+
+    @Override
+    public void update(Order obj, String key) {
+
+        Map<String, Object> childUpdate = new HashMap<>();
+        childUpdate.put(key, obj);
+
+        reference.updateChildren(childUpdate);
     }
 }

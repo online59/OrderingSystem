@@ -38,4 +38,9 @@ public class MaterialRepositoryImpl extends MainRepository<Material> {
     public void write(Material obj, String key) {
         service.write(obj, key);
     }
+
+    @Override
+    public void update(Material obj, String key) {
+        service.update(obj, key);
+    }
 }
