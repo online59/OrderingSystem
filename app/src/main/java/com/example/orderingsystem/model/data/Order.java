@@ -18,6 +18,8 @@ public abstract class Order {
     private int quantity;
     @SerializedName("price")
     private float price;
+    @SerializedName("date")
+    private long purchaseDate;
 
     public float getTotalPrice() {
         return quantity * price;

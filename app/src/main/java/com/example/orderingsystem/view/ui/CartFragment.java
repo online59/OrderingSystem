@@ -8,16 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.orderingsystem.databinding.FragmentCartBinding;
-import com.example.orderingsystem.model.data.Material;
 import com.example.orderingsystem.model.data.Order;
 import com.example.orderingsystem.model.repository.AuthRepositoryImpl;
-import com.example.orderingsystem.model.repository.MaterialRepositoryImpl;
 import com.example.orderingsystem.model.repository.OrderRepositoryImpl;
 import com.example.orderingsystem.model.service.FirebaseAuthService;
-import com.example.orderingsystem.model.service.FirebaseMaterialService;
 import com.example.orderingsystem.model.service.FirebaseOrderService;
 import com.example.orderingsystem.utils.FirebasePath;
-import com.example.orderingsystem.view.adapter.MaterialAdapter;
+import com.example.orderingsystem.utils.MyUtils;
 import com.example.orderingsystem.utils.ItemClickListener;
 import com.example.orderingsystem.view.adapter.OrderAdapter;
 import com.example.orderingsystem.viewmodel.AuthViewModel;
@@ -28,7 +25,7 @@ public class CartFragment extends Fragment {
 
     private FragmentCartBinding binding;
     private static CartFragment instance;
-    private MainViewModel<Order> itemViewModel;
+    private MainViewModel<Order> orderViewModel;
     private AuthViewModel authViewModel;
 
     private CartFragment() {
@@ -48,7 +45,7 @@ public class CartFragment extends Fragment {
     }
 
     private void initialSetup() {
-        itemViewModel = new MainViewModel<>(new OrderRepositoryImpl(new FirebaseOrderService(FirebaseDatabase.getInstance().getReference())));
+        orderViewModel = new MainViewModel<>(new OrderRepositoryImpl(new FirebaseOrderService(FirebaseDatabase.getInstance().getReference())));
         authViewModel = new AuthViewModel(new AuthRepositoryImpl(new FirebaseAuthService()));
     }
 
@@ -69,7 +66,7 @@ public class CartFragment extends Fragment {
 
         OrderAdapter orderAdapter = new OrderAdapter();
 
-        itemViewModel.getAll(FirebasePath.PATH_CART + "/" + getCurrentUserUid()).observe(getViewLifecycleOwner(), orderAdapter::setOrderList);
+        orderViewModel.getAll(getCurrentUserCartPath()).observe(getViewLifecycleOwner(), orderAdapter::setOrderList);
 
         binding.recyclerView.setAdapter(orderAdapter);
 
@@ -83,6 +80,9 @@ public class CartFragment extends Fragment {
         });
     }
 
+    private String getCurrentUserCartPath() {
+        return MyUtils.addItemsWithSlashSeparator(FirebasePath.PATH_CART, getCurrentUserUid());
+    }
     private String getCurrentUserUid() {
         return authViewModel.getCurrentUser().getUid();
     }

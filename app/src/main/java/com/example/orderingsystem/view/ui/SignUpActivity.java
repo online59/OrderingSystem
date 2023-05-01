@@ -6,8 +6,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import androidx.lifecycle.LifecycleOwner;
-import com.example.orderingsystem.R;
 import com.example.orderingsystem.databinding.ActivitySignUpBinding;
 import com.example.orderingsystem.model.data.GeneralUser;
 import com.example.orderingsystem.model.data.User;
@@ -24,8 +22,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.database.FirebaseDatabase;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Random;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -85,7 +81,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                 if (task.isSuccessful()) {
 
-                    userViewModel.write(createUserData(getFirebaseAuthUserUID()),  FirebasePath.PATH_USER + "/" + getFirebaseAuthUserUID());
+                    userViewModel.write(createUserData(getCurrentUserUid()),  getCurrentUserPath());
 
                     Toast.makeText(SignUpActivity.this, "Sign up successfully.", Toast.LENGTH_SHORT).show();
 
@@ -98,8 +94,12 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
-    private String getFirebaseAuthUserUID() {
+    private String getCurrentUserUid() {
         return authViewModel.getCurrentUser().getUid();
+    }
+
+    private String getCurrentUserPath() {
+        return MyUtils.addItemsWithSlashSeparator(FirebasePath.PATH_USER, getCurrentUserUid());
     }
 
     private void getUserInputInfo() {

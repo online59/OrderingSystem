@@ -15,6 +15,7 @@ import com.example.orderingsystem.model.service.FirebaseAuthService;
 import com.example.orderingsystem.model.service.FirebaseOrderService;
 import com.example.orderingsystem.utils.FirebasePath;
 import com.example.orderingsystem.utils.ItemClickListener;
+import com.example.orderingsystem.utils.MyUtils;
 import com.example.orderingsystem.view.adapter.OrderAdapter;
 import com.example.orderingsystem.viewmodel.AuthViewModel;
 import com.example.orderingsystem.viewmodel.MainViewModel;
@@ -24,7 +25,7 @@ public class OrderFragment extends Fragment {
 
     private FragmentOrderBinding binding;
     private static OrderFragment instance;
-    private MainViewModel<Order> itemViewModel;
+    private MainViewModel<Order> orderViewModel;
     private AuthViewModel authViewModel;
 
     private OrderFragment() {
@@ -44,7 +45,7 @@ public class OrderFragment extends Fragment {
     }
 
     private void initialSetup() {
-        itemViewModel = new MainViewModel<>(new OrderRepositoryImpl(new FirebaseOrderService(FirebaseDatabase.getInstance().getReference())));
+        orderViewModel = new MainViewModel<>(new OrderRepositoryImpl(new FirebaseOrderService(FirebaseDatabase.getInstance().getReference())));
         authViewModel = new AuthViewModel(new AuthRepositoryImpl(new FirebaseAuthService()));
     }
 
@@ -66,7 +67,7 @@ public class OrderFragment extends Fragment {
 
         OrderAdapter orderAdapter = new OrderAdapter();
 
-        itemViewModel.getAll(FirebasePath.PATH_ORDER + "/" + getCurrentUserUid()).observe(getViewLifecycleOwner(), orderAdapter::setOrderList);
+        orderViewModel.getAll(getCurrentUserOrderPath()).observe(getViewLifecycleOwner(), orderAdapter::setOrderList);
 
         binding.recyclerView.setAdapter(orderAdapter);
 
@@ -82,5 +83,9 @@ public class OrderFragment extends Fragment {
 
     private String getCurrentUserUid() {
         return authViewModel.getCurrentUser().getUid();
+    }
+
+    private String getCurrentUserOrderPath() {
+        return MyUtils.addItemsWithSlashSeparator(FirebasePath.PATH_ORDER, getCurrentUserUid());
     }
 }

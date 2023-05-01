@@ -16,6 +16,7 @@ import com.example.orderingsystem.model.service.FirebaseAuthService;
 import com.example.orderingsystem.model.service.FirebaseMaterialService;
 import com.example.orderingsystem.model.service.FirebaseOrderService;
 import com.example.orderingsystem.utils.FirebasePath;
+import com.example.orderingsystem.utils.MyUtils;
 import com.example.orderingsystem.viewmodel.AuthViewModel;
 import com.example.orderingsystem.viewmodel.MainViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -197,6 +198,7 @@ public class MaterialDetailsActivity extends AppCompatActivity {
         order.setItemName(material.getItemName());
         order.setQuantity(Integer.parseInt(quantity));
         order.setPrice(material.getPrice());
+        order.setPurchaseDate(System.currentTimeMillis());
 
         return order;
     }
@@ -224,15 +226,15 @@ public class MaterialDetailsActivity extends AppCompatActivity {
     }
 
     private String getCurrentUserOrderingPath(String key) {
-        return FirebasePath.PATH_ORDER+ "/" + authViewModel.getCurrentUser().getUid() + "/" + key;
+        return MyUtils.addItemsWithSlashSeparator(FirebasePath.PATH_ORDER, authViewModel.getCurrentUser().getUid(), key);
     }
 
     private String getStorePath(String key) {
-        return FirebasePath.PATH_INCOMING_ORDER+ "/" + key;
+        return MyUtils.addItemsWithSlashSeparator(FirebasePath.PATH_INCOMING_ORDER, key);
     }
 
     private String getCurrentUserCartPath(String key) {
-        return FirebasePath.PATH_CART+ "/" + authViewModel.getCurrentUser().getUid() + "/" + key;
+        return MyUtils.addItemsWithSlashSeparator(FirebasePath.PATH_CART, authViewModel.getCurrentUser().getUid(), key);
     }
 
     private void showSnackBar(View view) {

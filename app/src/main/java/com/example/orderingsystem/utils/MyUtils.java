@@ -1,8 +1,26 @@
 package com.example.orderingsystem.utils;
 
+import java.util.Date;
 import java.util.Random;
 
 public class MyUtils {
+
+    public static String addItemsWithSlashSeparator(String...str) {
+        int expectedLength = 0;
+        for (String item : str) {
+            expectedLength += item.length() + 1;
+        }
+        StringBuilder result = new StringBuilder(expectedLength);
+        StringBuilder separator = new StringBuilder("/");
+        for (String item : str) {
+            if (result.length() > 0) {
+                result.append(separator);
+            }
+            result.append(item);
+        }
+        return result.toString();
+    }
+
 
     public static boolean isFieldsNull(String...str) {
         for (String value: str) {
@@ -23,5 +41,9 @@ public class MyUtils {
 
     public static float getRandomInt() {
         return new Random().nextInt();
+    }
+
+    public static Date getDate(long timeStamp) {
+        return new Date(timeStamp);
     }
 }
