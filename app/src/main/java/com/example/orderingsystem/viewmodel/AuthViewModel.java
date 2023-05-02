@@ -1,8 +1,6 @@
 package com.example.orderingsystem.viewmodel;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
-import com.example.orderingsystem.model.data.User;
 import com.example.orderingsystem.model.repository.AuthRepository;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

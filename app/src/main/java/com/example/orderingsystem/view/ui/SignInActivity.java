@@ -11,6 +11,8 @@ import android.os.Bundle;
 import androidx.lifecycle.LifecycleOwner;
 import com.example.orderingsystem.R;
 import com.example.orderingsystem.databinding.ActivitySignInBinding;
+import com.example.orderingsystem.di.AppContainer;
+import com.example.orderingsystem.di.MyApplication;
 import com.example.orderingsystem.model.data.User;
 import com.example.orderingsystem.model.repository.AuthRepositoryImpl;
 import com.example.orderingsystem.model.repository.UserRepositoryImpl;
@@ -48,8 +50,9 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private void setup() {
-        authViewModel = new AuthViewModel(new AuthRepositoryImpl(new FirebaseAuthService()));
-        userViewModel = new MainViewModel<>(new UserRepositoryImpl(new FirebaseUserService(FirebaseDatabase.getInstance().getReference())));
+        AppContainer appContainer = ((MyApplication) getApplication()).appContainer;
+        authViewModel = appContainer.authViewModelFactory.create();
+        userViewModel = appContainer.userViewModelFactory.create();
     }
 
     private void signUp() {
