@@ -11,14 +11,11 @@ import androidx.room.Room;
 import com.example.orderingsystem.R;
 import com.example.orderingsystem.databinding.FragmentReportBinding;
 import com.example.orderingsystem.model.data.Order;
-import com.example.orderingsystem.model.database.OrderDatabase;
 import com.example.orderingsystem.model.repository.OrderRepositoryImpl;
-import com.example.orderingsystem.model.room.RoomRepositoryImpl;
 import com.example.orderingsystem.model.service.FirebaseOrderService;
 import com.example.orderingsystem.utils.FirebasePath;
 import com.example.orderingsystem.utils.MyUtils;
 import com.example.orderingsystem.viewmodel.OrderViewModel;
-import com.example.orderingsystem.viewmodel.RoomViewModel;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
@@ -35,7 +32,6 @@ public class ReportFragment extends Fragment {
     private FragmentReportBinding binding;
     private static ReportFragment instance;
     private OrderViewModel orderViewModel;
-    private RoomViewModel roomViewModel;
 
     private ReportFragment() {
     }
@@ -52,9 +48,6 @@ public class ReportFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         orderViewModel = new OrderViewModel(new OrderRepositoryImpl(new FirebaseOrderService(FirebaseDatabase.getInstance().getReference())));
-
-        OrderDatabase database = Room.databaseBuilder(getActivity(), OrderDatabase.class, "orders").build();
-        roomViewModel = new RoomViewModel(new RoomRepositoryImpl(database));
     }
 
     @Override
@@ -94,28 +87,9 @@ public class ReportFragment extends Fragment {
         });
     }
 
-    private void passDataToLocalDatabase(List<Order> orders) {
-
-        Executor executor = Executors.newSingleThreadExecutor();
-        executor.execute(() -> {
-            roomViewModel.insertAll(orders);
-            new Handler(Looper.getMainLooper()).post(this::addDataToEntry);
-        });
-
-    }
-
     private void addDataToEntry() {
 
         List<Entry> lineChartData = new ArrayList<>();
-
-        String[] dates = MyUtils.getDatesInRange(1, 5, 2023, 7);
-
-        for (String day: dates) {
-
-            roomViewModel.getByDate(day).observe(getViewLifecycleOwner(), order -> {
-                lineChartData.add(new Entry(order.getPrice(), MyUtils.getTimeStamp(order.getPurchaseDate())));
-            });
-        }
 
         LineDataSet lineDataSet = new LineDataSet(lineChartData, "Date");
         lineDataSet.setCircleRadius(10f);

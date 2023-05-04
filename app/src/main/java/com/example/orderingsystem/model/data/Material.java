@@ -1,21 +1,26 @@
 package com.example.orderingsystem.model.data;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
+@Entity
 @Data
 public class Material {
 
-    @SerializedName("item_id")
+    @PrimaryKey()
+    @ColumnInfo(name = "item_id")
     private String itemId;
-    @SerializedName("item_name")
+    @ColumnInfo(name = "item_name")
     private String itemName;
-    @SerializedName("produce_year")
+    @ColumnInfo(name = "produce_year")
     private int produceYear;
-    @SerializedName("description")
+    @ColumnInfo(name = "description")
     private String description;
-    @SerializedName("remaining")
+    @ColumnInfo(name = "remaining")
     private int remaining;
-    @SerializedName("price")
+    @ColumnInfo(name = "price")
     private float price;
 }

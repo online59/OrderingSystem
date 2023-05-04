@@ -6,13 +6,9 @@ import com.google.firebase.database.Exclude;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 import lombok.NonNull;
-@Entity(tableName = "orders")
+
 @Data
 public class Order {
-
-    @PrimaryKey(autoGenerate = true)
-    @Exclude
-    private int id;
 
     @SerializedName("order_id")
     private String orderId;

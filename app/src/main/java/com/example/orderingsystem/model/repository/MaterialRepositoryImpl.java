@@ -1,6 +1,7 @@
 package com.example.orderingsystem.model.repository;
 
 import androidx.lifecycle.LiveData;
+import com.example.orderingsystem.database.dao.MaterialDatabase;
 import com.example.orderingsystem.model.api.FirebaseAPI;
 import com.example.orderingsystem.model.data.Material;
 import com.example.orderingsystem.model.service.FirebaseMaterialService;
@@ -9,7 +10,12 @@ import java.util.List;
 
 public class MaterialRepositoryImpl implements MaterialRepository{
 
-    private final FirebaseMaterialService materialService;
+    private FirebaseMaterialService materialService;
+    private MaterialDatabase materialDatabase;
+
+    public MaterialRepositoryImpl(MaterialDatabase materialDatabase) {
+        this.materialDatabase = materialDatabase;
+    }
 
     public MaterialRepositoryImpl(FirebaseMaterialService materialService) {
         this.materialService = materialService;
@@ -43,5 +49,10 @@ public class MaterialRepositoryImpl implements MaterialRepository{
     @Override
     public void update(Material obj, String key) {
         materialService.update(obj, key);
+    }
+
+    @Override
+    public LiveData<List<Material>> fetchMaterials(String key) {
+        return null;
     }
 }
