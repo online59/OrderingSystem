@@ -9,22 +9,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.recyclerview.widget.GridLayoutManager;
 import com.example.orderingsystem.databinding.FragmentShopBinding;
-import com.example.orderingsystem.model.data.Material;
 import com.example.orderingsystem.model.repository.MaterialRepositoryImpl;
 import com.example.orderingsystem.model.service.FirebaseMaterialService;
 import com.example.orderingsystem.utils.FirebasePath;
 import com.example.orderingsystem.view.adapter.MaterialAdapter;
 import com.example.orderingsystem.utils.ItemClickListener;
-import com.example.orderingsystem.view.decor.GridLayoutItemDecoration;
-import com.example.orderingsystem.viewmodel.MainViewModel;
+import com.example.orderingsystem.viewmodel.MaterialViewModel;
 import com.google.firebase.database.FirebaseDatabase;
-
 
 public class ShopFragment extends Fragment {
 
     private FragmentShopBinding binding;
     private static ShopFragment instance;
-    private MainViewModel<Material> itemViewModel;
+    private MaterialViewModel materialViewModel;
 
     private ShopFragment() {
 
@@ -44,7 +41,8 @@ public class ShopFragment extends Fragment {
     }
 
     private void initialSetup() {
-        itemViewModel = new MainViewModel<>(new MaterialRepositoryImpl(new FirebaseMaterialService(FirebaseDatabase.getInstance().getReference())));
+
+        materialViewModel = new MaterialViewModel(new MaterialRepositoryImpl(new FirebaseMaterialService(FirebaseDatabase.getInstance().getReference())));
     }
 
     @Override
@@ -70,7 +68,7 @@ public class ShopFragment extends Fragment {
 
         MaterialAdapter materialAdapter = new MaterialAdapter();
 
-        itemViewModel.getAll(FirebasePath.PATH_MATERIAL).observe(getViewLifecycleOwner(), materialAdapter::setShopItemList);
+        materialViewModel.getAll(FirebasePath.PATH_MATERIAL).observe(getViewLifecycleOwner(), materialAdapter::setShopItemList);
 
         binding.recyclerView.setAdapter(materialAdapter);
 

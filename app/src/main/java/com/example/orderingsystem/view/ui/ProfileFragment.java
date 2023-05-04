@@ -7,15 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.example.orderingsystem.databinding.FragmentProfileBinding;
-import com.example.orderingsystem.model.data.Order;
-import com.example.orderingsystem.model.data.User;
 import com.example.orderingsystem.model.repository.AuthRepositoryImpl;
 import com.example.orderingsystem.model.repository.UserRepositoryImpl;
 import com.example.orderingsystem.model.service.FirebaseAuthService;
 import com.example.orderingsystem.model.service.FirebaseUserService;
 import com.example.orderingsystem.utils.FirebasePath;
 import com.example.orderingsystem.viewmodel.AuthViewModel;
-import com.example.orderingsystem.viewmodel.MainViewModel;
+import com.example.orderingsystem.viewmodel.UserViewModel;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class ProfileFragment extends Fragment {
@@ -23,7 +21,7 @@ public class ProfileFragment extends Fragment {
     private FragmentProfileBinding binding;
     private static ProfileFragment instance;
     private AuthViewModel authViewModel;
-    private MainViewModel<User> userViewModel;
+    private UserViewModel userViewModel;
 
     private ProfileFragment() {
         // Required empty public constructor
@@ -40,7 +38,7 @@ public class ProfileFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         authViewModel = new AuthViewModel(new AuthRepositoryImpl(new FirebaseAuthService()));
-        userViewModel = new MainViewModel<>(new UserRepositoryImpl(new FirebaseUserService(FirebaseDatabase.getInstance().getReference())));
+        userViewModel = new UserViewModel(new UserRepositoryImpl(new FirebaseUserService(FirebaseDatabase.getInstance().getReference())));
     }
 
     @Override

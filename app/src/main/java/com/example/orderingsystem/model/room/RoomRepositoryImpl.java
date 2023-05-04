@@ -1,17 +1,13 @@
-package com.example.orderingsystem.model.repository;
+package com.example.orderingsystem.model.room;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.room.Delete;
-import androidx.room.Insert;
-import androidx.room.Query;
 import com.example.orderingsystem.model.dao.OrderDao;
 import com.example.orderingsystem.model.data.Order;
 import com.example.orderingsystem.model.database.OrderDatabase;
 
 import java.util.List;
 
-public class RoomRepositoryImpl extends RoomRepository{
+public class RoomRepositoryImpl implements RoomRepository{
 
     private final OrderDao orderDao;
 

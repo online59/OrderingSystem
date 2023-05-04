@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.orderingsystem.databinding.FragmentOrderBinding;
-import com.example.orderingsystem.model.data.Order;
 import com.example.orderingsystem.model.repository.AuthRepositoryImpl;
 import com.example.orderingsystem.model.repository.OrderRepositoryImpl;
 import com.example.orderingsystem.model.service.FirebaseAuthService;
@@ -18,14 +17,14 @@ import com.example.orderingsystem.utils.ItemClickListener;
 import com.example.orderingsystem.utils.MyUtils;
 import com.example.orderingsystem.view.adapter.OrderAdapter;
 import com.example.orderingsystem.viewmodel.AuthViewModel;
-import com.example.orderingsystem.viewmodel.MainViewModel;
+import com.example.orderingsystem.viewmodel.OrderViewModel;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class OrderFragment extends Fragment {
 
     private FragmentOrderBinding binding;
     private static OrderFragment instance;
-    private MainViewModel<Order> orderViewModel;
+    private OrderViewModel orderViewModel;
     private AuthViewModel authViewModel;
 
     private OrderFragment() {
@@ -45,7 +44,7 @@ public class OrderFragment extends Fragment {
     }
 
     private void initialSetup() {
-        orderViewModel = new MainViewModel<>(new OrderRepositoryImpl(new FirebaseOrderService(FirebaseDatabase.getInstance().getReference())));
+        orderViewModel = new OrderViewModel(new OrderRepositoryImpl(new FirebaseOrderService(FirebaseDatabase.getInstance().getReference())));
         authViewModel = new AuthViewModel(new AuthRepositoryImpl(new FirebaseAuthService()));
     }
 

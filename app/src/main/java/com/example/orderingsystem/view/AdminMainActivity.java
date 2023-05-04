@@ -9,8 +9,10 @@ import com.example.orderingsystem.R;
 import com.example.orderingsystem.databinding.ActivityAdminMainBinding;
 import com.example.orderingsystem.view.ui.*;
 import com.google.android.material.navigation.NavigationBarView;
+import dagger.hilt.android.AndroidEntryPoint;
 import org.jetbrains.annotations.NotNull;
 
+@AndroidEntryPoint
 public class AdminMainActivity extends AppCompatActivity {
 
     private ActivityAdminMainBinding binding;

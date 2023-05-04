@@ -1,18 +1,12 @@
 package com.example.orderingsystem.view.ui;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import androidx.lifecycle.LifecycleOwner;
-import com.example.orderingsystem.R;
 import com.example.orderingsystem.databinding.ActivitySignInBinding;
-import com.example.orderingsystem.di.AppContainer;
-import com.example.orderingsystem.di.MyApplication;
 import com.example.orderingsystem.model.data.User;
 import com.example.orderingsystem.model.repository.AuthRepositoryImpl;
 import com.example.orderingsystem.model.repository.UserRepositoryImpl;
@@ -23,7 +17,7 @@ import com.example.orderingsystem.utils.MyUtils;
 import com.example.orderingsystem.view.AdminMainActivity;
 import com.example.orderingsystem.view.MainActivity;
 import com.example.orderingsystem.viewmodel.AuthViewModel;
-import com.example.orderingsystem.viewmodel.MainViewModel;
+import com.example.orderingsystem.viewmodel.UserViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -34,7 +28,7 @@ public class SignInActivity extends AppCompatActivity {
 
     private ActivitySignInBinding binding;
     private AuthViewModel authViewModel;
-    private MainViewModel<User> userViewModel;
+    private UserViewModel userViewModel;
     private String mEmail;
     private String mPassword;
 
@@ -50,9 +44,8 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private void setup() {
-        AppContainer appContainer = ((MyApplication) getApplication()).appContainer;
-        authViewModel = appContainer.authViewModelFactory.create();
-        userViewModel = appContainer.userViewModelFactory.create();
+        authViewModel = new AuthViewModel(new AuthRepositoryImpl(new FirebaseAuthService()));
+        userViewModel = new UserViewModel(new UserRepositoryImpl(new FirebaseUserService(FirebaseDatabase.getInstance().getReference())));
     }
 
     private void signUp() {

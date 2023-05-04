@@ -5,6 +5,9 @@ import com.example.orderingsystem.model.repository.AuthRepository;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseUser;
+import dagger.hilt.android.lifecycle.HiltViewModel;
+
+import javax.inject.Inject;
 
 public class AuthViewModel extends ViewModel {
 

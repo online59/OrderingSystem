@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.orderingsystem.databinding.FragmentStoreOrderBinding;
-import com.example.orderingsystem.model.data.Material;
 import com.example.orderingsystem.model.data.Order;
 import com.example.orderingsystem.model.repository.MaterialRepositoryImpl;
 import com.example.orderingsystem.model.repository.OrderRepositoryImpl;
@@ -18,7 +17,8 @@ import com.example.orderingsystem.utils.FirebasePath;
 import com.example.orderingsystem.utils.ItemClickListener;
 import com.example.orderingsystem.utils.MyUtils;
 import com.example.orderingsystem.view.adapter.OrderAdapter;
-import com.example.orderingsystem.viewmodel.MainViewModel;
+import com.example.orderingsystem.viewmodel.MaterialViewModel;
+import com.example.orderingsystem.viewmodel.OrderViewModel;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -26,8 +26,8 @@ public class StoreOrderFragment extends Fragment {
 
     private FragmentStoreOrderBinding binding;
     private static StoreOrderFragment instance;
-    private MainViewModel<Order> orderViewModel;
-    private MainViewModel<Material> itemViewModel;
+    private OrderViewModel orderViewModel;
+    private MaterialViewModel materialViewModel;
 
     private StoreOrderFragment() {
         // Required empty public constructor
@@ -45,8 +45,8 @@ public class StoreOrderFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        orderViewModel = new MainViewModel<>(new OrderRepositoryImpl(new FirebaseOrderService(reference)));
-        itemViewModel = new MainViewModel<>(new MaterialRepositoryImpl(new FirebaseMaterialService(reference)));
+        orderViewModel = new OrderViewModel(new OrderRepositoryImpl(new FirebaseOrderService(reference)));
+        materialViewModel = new MaterialViewModel(new MaterialRepositoryImpl(new FirebaseMaterialService(reference)));
     }
 
     @Override
@@ -87,7 +87,7 @@ public class StoreOrderFragment extends Fragment {
                 orderViewModel.removeById(order.getOrderId(), FirebasePath.PATH_INCOMING_ORDER);
 
                 // Remove order from user relative path
-                itemViewModel.removeById(order.getOrderId(), getIncomingOrderPath(order));
+                materialViewModel.removeById(order.getOrderId(), getIncomingOrderPath(order));
 
                 Toast.makeText(getActivity(), "Order accepted", Toast.LENGTH_SHORT).show();
             }

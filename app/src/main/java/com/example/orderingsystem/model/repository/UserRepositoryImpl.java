@@ -6,7 +6,7 @@ import com.example.orderingsystem.model.data.User;
 
 import java.util.List;
 
-public class UserRepositoryImpl extends MainRepository<User> {
+public class UserRepositoryImpl implements UserRepository {
 
     private FirebaseAPI<User> service;
 

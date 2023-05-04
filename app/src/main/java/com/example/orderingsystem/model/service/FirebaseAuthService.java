@@ -1,20 +1,20 @@
 package com.example.orderingsystem.model.service;
 
-import androidx.annotation.Nullable;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import com.example.orderingsystem.model.data.User;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
+import dagger.hilt.android.AndroidEntryPoint;
+
+import javax.inject.Inject;
+
 
 public class FirebaseAuthService {
+
     private final FirebaseAuth firebaseAuth;
 
     public FirebaseAuthService() {
-        firebaseAuth = FirebaseAuth.getInstance();
+        this.firebaseAuth = FirebaseAuth.getInstance();
     }
 
     public Task<AuthResult> signInWithEmailPassword(String email, String password) {

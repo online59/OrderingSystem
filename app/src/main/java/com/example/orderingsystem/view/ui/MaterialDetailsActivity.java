@@ -9,15 +9,16 @@ import com.example.orderingsystem.databinding.BottomSheetOrderQuantityBinding;
 import com.example.orderingsystem.model.data.Order;
 import com.example.orderingsystem.model.data.Material;
 import com.example.orderingsystem.model.repository.AuthRepositoryImpl;
-import com.example.orderingsystem.model.repository.OrderRepositoryImpl;
 import com.example.orderingsystem.model.repository.MaterialRepositoryImpl;
+import com.example.orderingsystem.model.repository.OrderRepositoryImpl;
 import com.example.orderingsystem.model.service.FirebaseAuthService;
 import com.example.orderingsystem.model.service.FirebaseMaterialService;
 import com.example.orderingsystem.model.service.FirebaseOrderService;
 import com.example.orderingsystem.utils.FirebasePath;
 import com.example.orderingsystem.utils.MyUtils;
 import com.example.orderingsystem.viewmodel.AuthViewModel;
-import com.example.orderingsystem.viewmodel.MainViewModel;
+import com.example.orderingsystem.viewmodel.MaterialViewModel;
+import com.example.orderingsystem.viewmodel.OrderViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DatabaseReference;
@@ -28,8 +29,8 @@ public class MaterialDetailsActivity extends AppCompatActivity {
     private ActivityItemDetailsBinding binding;
     private BottomSheetOrderQuantityBinding bottomSheetBinding;
     private AuthViewModel authViewModel;
-    private MainViewModel<Material>  itemViewModel;
-    private MainViewModel<Order> orderViewModel;
+    private MaterialViewModel materialViewModel;
+    private OrderViewModel orderViewModel;
     private DatabaseReference reference;
     private BottomSheetDialog bottomSheetDialog;
 
@@ -48,13 +49,13 @@ public class MaterialDetailsActivity extends AppCompatActivity {
     private void setup() {
         reference = FirebaseDatabase.getInstance().getReference();
         authViewModel = new AuthViewModel(new AuthRepositoryImpl(new FirebaseAuthService()));
-        itemViewModel = new MainViewModel<>(new MaterialRepositoryImpl(new FirebaseMaterialService(reference)));
-        orderViewModel = new MainViewModel<>(new OrderRepositoryImpl(new FirebaseOrderService(reference)));
+        materialViewModel = new MaterialViewModel(new MaterialRepositoryImpl(new FirebaseMaterialService(reference)));
+        orderViewModel = new OrderViewModel(new OrderRepositoryImpl(new FirebaseOrderService(reference)));
     }
 
     private void displaySelectedItemDetails() {
 
-        itemViewModel.getById(getItemIdFromIntent(), FirebasePath.PATH_MATERIAL).observe(this, shopItem -> {
+        materialViewModel.getById(getItemIdFromIntent(), FirebasePath.PATH_MATERIAL).observe(this, shopItem -> {
 
             binding.itemName.setText(shopItem.getItemName());
             binding.itemPrice.setText(String.valueOf(shopItem.getPrice()));
@@ -221,7 +222,7 @@ public class MaterialDetailsActivity extends AppCompatActivity {
     }
 
     private void removeItemFromCart(String itemId) {
-        itemViewModel.removeById(itemId, getCurrentUserCartPath(""));
+        materialViewModel.removeById(itemId, getCurrentUserCartPath(""));
     }
 
     private String getCurrentUserOrderingPath(String key) {

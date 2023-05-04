@@ -8,14 +8,14 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.List;
 
-public abstract class AuthRepository {
+public interface AuthRepository {
 
 
-    public abstract Task<AuthResult> signInWithEmailPassword(String email, String password);
+    Task<AuthResult> signInWithEmailPassword(String email, String password);
 
-    public abstract Task<AuthResult> createUserWithEmailPassword(String email, String password);
+    Task<AuthResult> createUserWithEmailPassword(String email, String password);
 
-    public abstract FirebaseUser getCurrentUser();
+    FirebaseUser getCurrentUser();
 
-    public abstract void signOut();
+     void signOut();
 }

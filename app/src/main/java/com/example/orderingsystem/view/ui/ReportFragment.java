@@ -13,11 +13,11 @@ import com.example.orderingsystem.databinding.FragmentReportBinding;
 import com.example.orderingsystem.model.data.Order;
 import com.example.orderingsystem.model.database.OrderDatabase;
 import com.example.orderingsystem.model.repository.OrderRepositoryImpl;
-import com.example.orderingsystem.model.repository.RoomRepositoryImpl;
+import com.example.orderingsystem.model.room.RoomRepositoryImpl;
 import com.example.orderingsystem.model.service.FirebaseOrderService;
 import com.example.orderingsystem.utils.FirebasePath;
 import com.example.orderingsystem.utils.MyUtils;
-import com.example.orderingsystem.viewmodel.MainViewModel;
+import com.example.orderingsystem.viewmodel.OrderViewModel;
 import com.example.orderingsystem.viewmodel.RoomViewModel;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.data.Entry;
@@ -34,7 +34,7 @@ public class ReportFragment extends Fragment {
 
     private FragmentReportBinding binding;
     private static ReportFragment instance;
-    private MainViewModel<Order> orderViewModel;
+    private OrderViewModel orderViewModel;
     private RoomViewModel roomViewModel;
 
     private ReportFragment() {
@@ -51,7 +51,7 @@ public class ReportFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        orderViewModel = new MainViewModel<>(new OrderRepositoryImpl(new FirebaseOrderService(FirebaseDatabase.getInstance().getReference())));
+        orderViewModel = new OrderViewModel(new OrderRepositoryImpl(new FirebaseOrderService(FirebaseDatabase.getInstance().getReference())));
 
         OrderDatabase database = Room.databaseBuilder(getActivity(), OrderDatabase.class, "orders").build();
         roomViewModel = new RoomViewModel(new RoomRepositoryImpl(database));

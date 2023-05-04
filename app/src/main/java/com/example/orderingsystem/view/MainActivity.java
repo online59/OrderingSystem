@@ -12,8 +12,9 @@ import com.example.orderingsystem.view.ui.OrderFragment;
 import com.example.orderingsystem.view.ui.ProfileFragment;
 import com.example.orderingsystem.view.ui.ShopFragment;
 import com.google.android.material.navigation.NavigationBarView;
+import dagger.hilt.android.AndroidEntryPoint;
 import org.jetbrains.annotations.NotNull;
-
+@AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;

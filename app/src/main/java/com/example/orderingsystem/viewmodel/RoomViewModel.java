@@ -2,7 +2,7 @@ package com.example.orderingsystem.viewmodel;
 
 import androidx.lifecycle.LiveData;
 import com.example.orderingsystem.model.data.Order;
-import com.example.orderingsystem.model.repository.RoomRepository;
+import com.example.orderingsystem.model.room.RoomRepository;
 
 import java.util.List;
 

@@ -6,8 +6,13 @@ import com.example.orderingsystem.model.service.FirebaseAuthService;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseUser;
+import dagger.hilt.android.AndroidEntryPoint;
 
-public class AuthRepositoryImpl extends AuthRepository{
+import javax.inject.Inject;
+
+
+public class AuthRepositoryImpl implements AuthRepository{
+
 
     private final FirebaseAuthService authService;
 
