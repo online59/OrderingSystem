@@ -6,18 +6,16 @@ import com.example.orderingsystem.model.api.FirebaseAPI;
 import com.example.orderingsystem.model.data.Material;
 import com.example.orderingsystem.model.service.FirebaseMaterialService;
 
+import javax.inject.Inject;
 import java.util.List;
 
 public class MaterialRepositoryImpl implements MaterialRepository{
 
-    private FirebaseMaterialService materialService;
-    private MaterialDatabase materialDatabase;
+    @Inject
+    public FirebaseAPI<Material> materialService;
 
-    public MaterialRepositoryImpl(MaterialDatabase materialDatabase) {
-        this.materialDatabase = materialDatabase;
-    }
-
-    public MaterialRepositoryImpl(FirebaseMaterialService materialService) {
+    @Inject
+    public MaterialRepositoryImpl(FirebaseAPI<Material> materialService) {
         this.materialService = materialService;
     }
 
@@ -49,10 +47,5 @@ public class MaterialRepositoryImpl implements MaterialRepository{
     @Override
     public void update(Material obj, String key) {
         materialService.update(obj, key);
-    }
-
-    @Override
-    public LiveData<List<Material>> fetchMaterials(String key) {
-        return null;
     }
 }

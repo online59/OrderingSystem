@@ -19,13 +19,21 @@ import com.example.orderingsystem.view.adapter.OrderAdapter;
 import com.example.orderingsystem.viewmodel.AuthViewModel;
 import com.example.orderingsystem.viewmodel.OrderViewModel;
 import com.google.firebase.database.FirebaseDatabase;
+import dagger.hilt.android.AndroidEntryPoint;
 
+import javax.inject.Inject;
+
+@AndroidEntryPoint
 public class OrderFragment extends Fragment {
+
+
+    @Inject
+    public OrderViewModel orderViewModel;
+    @Inject
+    public AuthViewModel authViewModel;
 
     private FragmentOrderBinding binding;
     private static OrderFragment instance;
-    private OrderViewModel orderViewModel;
-    private AuthViewModel authViewModel;
 
     private OrderFragment() {
     }
@@ -40,12 +48,6 @@ public class OrderFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initialSetup();
-    }
-
-    private void initialSetup() {
-        orderViewModel = new OrderViewModel(new OrderRepositoryImpl(new FirebaseOrderService(FirebaseDatabase.getInstance().getReference())));
-        authViewModel = new AuthViewModel(new AuthRepositoryImpl(new FirebaseAuthService()));
     }
 
     @Override

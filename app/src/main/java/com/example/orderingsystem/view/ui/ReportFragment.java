@@ -21,17 +21,23 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.google.firebase.database.FirebaseDatabase;
+import dagger.hilt.android.AndroidEntryPoint;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+@AndroidEntryPoint
 public class ReportFragment extends Fragment {
+
+
+    @Inject
+    public OrderViewModel orderViewModel;
 
     private FragmentReportBinding binding;
     private static ReportFragment instance;
-    private OrderViewModel orderViewModel;
 
     private ReportFragment() {
     }
@@ -47,7 +53,6 @@ public class ReportFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        orderViewModel = new OrderViewModel(new OrderRepositoryImpl(new FirebaseOrderService(FirebaseDatabase.getInstance().getReference())));
     }
 
     @Override

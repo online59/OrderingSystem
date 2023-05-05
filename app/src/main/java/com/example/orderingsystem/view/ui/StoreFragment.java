@@ -16,13 +16,20 @@ import com.example.orderingsystem.utils.FirebasePath;
 import com.example.orderingsystem.viewmodel.AuthViewModel;
 import com.example.orderingsystem.viewmodel.UserViewModel;
 import com.google.firebase.database.FirebaseDatabase;
+import dagger.hilt.android.AndroidEntryPoint;
 
+import javax.inject.Inject;
+
+@AndroidEntryPoint
 public class StoreFragment extends Fragment {
+
+    @Inject
+    public AuthViewModel authViewModel;
+    @Inject
+    public UserViewModel userViewModel;
 
     private FragmentStoreBinding binding;
     private static StoreFragment instance;
-    private AuthViewModel authViewModel;
-    private UserViewModel userViewModel;
 
     private StoreFragment() {
     }
@@ -37,8 +44,6 @@ public class StoreFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        authViewModel = new AuthViewModel(new AuthRepositoryImpl(new FirebaseAuthService()));
-        userViewModel = new UserViewModel(new UserRepositoryImpl(new FirebaseUserService(FirebaseDatabase.getInstance().getReference())));
 
     }
 

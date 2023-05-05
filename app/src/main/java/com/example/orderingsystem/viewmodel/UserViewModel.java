@@ -5,13 +5,16 @@ import androidx.lifecycle.ViewModel;
 import com.example.orderingsystem.model.data.User;
 import com.example.orderingsystem.model.repository.UserRepository;
 
+import javax.inject.Inject;
 import java.util.List;
 
 
 public class UserViewModel extends ViewModel {
 
-    private final UserRepository userRepository;
+    @Inject
+    public UserRepository userRepository;
 
+    @Inject
     public UserViewModel(UserRepository userRepository) {
         this.userRepository = userRepository;
     }

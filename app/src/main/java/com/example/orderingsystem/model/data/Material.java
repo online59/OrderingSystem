@@ -1,26 +1,46 @@
 package com.example.orderingsystem.model.data;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import com.example.orderingsystem.database.entity.MaterialEntity;
+import com.google.firebase.database.Exclude;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
-@Entity
+import javax.annotation.Nonnull;
+import java.util.List;
+import java.util.stream.Collectors;
+
+
 @Data
 public class Material {
 
-    @PrimaryKey()
-    @ColumnInfo(name = "item_id")
+    @SerializedName("item_id")
     private String itemId;
-    @ColumnInfo(name = "item_name")
+    @SerializedName("item_name")
     private String itemName;
-    @ColumnInfo(name = "produce_year")
+    @SerializedName("produce_year")
     private int produceYear;
-    @ColumnInfo(name = "description")
+    @SerializedName("description")
     private String description;
-    @ColumnInfo(name = "remaining")
+    @SerializedName("remaining")
     private int remaining;
-    @ColumnInfo(name = "price")
+    @SerializedName("price")
     private float price;
+
+    @Exclude
+    public List<MaterialEntity> asDatabaseModel(List<Material> materialList) {
+        return materialList.stream().map(material -> {
+            MaterialEntity entity = new MaterialEntity();
+            entity.setItemId(material.itemId);
+            entity.setItemName(material.itemName);
+            entity.setProduceYear(material.produceYear);
+            entity.setDescription(material.description);
+            entity.setRemaining(material.remaining);
+            entity.setPrice(material.price);
+            return entity;
+        }).collect(Collectors.toList());
+    }
 }

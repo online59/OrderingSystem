@@ -11,6 +11,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import org.jetbrains.annotations.NotNull;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,10 +19,12 @@ import java.util.Map;
 
 public class FirebaseOrderService implements FirebaseAPI<Order> {
 
-    private final DatabaseReference reference;
+    @Inject
+    public DatabaseReference reference;
     private final MutableLiveData<List<Order>> orderListMutable;
     private final MutableLiveData<Order> orderMutable;
 
+    @Inject
     public FirebaseOrderService(DatabaseReference reference) {
         this.reference = reference;
         orderListMutable = new MutableLiveData<>();

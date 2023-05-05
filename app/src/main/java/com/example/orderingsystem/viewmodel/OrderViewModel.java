@@ -4,12 +4,15 @@ import androidx.lifecycle.LiveData;
 import com.example.orderingsystem.model.data.Order;
 import com.example.orderingsystem.model.repository.OrderRepository;
 
+import javax.inject.Inject;
 import java.util.List;
 
 public class OrderViewModel {
 
-    private final OrderRepository orderRepository;
+    @Inject
+    public OrderRepository orderRepository;
 
+    @Inject
     public OrderViewModel(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
     }

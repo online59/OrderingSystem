@@ -11,6 +11,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import org.jetbrains.annotations.NotNull;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,10 +19,12 @@ import java.util.Map;
 
 public class FirebaseUserService implements FirebaseAPI<User> {
 
-    private DatabaseReference reference;
+    @Inject
+    public DatabaseReference reference;
     private final MutableLiveData<List<User>> userListMutable;
     private final MutableLiveData<User> userMutable;
 
+    @Inject
     public FirebaseUserService(DatabaseReference reference) {
         this.reference = reference;
         userListMutable = new MutableLiveData<>();

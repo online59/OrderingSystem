@@ -15,13 +15,20 @@ import com.example.orderingsystem.utils.FirebasePath;
 import com.example.orderingsystem.viewmodel.AuthViewModel;
 import com.example.orderingsystem.viewmodel.UserViewModel;
 import com.google.firebase.database.FirebaseDatabase;
+import dagger.hilt.android.AndroidEntryPoint;
 
+import javax.inject.Inject;
+
+@AndroidEntryPoint
 public class ProfileFragment extends Fragment {
+
+    @Inject
+    public AuthViewModel authViewModel;
+    @Inject
+    public UserViewModel userViewModel;
 
     private FragmentProfileBinding binding;
     private static ProfileFragment instance;
-    private AuthViewModel authViewModel;
-    private UserViewModel userViewModel;
 
     private ProfileFragment() {
         // Required empty public constructor
@@ -37,8 +44,6 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        authViewModel = new AuthViewModel(new AuthRepositoryImpl(new FirebaseAuthService()));
-        userViewModel = new UserViewModel(new UserRepositoryImpl(new FirebaseUserService(FirebaseDatabase.getInstance().getReference())));
     }
 
     @Override
@@ -66,7 +71,8 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 signUserOut();
-                startActivity(new Intent(getActivity(), SignInActivity.class));
+                getActivity().finish();
+//                startActivity(new Intent(getActivity(), SignInActivity.class));
             }
         });
     }

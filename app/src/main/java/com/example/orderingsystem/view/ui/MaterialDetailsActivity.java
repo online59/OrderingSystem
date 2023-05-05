@@ -23,15 +23,24 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import dagger.hilt.android.AndroidEntryPoint;
 
+import javax.inject.Inject;
+
+@AndroidEntryPoint
 public class MaterialDetailsActivity extends AppCompatActivity {
+
+    @Inject
+    public AuthViewModel authViewModel;
+    @Inject
+    public MaterialViewModel materialViewModel;
+    @Inject
+    public OrderViewModel orderViewModel;
+    @Inject
+    public DatabaseReference reference;
 
     private ActivityItemDetailsBinding binding;
     private BottomSheetOrderQuantityBinding bottomSheetBinding;
-    private AuthViewModel authViewModel;
-    private MaterialViewModel materialViewModel;
-    private OrderViewModel orderViewModel;
-    private DatabaseReference reference;
     private BottomSheetDialog bottomSheetDialog;
 
     @Override
@@ -40,19 +49,9 @@ public class MaterialDetailsActivity extends AppCompatActivity {
         binding = ActivityItemDetailsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        setup();
-
         displaySelectedItemDetails();
 
     }
-
-    private void setup() {
-        reference = FirebaseDatabase.getInstance().getReference();
-        authViewModel = new AuthViewModel(new AuthRepositoryImpl(new FirebaseAuthService()));
-        materialViewModel = new MaterialViewModel(new MaterialRepositoryImpl(new FirebaseMaterialService(reference)));
-        orderViewModel = new OrderViewModel(new OrderRepositoryImpl(new FirebaseOrderService(reference)));
-    }
-
     private void displaySelectedItemDetails() {
 
         materialViewModel.getById(getItemIdFromIntent(), FirebasePath.PATH_MATERIAL).observe(this, shopItem -> {

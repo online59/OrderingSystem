@@ -11,8 +11,10 @@ import javax.inject.Inject;
 
 public class FirebaseAuthService {
 
-    private final FirebaseAuth firebaseAuth;
+    @Inject
+    public FirebaseAuth firebaseAuth;
 
+    @Inject
     public FirebaseAuthService() {
         this.firebaseAuth = FirebaseAuth.getInstance();
     }

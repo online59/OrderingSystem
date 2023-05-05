@@ -14,8 +14,10 @@ import javax.inject.Inject;
 public class AuthRepositoryImpl implements AuthRepository{
 
 
-    private final FirebaseAuthService authService;
+    @Inject
+    public FirebaseAuthService authService;
 
+    @Inject
     public AuthRepositoryImpl(FirebaseAuthService authService) {
         this.authService = authService;
     }

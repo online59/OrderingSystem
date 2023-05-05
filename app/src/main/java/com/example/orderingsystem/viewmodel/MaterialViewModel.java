@@ -4,12 +4,15 @@ import androidx.lifecycle.LiveData;
 import com.example.orderingsystem.model.data.Material;
 import com.example.orderingsystem.model.repository.MaterialRepository;
 
+import javax.inject.Inject;
 import java.util.List;
 
 public class MaterialViewModel {
 
-    private final MaterialRepository materialRepository;
+    @Inject
+    public MaterialRepository materialRepository;
 
+    @Inject
     public MaterialViewModel(MaterialRepository materialRepository) {
         this.materialRepository = materialRepository;
     }

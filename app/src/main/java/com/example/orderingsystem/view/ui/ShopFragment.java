@@ -3,10 +3,10 @@ package com.example.orderingsystem.view.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import com.example.orderingsystem.databinding.FragmentShopBinding;
 import com.example.orderingsystem.model.repository.MaterialRepositoryImpl;
@@ -16,12 +16,18 @@ import com.example.orderingsystem.view.adapter.MaterialAdapter;
 import com.example.orderingsystem.utils.ItemClickListener;
 import com.example.orderingsystem.viewmodel.MaterialViewModel;
 import com.google.firebase.database.FirebaseDatabase;
+import dagger.hilt.android.AndroidEntryPoint;
 
+import javax.inject.Inject;
+
+@AndroidEntryPoint
 public class ShopFragment extends Fragment {
+
+    @Inject
+    public MaterialViewModel materialViewModel;
 
     private FragmentShopBinding binding;
     private static ShopFragment instance;
-    private MaterialViewModel materialViewModel;
 
     private ShopFragment() {
 
@@ -37,12 +43,6 @@ public class ShopFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initialSetup();
-    }
-
-    private void initialSetup() {
-
-        materialViewModel = new MaterialViewModel(new MaterialRepositoryImpl(new FirebaseMaterialService(FirebaseDatabase.getInstance().getReference())));
     }
 
     @Override

@@ -18,6 +18,4 @@ public interface MaterialRepository {
     void write(Material obj, String key);
 
     void update(Material obj, String key);
-
-    LiveData<List<Material>> fetchMaterials(String key);
 }

@@ -11,8 +11,10 @@ import javax.inject.Inject;
 
 public class AuthViewModel extends ViewModel {
 
-    private final AuthRepository authRepository;
+    @Inject
+    public AuthRepository authRepository;
 
+    @Inject
     public AuthViewModel(AuthRepository authRepository) {
         this.authRepository = authRepository;
     }

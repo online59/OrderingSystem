@@ -4,43 +4,46 @@ import androidx.lifecycle.LiveData;
 import com.example.orderingsystem.model.api.FirebaseAPI;
 import com.example.orderingsystem.model.data.User;
 
+import javax.inject.Inject;
 import java.util.List;
 
 public class UserRepositoryImpl implements UserRepository {
 
-    private FirebaseAPI<User> service;
+    @Inject
+    public FirebaseAPI<User> userService;
 
-    public UserRepositoryImpl(FirebaseAPI<User> service) {
-        this.service = service;
+    @Inject
+    public UserRepositoryImpl(FirebaseAPI<User> userService) {
+        this.userService = userService;
     }
 
     @Override
     public LiveData<List<User>> getAll(String key) {
-        return service.getAll(key);
+        return userService.getAll(key);
     }
 
     @Override
     public LiveData<User> getById(String id, String key) {
-        return service.getById(id, key);
+        return userService.getById(id, key);
     }
 
     @Override
     public void removeAll(String key) {
-        service.removeAll(key);
+        userService.removeAll(key);
     }
 
     @Override
     public void removeById(String id, String key) {
-        service.removeById(id, key);
+        userService.removeById(id, key);
     }
 
     @Override
     public void write(User obj, String key) {
-        service.write(obj, key);
+        userService.write(obj, key);
     }
 
     @Override
     public void update(User obj, String key) {
-        service.update(obj, key);
+        userService.update(obj, key);
     }
 }

@@ -22,13 +22,20 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.database.FirebaseDatabase;
+import dagger.hilt.android.AndroidEntryPoint;
 import org.jetbrains.annotations.NotNull;
 
+import javax.inject.Inject;
+
+@AndroidEntryPoint
 public class SignInActivity extends AppCompatActivity {
 
+    @Inject
+    public AuthViewModel authViewModel;
+    @Inject
+    public UserViewModel userViewModel;
+
     private ActivitySignInBinding binding;
-    private AuthViewModel authViewModel;
-    private UserViewModel userViewModel;
     private String mEmail;
     private String mPassword;
 
@@ -38,14 +45,8 @@ public class SignInActivity extends AppCompatActivity {
         binding = ActivitySignInBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        setup();
         signUp();
         signIn();
-    }
-
-    private void setup() {
-        authViewModel = new AuthViewModel(new AuthRepositoryImpl(new FirebaseAuthService()));
-        userViewModel = new UserViewModel(new UserRepositoryImpl(new FirebaseUserService(FirebaseDatabase.getInstance().getReference())));
     }
 
     private void signUp() {

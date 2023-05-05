@@ -14,7 +14,7 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.OrderingSystem"
             tools:targetApi="31"
-            android:name=".di.MyApplication">
+            android:name=".di.OrderSystemApplication">
 
         <activity
                 android:name=".view.AdminMainActivity"

@@ -21,13 +21,20 @@ import com.example.orderingsystem.viewmodel.MaterialViewModel;
 import com.example.orderingsystem.viewmodel.OrderViewModel;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import dagger.hilt.android.AndroidEntryPoint;
 
+import javax.inject.Inject;
+
+@AndroidEntryPoint
 public class StoreOrderFragment extends Fragment {
+
+    @Inject
+    public OrderViewModel orderViewModel;
+    @Inject
+    public MaterialViewModel materialViewModel;
 
     private FragmentStoreOrderBinding binding;
     private static StoreOrderFragment instance;
-    private OrderViewModel orderViewModel;
-    private MaterialViewModel materialViewModel;
 
     private StoreOrderFragment() {
         // Required empty public constructor
@@ -44,9 +51,7 @@ public class StoreOrderFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        orderViewModel = new OrderViewModel(new OrderRepositoryImpl(new FirebaseOrderService(reference)));
-        materialViewModel = new MaterialViewModel(new MaterialRepositoryImpl(new FirebaseMaterialService(reference)));
+
     }
 
     @Override
