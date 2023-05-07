@@ -55,6 +55,11 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private void translateFragment(int container, Fragment fragment) {
-        getSupportFragmentManager().beginTransaction().replace(container, fragment).commit();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(container, fragment)
+                .setReorderingAllowed(true)
+                .addToBackStack(null)
+                .commit();
     }
 }

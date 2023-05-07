@@ -1,12 +1,15 @@
 package com.example.orderingsystem.view.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import com.example.orderingsystem.databinding.FragmentShopBinding;
 import com.example.orderingsystem.model.repository.MaterialRepositoryImpl;
@@ -17,11 +20,13 @@ import com.example.orderingsystem.utils.ItemClickListener;
 import com.example.orderingsystem.viewmodel.MaterialViewModel;
 import com.google.firebase.database.FirebaseDatabase;
 import dagger.hilt.android.AndroidEntryPoint;
+import org.jetbrains.annotations.NotNull;
 
 import javax.inject.Inject;
 
 @AndroidEntryPoint
 public class ShopFragment extends Fragment {
+
 
     @Inject
     public MaterialViewModel materialViewModel;
@@ -81,5 +86,23 @@ public class ShopFragment extends Fragment {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onAttach(@NonNull @NotNull Context context) {
+        super.onAttach(context);
+        Log.e("ShopFragment", "onAttach: called" );
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        Log.e("ShopFragment", "onDetach: called" );
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.e("ShopFragment", "onDestroy: called" );
     }
 }

@@ -1,7 +1,10 @@
 package com.example.orderingsystem.view.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +23,7 @@ import com.example.orderingsystem.viewmodel.AuthViewModel;
 import com.example.orderingsystem.viewmodel.OrderViewModel;
 import com.google.firebase.database.FirebaseDatabase;
 import dagger.hilt.android.AndroidEntryPoint;
+import org.jetbrains.annotations.NotNull;
 
 import javax.inject.Inject;
 
@@ -86,5 +90,23 @@ public class CartFragment extends Fragment {
     }
     private String getCurrentUserUid() {
         return authViewModel.getCurrentUser().getUid();
+    }
+
+    @Override
+    public void onAttach(@NonNull @NotNull Context context) {
+        super.onAttach(context);
+        Log.e("CartFragment", "onAttach: called" );
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        Log.e("CartFragment", "onDetach: called" );
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.e("CartFragment", "onDestroy: called" );
     }
 }

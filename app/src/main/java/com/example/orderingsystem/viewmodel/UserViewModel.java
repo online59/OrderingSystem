@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 import com.example.orderingsystem.model.data.User;
 import com.example.orderingsystem.model.repository.UserRepository;
+import dagger.hilt.android.lifecycle.HiltViewModel;
 
 import javax.inject.Inject;
 import java.util.List;
-
 
 public class UserViewModel extends ViewModel {
 
