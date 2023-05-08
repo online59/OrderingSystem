@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.orderingsystem.databinding.FragmentCartBinding;
 import com.example.orderingsystem.model.repository.AuthRepositoryImpl;
@@ -31,7 +32,7 @@ import javax.inject.Inject;
 public class CartFragment extends Fragment {
 
 
-    @Inject
+
     public OrderViewModel orderViewModel;
     @Inject
     public AuthViewModel authViewModel;
@@ -52,6 +53,8 @@ public class CartFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        orderViewModel = new ViewModelProvider(this).get(OrderViewModel.class);
     }
 
     @Override

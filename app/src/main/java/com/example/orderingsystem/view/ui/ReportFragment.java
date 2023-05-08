@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.room.Room;
 import com.example.orderingsystem.R;
 import com.example.orderingsystem.databinding.FragmentReportBinding;
@@ -33,7 +34,6 @@ import java.util.concurrent.Executors;
 public class ReportFragment extends Fragment {
 
 
-    @Inject
     public OrderViewModel orderViewModel;
 
     private FragmentReportBinding binding;
@@ -53,6 +53,7 @@ public class ReportFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        orderViewModel = new ViewModelProvider(this).get(OrderViewModel.class);
     }
 
     @Override

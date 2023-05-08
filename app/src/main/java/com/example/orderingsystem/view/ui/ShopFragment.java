@@ -27,8 +27,6 @@ import javax.inject.Inject;
 @AndroidEntryPoint
 public class ShopFragment extends Fragment {
 
-
-    @Inject
     public MaterialViewModel materialViewModel;
 
     private FragmentShopBinding binding;
@@ -48,6 +46,8 @@ public class ShopFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        materialViewModel = new ViewModelProvider(this).get(MaterialViewModel.class);
     }
 
     @Override

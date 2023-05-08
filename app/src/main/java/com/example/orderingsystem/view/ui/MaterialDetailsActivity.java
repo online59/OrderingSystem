@@ -33,9 +33,9 @@ public class MaterialDetailsActivity extends AppCompatActivity {
 
     @Inject
     public AuthViewModel authViewModel;
-    @Inject
+
     public MaterialViewModel materialViewModel;
-    @Inject
+
     public OrderViewModel orderViewModel;
     @Inject
     public DatabaseReference reference;
@@ -49,6 +49,9 @@ public class MaterialDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityItemDetailsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        materialViewModel = new ViewModelProvider(this).get(MaterialViewModel.class);
+        orderViewModel = new ViewModelProvider(this).get(OrderViewModel.class);
 
         displaySelectedItemDetails();
 

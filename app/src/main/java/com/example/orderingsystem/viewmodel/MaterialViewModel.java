@@ -9,7 +9,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 import javax.inject.Inject;
 import java.util.List;
 
-
+@HiltViewModel
 public class MaterialViewModel extends ViewModel {
 
     @Inject

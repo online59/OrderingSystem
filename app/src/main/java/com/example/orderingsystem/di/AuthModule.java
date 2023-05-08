@@ -2,6 +2,8 @@ package com.example.orderingsystem.di;
 
 import com.example.orderingsystem.model.repository.AuthRepository;
 import com.example.orderingsystem.model.repository.AuthRepositoryImpl;
+import com.example.orderingsystem.model.service.FirebaseAuthService;
+import com.google.firebase.auth.FirebaseAuth;
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
