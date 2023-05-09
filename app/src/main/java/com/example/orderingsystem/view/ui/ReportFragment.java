@@ -33,7 +33,7 @@ import java.util.concurrent.Executors;
 @AndroidEntryPoint
 public class ReportFragment extends Fragment {
 
-
+    @Inject
     public OrderViewModel orderViewModel;
 
     private FragmentReportBinding binding;
@@ -52,8 +52,6 @@ public class ReportFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        orderViewModel = new ViewModelProvider(this).get(OrderViewModel.class);
     }
 
     @Override

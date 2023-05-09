@@ -31,8 +31,7 @@ import javax.inject.Inject;
 @AndroidEntryPoint
 public class OrderFragment extends Fragment {
 
-
-
+    @Inject
     public OrderViewModel orderViewModel;
     @Inject
     public AuthViewModel authViewModel;
@@ -53,8 +52,6 @@ public class OrderFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        orderViewModel = new ViewModelProvider(this).get(OrderViewModel.class);
     }
 
     @Override

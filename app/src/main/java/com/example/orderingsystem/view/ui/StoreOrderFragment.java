@@ -29,9 +29,9 @@ import javax.inject.Inject;
 @AndroidEntryPoint
 public class StoreOrderFragment extends Fragment {
 
-
+    @Inject
     public OrderViewModel orderViewModel;
-
+    @Inject
     public MaterialViewModel materialViewModel;
 
     private FragmentStoreOrderBinding binding;
@@ -52,9 +52,6 @@ public class StoreOrderFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        materialViewModel = new ViewModelProvider(this).get(MaterialViewModel.class);
-        orderViewModel = new ViewModelProvider(this).get(OrderViewModel.class);
     }
 
     @Override

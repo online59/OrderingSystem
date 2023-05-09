@@ -27,6 +27,7 @@ import javax.inject.Inject;
 @AndroidEntryPoint
 public class ShopFragment extends Fragment {
 
+    @Inject
     public MaterialViewModel materialViewModel;
 
     private FragmentShopBinding binding;
@@ -46,13 +47,10 @@ public class ShopFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        materialViewModel = new ViewModelProvider(this).get(MaterialViewModel.class);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentShopBinding.inflate(inflater, container, false);
 
@@ -81,7 +79,7 @@ public class ShopFragment extends Fragment {
             @Override
             public void setOnItemClick(int position) {
                 Intent intent = new Intent(getActivity(), MaterialDetailsActivity.class);
-                Log.e("TAG", "setOnItemClick: " + materialAdapter.getMaterial(position).getItemId() );
+                Log.e("TAG", "setOnItemClick: " + materialAdapter.getMaterial(position).getItemId());
                 intent.putExtra("item_id", materialAdapter.getMaterial(position).getItemId());
                 startActivity(intent);
             }
@@ -91,18 +89,18 @@ public class ShopFragment extends Fragment {
     @Override
     public void onAttach(@NonNull @NotNull Context context) {
         super.onAttach(context);
-        Log.e("ShopFragment", "onAttach: called" );
+        Log.e("ShopFragment", "onAttach: called");
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        Log.e("ShopFragment", "onDetach: called" );
+        Log.e("ShopFragment", "onDetach: called");
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.e("ShopFragment", "onDestroy: called" );
+        Log.e("ShopFragment", "onDestroy: called");
     }
 }

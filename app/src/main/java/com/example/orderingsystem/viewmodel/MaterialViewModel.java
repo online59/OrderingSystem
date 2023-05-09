@@ -4,12 +4,12 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 import com.example.orderingsystem.model.data.Material;
 import com.example.orderingsystem.model.repository.MaterialRepository;
+import dagger.hilt.android.AndroidEntryPoint;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
 import javax.inject.Inject;
 import java.util.List;
 
-@HiltViewModel
 public class MaterialViewModel extends ViewModel {
 
     @Inject

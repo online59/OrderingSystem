@@ -27,12 +27,6 @@ public abstract class UserModule {
 
 //    @Provides
 //    @ViewModelScoped
-//    public FirebaseAPI<User> provideUseAPI(DatabaseReference reference) {
-//        return new FirebaseUserService(reference);
-//    }
-//
-//    @Provides
-//    @ViewModelScoped
 //    public UserRepository provideUserRepository(FirebaseUserService userService) {
 //        return new UserRepositoryImpl(userService);
 //    }

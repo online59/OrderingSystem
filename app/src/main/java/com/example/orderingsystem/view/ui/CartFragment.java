@@ -33,6 +33,7 @@ public class CartFragment extends Fragment {
 
 
 
+    @Inject
     public OrderViewModel orderViewModel;
     @Inject
     public AuthViewModel authViewModel;
@@ -53,8 +54,6 @@ public class CartFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        orderViewModel = new ViewModelProvider(this).get(OrderViewModel.class);
     }
 
     @Override

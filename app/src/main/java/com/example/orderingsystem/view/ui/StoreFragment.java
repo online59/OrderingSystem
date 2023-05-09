@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.lifecycle.ViewModelProvider;
 import com.example.orderingsystem.databinding.FragmentStoreBinding;
 import com.example.orderingsystem.model.data.User;
 import com.example.orderingsystem.model.repository.AuthRepositoryImpl;
@@ -44,7 +45,6 @@ public class StoreFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override

@@ -19,18 +19,18 @@ import dagger.hilt.components.SingletonComponent;
 import javax.inject.Singleton;
 
 @Module
-@InstallIn(ViewModelComponent.class)
-public class MaterialModule {
+@InstallIn(ActivityComponent.class)
+public abstract class MaterialModule {
 
-//    @Binds
-//    public abstract FirebaseAPI<Material> bindMaterialAPI(FirebaseMaterialService materialService);
-//
-//    @Binds
-//    public abstract MaterialRepository bindMaterialRepository(MaterialRepositoryImpl materialRepository);
+    @Binds
+    public abstract FirebaseAPI<Material> bindMaterialAPI(FirebaseMaterialService materialService);
 
-    @Provides
-    @ViewModelScoped
-    public MaterialRepository provideMaterialRepository(FirebaseMaterialService materialService) {
-        return new MaterialRepositoryImpl(materialService);
-    }
+    @Binds
+    public abstract MaterialRepository bindMaterialRepository(MaterialRepositoryImpl materialRepository);
+
+//    @Provides
+//    @ViewModelScoped
+//    public MaterialRepository provideMaterialRepository(FirebaseMaterialService materialService) {
+//        return new MaterialRepositoryImpl(materialService);
+//    }
 }
