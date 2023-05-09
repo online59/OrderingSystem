@@ -1,27 +1,20 @@
 package com.example.orderingsystem.view.ui;
 
 import android.os.Bundle;
-import android.widget.Toast;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import androidx.lifecycle.ViewModelProvider;
+import android.widget.Toast;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.orderingsystem.databinding.FragmentStoreOrderBinding;
 import com.example.orderingsystem.model.data.Order;
-import com.example.orderingsystem.model.repository.MaterialRepositoryImpl;
-import com.example.orderingsystem.model.repository.OrderRepositoryImpl;
-import com.example.orderingsystem.model.service.FirebaseMaterialService;
-import com.example.orderingsystem.model.service.FirebaseOrderService;
 import com.example.orderingsystem.utils.FirebasePath;
 import com.example.orderingsystem.utils.ItemClickListener;
 import com.example.orderingsystem.utils.MyUtils;
 import com.example.orderingsystem.view.adapter.OrderAdapter;
 import com.example.orderingsystem.viewmodel.MaterialViewModel;
 import com.example.orderingsystem.viewmodel.OrderViewModel;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import dagger.hilt.android.AndroidEntryPoint;
 
 import javax.inject.Inject;
@@ -29,13 +22,12 @@ import javax.inject.Inject;
 @AndroidEntryPoint
 public class StoreOrderFragment extends Fragment {
 
+    private static StoreOrderFragment instance;
     @Inject
     public OrderViewModel orderViewModel;
     @Inject
     public MaterialViewModel materialViewModel;
-
     private FragmentStoreOrderBinding binding;
-    private static StoreOrderFragment instance;
 
     private StoreOrderFragment() {
         // Required empty public constructor

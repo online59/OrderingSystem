@@ -1,18 +1,12 @@
 package com.example.orderingsystem.view.ui;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
-import androidx.lifecycle.ViewModelProvider;
 import com.example.orderingsystem.databinding.ActivitySignInBinding;
-import com.example.orderingsystem.model.data.User;
-import com.example.orderingsystem.model.repository.AuthRepositoryImpl;
-import com.example.orderingsystem.model.repository.UserRepositoryImpl;
-import com.example.orderingsystem.model.service.FirebaseAuthService;
-import com.example.orderingsystem.model.service.FirebaseUserService;
 import com.example.orderingsystem.utils.FirebasePath;
 import com.example.orderingsystem.utils.MyUtils;
 import com.example.orderingsystem.view.AdminMainActivity;
@@ -22,7 +16,6 @@ import com.example.orderingsystem.viewmodel.UserViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.database.FirebaseDatabase;
 import dagger.hilt.android.AndroidEntryPoint;
 import org.jetbrains.annotations.NotNull;
 

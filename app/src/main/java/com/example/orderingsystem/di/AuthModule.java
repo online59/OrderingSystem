@@ -11,6 +11,7 @@ import dagger.hilt.InstallIn;
 import dagger.hilt.android.components.ActivityComponent;
 import dagger.hilt.android.components.FragmentComponent;
 import dagger.hilt.android.components.ViewModelComponent;
+import dagger.hilt.android.scopes.ActivityScoped;
 import dagger.hilt.android.scopes.ViewModelScoped;
 
 @Module
@@ -18,5 +19,6 @@ import dagger.hilt.android.scopes.ViewModelScoped;
 public abstract class AuthModule {
 
     @Binds
+    @ActivityScoped
     public abstract AuthRepository bindAuthRepository(AuthRepositoryImpl authRepository);
 }

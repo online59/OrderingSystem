@@ -149,11 +149,66 @@
                 app:layout_constraintLeft_toRightOf="@id/ic_edit"
                 app:layout_constraintRight_toRightOf="parent"/>
 
+        <View
+                android:id="@+id/separator_3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/separator"
+                app:layout_constraintTop_toBottomOf="@id/ic_edit"
+                android:layout_marginTop="24dp"/>
+
+        <ImageView
+                android:id="@+id/ic_shipping"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:layout_constraintTop_toBottomOf="@id/separator_3"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_margin="24dp"
+                android:src="@drawable/ic_shipping"/>
+
+        <TextView
+                android:id="@+id/buttonShipping"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:text="Shipping"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                style="@style/NormalTextStyle"
+                app:layout_constraintTop_toTopOf="@id/ic_shipping"
+                app:layout_constraintBottom_toBottomOf="@id/ic_shipping"
+                app:layout_constraintLeft_toRightOf="@id/ic_shipping"
+                app:layout_constraintRight_toRightOf="parent"/>
+
+
+        <ImageView
+                android:id="@+id/ic_received"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:layout_constraintTop_toBottomOf="@id/ic_shipping"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_margin="24dp"
+                android:src="@drawable/ic_shipped_box"/>
+
+        <TextView
+                android:id="@+id/buttonReceived"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:text="Shipped Already"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                style="@style/NormalTextStyle"
+                app:layout_constraintTop_toTopOf="@id/ic_received"
+                app:layout_constraintBottom_toBottomOf="@id/ic_received"
+                app:layout_constraintLeft_toRightOf="@id/ic_received"
+                app:layout_constraintRight_toRightOf="parent"/>
+
         <ImageView
                 android:id="@+id/ic_setting"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                app:layout_constraintTop_toBottomOf="@id/ic_edit"
+                app:layout_constraintTop_toBottomOf="@id/ic_received"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_margin="24dp"
                 android:src="@drawable/ic_settings"/>
@@ -173,7 +228,7 @@
                 app:layout_constraintRight_toRightOf="parent"/>
 
         <View
-                android:id="@+id/separator_3"
+                android:id="@+id/separator_4"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/separator"
@@ -184,7 +239,7 @@
                 android:id="@+id/ic_signout"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                app:layout_constraintTop_toBottomOf="@id/separator_3"
+                app:layout_constraintTop_toBottomOf="@id/separator_4"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_margin="24dp"
                 android:src="@drawable/ic_power"/>

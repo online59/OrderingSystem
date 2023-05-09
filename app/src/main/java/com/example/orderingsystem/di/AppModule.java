@@ -12,23 +12,25 @@ import com.google.firebase.database.FirebaseDatabase;
 import dagger.Module;
 import dagger.Provides;
 import dagger.hilt.InstallIn;
+import dagger.hilt.android.components.ActivityComponent;
+import dagger.hilt.android.scopes.ActivityScoped;
 import dagger.hilt.components.SingletonComponent;
 
 import javax.inject.Singleton;
 
 
 @Module
-@InstallIn(SingletonComponent.class)
+@InstallIn(ActivityComponent.class)
 public class AppModule {
 
     @Provides
-    @Singleton
+    @ActivityScoped
     public FirebaseAuth provideFirebaseAuth() {
         return FirebaseAuth.getInstance();
     }
 
     @Provides
-    @Singleton
+    @ActivityScoped
     public DatabaseReference provideDatabaseReference() {
         return FirebaseDatabase.getInstance().getReference();
     }

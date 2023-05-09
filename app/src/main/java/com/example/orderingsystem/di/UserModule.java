@@ -13,6 +13,7 @@ import dagger.hilt.InstallIn;
 import dagger.hilt.android.components.ActivityComponent;
 import dagger.hilt.android.components.FragmentComponent;
 import dagger.hilt.android.components.ViewModelComponent;
+import dagger.hilt.android.scopes.ActivityScoped;
 import dagger.hilt.android.scopes.ViewModelScoped;
 
 @Module
@@ -20,14 +21,10 @@ import dagger.hilt.android.scopes.ViewModelScoped;
 public abstract class UserModule {
 
     @Binds
+    @ActivityScoped
     public abstract FirebaseAPI<User> bindUserAPI(FirebaseUserService userService);
 
     @Binds
+    @ActivityScoped
     public abstract UserRepository bindUserRepository(UserRepositoryImpl userRepository);
-
-//    @Provides
-//    @ViewModelScoped
-//    public UserRepository provideUserRepository(FirebaseUserService userService) {
-//        return new UserRepositoryImpl(userService);
-//    }
 }

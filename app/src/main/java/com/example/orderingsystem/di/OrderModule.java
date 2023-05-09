@@ -13,6 +13,7 @@ import dagger.hilt.InstallIn;
 import dagger.hilt.android.components.ActivityComponent;
 import dagger.hilt.android.components.FragmentComponent;
 import dagger.hilt.android.components.ViewModelComponent;
+import dagger.hilt.android.scopes.ActivityScoped;
 import dagger.hilt.android.scopes.ViewModelScoped;
 
 @Module
@@ -20,14 +21,10 @@ import dagger.hilt.android.scopes.ViewModelScoped;
 public abstract class OrderModule {
 
     @Binds
+    @ActivityScoped
     public abstract FirebaseAPI<Order> bindOrderAPI(FirebaseOrderService orderService);
 
     @Binds
+    @ActivityScoped
     public abstract OrderRepository bindOrderRepository(OrderRepositoryImpl orderRepository);
-
-//    @Provides
-//    @ViewModelScoped
-//    public OrderRepository provideOrderRepository(FirebaseOrderService orderService) {
-//        return new OrderRepositoryImpl(orderService);
-//    }
 }

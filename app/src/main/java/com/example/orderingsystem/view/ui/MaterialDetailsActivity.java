@@ -1,20 +1,13 @@
 package com.example.orderingsystem.view.ui;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
-import androidx.lifecycle.ViewModelProvider;
 import com.example.orderingsystem.databinding.ActivityItemDetailsBinding;
 import com.example.orderingsystem.databinding.BottomSheetOrderQuantityBinding;
-import com.example.orderingsystem.model.data.Order;
 import com.example.orderingsystem.model.data.Material;
-import com.example.orderingsystem.model.repository.AuthRepositoryImpl;
-import com.example.orderingsystem.model.repository.MaterialRepositoryImpl;
-import com.example.orderingsystem.model.repository.OrderRepositoryImpl;
-import com.example.orderingsystem.model.service.FirebaseAuthService;
-import com.example.orderingsystem.model.service.FirebaseMaterialService;
-import com.example.orderingsystem.model.service.FirebaseOrderService;
+import com.example.orderingsystem.model.data.Order;
 import com.example.orderingsystem.utils.FirebasePath;
 import com.example.orderingsystem.utils.MyUtils;
 import com.example.orderingsystem.viewmodel.AuthViewModel;
@@ -23,7 +16,6 @@ import com.example.orderingsystem.viewmodel.OrderViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import dagger.hilt.android.AndroidEntryPoint;
 
 import javax.inject.Inject;
@@ -56,6 +48,7 @@ public class MaterialDetailsActivity extends AppCompatActivity {
         displaySelectedItemDetails();
 
     }
+
     private void displaySelectedItemDetails() {
 
         materialViewModel.getById(getItemIdFromIntent(), FirebasePath.PATH_MATERIAL).observe(this, shopItem -> {
@@ -132,6 +125,7 @@ public class MaterialDetailsActivity extends AppCompatActivity {
         String itemPriceAtOnePiece = String.valueOf(shopItem.getPrice());
         bottomSheetBinding.itemPrice.setText(itemPriceAtOnePiece);
     }
+
     private void whenIncrementButtonClick(Material shopItem) {
 
         bottomSheetBinding.buttonIncremental.setOnClickListener(new View.OnClickListener() {

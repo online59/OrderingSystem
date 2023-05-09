@@ -1,19 +1,12 @@
 package com.example.orderingsystem.view.ui;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.room.Room;
+import androidx.fragment.app.Fragment;
 import com.example.orderingsystem.R;
 import com.example.orderingsystem.databinding.FragmentReportBinding;
-import com.example.orderingsystem.model.data.Order;
-import com.example.orderingsystem.model.repository.OrderRepositoryImpl;
-import com.example.orderingsystem.model.service.FirebaseOrderService;
 import com.example.orderingsystem.utils.FirebasePath;
 import com.example.orderingsystem.utils.MyUtils;
 import com.example.orderingsystem.viewmodel.OrderViewModel;
@@ -21,23 +14,19 @@ import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.google.firebase.database.FirebaseDatabase;
 import dagger.hilt.android.AndroidEntryPoint;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 @AndroidEntryPoint
 public class ReportFragment extends Fragment {
 
+    private static ReportFragment instance;
     @Inject
     public OrderViewModel orderViewModel;
-
     private FragmentReportBinding binding;
-    private static ReportFragment instance;
 
     private ReportFragment() {
     }

@@ -4,25 +4,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.orderingsystem.databinding.FragmentOrderBinding;
-import com.example.orderingsystem.model.repository.AuthRepositoryImpl;
-import com.example.orderingsystem.model.repository.OrderRepositoryImpl;
-import com.example.orderingsystem.model.service.FirebaseAuthService;
-import com.example.orderingsystem.model.service.FirebaseOrderService;
 import com.example.orderingsystem.utils.FirebasePath;
 import com.example.orderingsystem.utils.ItemClickListener;
 import com.example.orderingsystem.utils.MyUtils;
 import com.example.orderingsystem.view.adapter.OrderAdapter;
 import com.example.orderingsystem.viewmodel.AuthViewModel;
 import com.example.orderingsystem.viewmodel.OrderViewModel;
-import com.google.firebase.database.FirebaseDatabase;
 import dagger.hilt.android.AndroidEntryPoint;
 import org.jetbrains.annotations.NotNull;
 
@@ -31,13 +25,12 @@ import javax.inject.Inject;
 @AndroidEntryPoint
 public class OrderFragment extends Fragment {
 
+    private static OrderFragment instance;
     @Inject
     public OrderViewModel orderViewModel;
     @Inject
     public AuthViewModel authViewModel;
-
     private FragmentOrderBinding binding;
-    private static OrderFragment instance;
 
     private OrderFragment() {
     }
@@ -97,18 +90,18 @@ public class OrderFragment extends Fragment {
     @Override
     public void onAttach(@NonNull @NotNull Context context) {
         super.onAttach(context);
-        Log.e("OrderFragment", "onAttach: called" );
+        Log.e("OrderFragment", "onAttach: called");
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        Log.e("OrderFragment", "onDetach: called" );
+        Log.e("OrderFragment", "onDetach: called");
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.e("OrderFragment", "onDestroy: called" );
+        Log.e("OrderFragment", "onDestroy: called");
     }
 }

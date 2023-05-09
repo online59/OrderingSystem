@@ -9,16 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import com.example.orderingsystem.databinding.FragmentShopBinding;
-import com.example.orderingsystem.model.repository.MaterialRepositoryImpl;
-import com.example.orderingsystem.model.service.FirebaseMaterialService;
 import com.example.orderingsystem.utils.FirebasePath;
-import com.example.orderingsystem.view.adapter.MaterialAdapter;
 import com.example.orderingsystem.utils.ItemClickListener;
+import com.example.orderingsystem.view.adapter.MaterialAdapter;
 import com.example.orderingsystem.viewmodel.MaterialViewModel;
-import com.google.firebase.database.FirebaseDatabase;
 import dagger.hilt.android.AndroidEntryPoint;
 import org.jetbrains.annotations.NotNull;
 
@@ -27,11 +23,10 @@ import javax.inject.Inject;
 @AndroidEntryPoint
 public class ShopFragment extends Fragment {
 
+    private static ShopFragment instance;
     @Inject
     public MaterialViewModel materialViewModel;
-
     private FragmentShopBinding binding;
-    private static ShopFragment instance;
 
     private ShopFragment() {
 

@@ -15,8 +15,8 @@ public class FirebaseAuthService {
     public FirebaseAuth firebaseAuth;
 
     @Inject
-    public FirebaseAuthService() {
-        this.firebaseAuth = FirebaseAuth.getInstance();
+    public FirebaseAuthService(FirebaseAuth firebaseAuth) {
+        this.firebaseAuth = firebaseAuth;
     }
 
     public Task<AuthResult> signInWithEmailPassword(String email, String password) {

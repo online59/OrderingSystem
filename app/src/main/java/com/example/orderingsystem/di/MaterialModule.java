@@ -13,6 +13,7 @@ import dagger.hilt.InstallIn;
 import dagger.hilt.android.components.ActivityComponent;
 import dagger.hilt.android.components.FragmentComponent;
 import dagger.hilt.android.components.ViewModelComponent;
+import dagger.hilt.android.scopes.ActivityScoped;
 import dagger.hilt.android.scopes.ViewModelScoped;
 import dagger.hilt.components.SingletonComponent;
 
@@ -23,14 +24,10 @@ import javax.inject.Singleton;
 public abstract class MaterialModule {
 
     @Binds
+    @ActivityScoped
     public abstract FirebaseAPI<Material> bindMaterialAPI(FirebaseMaterialService materialService);
 
     @Binds
+    @ActivityScoped
     public abstract MaterialRepository bindMaterialRepository(MaterialRepositoryImpl materialRepository);
-
-//    @Provides
-//    @ViewModelScoped
-//    public MaterialRepository provideMaterialRepository(FirebaseMaterialService materialService) {
-//        return new MaterialRepositoryImpl(materialService);
-//    }
 }
