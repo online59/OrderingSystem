@@ -18,8 +18,8 @@
             style="@style/HeaderTextStyle"/>
 
     <com.google.android.material.imageview.ShapeableImageView
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:id="@+id/itemImage"
             android:src="@drawable/image_placeholder"
             android:scaleType="centerCrop"
@@ -35,13 +35,24 @@
             android:layout_height="wrap_content"
             android:text="@string/common_google_play_services_install_title"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="24dp"
             android:textStyle="bold"
             style="@style/NormalTextStyle"
             app:layout_constraintLeft_toRightOf="@id/itemImage"
             app:layout_constraintTop_toTopOf="@id/itemImage"
-            app:layout_constraintBottom_toBottomOf="@id/itemImage"
-            app:layout_constraintRight_toLeftOf="@id/buttonDecremental"/>
+            app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView
+            android:id="@+id/itemPrice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/common_google_play_services_install_title"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="24dp"
+            style="@style/NormalTextStyle"
+            app:layout_constraintLeft_toRightOf="@id/itemImage"
+            app:layout_constraintTop_toBottomOf="@id/itemName"
+            app:layout_constraintRight_toRightOf="parent"/>
 
     <Button
             android:id="@+id/buttonDecremental"
@@ -50,11 +61,11 @@
             android:textStyle="bold"
             android:textColor="@color/white"
             android:text="-"
+            android:layout_marginEnd="12dp"
+            android:layout_marginTop="24dp"
             style="@style/NormalTextStyle"
-            android:layout_marginEnd="16dp"
             app:layout_constraintRight_toLeftOf="@id/quantity"
-            app:layout_constraintTop_toTopOf="@id/itemImage"
-            app:layout_constraintBottom_toBottomOf="@id/itemImage"/>
+            app:layout_constraintTop_toBottomOf="@id/itemPrice"/>
 
     <Button
             android:id="@+id/buttonIncremental"
@@ -66,25 +77,27 @@
             android:text="+"
             style="@style/NormalTextStyle"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/itemImage"
-            app:layout_constraintBottom_toBottomOf="@id/itemImage"/>
+            app:layout_constraintTop_toTopOf="@id/buttonDecremental"
+            app:layout_constraintBottom_toBottomOf="@id/buttonDecremental"/>
 
     <TextView
             android:id="@+id/quantity"
             android:layout_width="28dp"
             android:layout_height="wrap_content"
             android:text="1"
+            android:layout_marginEnd="12dp"
+            android:gravity="center"
             style="@style/NormalTextStyle"
             app:layout_constraintRight_toLeftOf="@id/buttonIncremental"
-            app:layout_constraintTop_toTopOf="@id/itemImage"
-            app:layout_constraintBottom_toBottomOf="@id/itemImage"/>
+            app:layout_constraintTop_toTopOf="@id/buttonDecremental"
+            app:layout_constraintBottom_toBottomOf="@id/buttonDecremental"/>
 
     <View
             android:id="@+id/separator_3"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/separator"
-            app:layout_constraintTop_toBottomOf="@id/itemImage"
+            app:layout_constraintTop_toBottomOf="@id/buttonDecremental"
             android:layout_marginTop="24dp"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -93,27 +106,26 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginTop="24dp"
             android:paddingStart="24dp"
             android:paddingEnd="24dp"
             android:padding="8dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/itemImage">
+            app:layout_constraintTop_toBottomOf="@id/separator_3">
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintLeft_toRightOf="@id/item_price"
+                app:layout_constraintLeft_toRightOf="@id/totalPrice"
                 android:text="฿"
                 android:textSize="16sp"
                 android:textColor="@color/black"
                 android:layout_marginStart="4dp"
                 android:id="@+id/currency"
-                app:layout_constraintTop_toTopOf="@id/item_price"/>
+                app:layout_constraintTop_toTopOf="@id/totalPrice"/>
 
         <TextView
-                android:id="@+id/item_price"
+                android:id="@+id/totalPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
@@ -122,11 +134,11 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:text="Item Price"/>
+                android:text="Total Price"/>
 
         <Button
                 android:id="@+id/buttonBuyItem"
-                android:layout_width="160dp"
+                android:layout_width="144dp"
                 android:layout_height="56dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"

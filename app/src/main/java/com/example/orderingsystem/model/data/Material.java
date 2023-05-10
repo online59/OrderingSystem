@@ -1,15 +1,10 @@
 package com.example.orderingsystem.model.data;
 
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
 import com.example.orderingsystem.database.entity.MaterialEntity;
 import com.google.firebase.database.Exclude;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
-import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,10 +20,12 @@ public class Material {
     private int produceYear;
     @SerializedName("description")
     private String description;
-    @SerializedName("remaining")
-    private int remaining;
+    @SerializedName("quantity")
+    private int quantity;
     @SerializedName("price")
     private float price;
+    @SerializedName("variant")
+    private String[] variant;
 
     @Exclude
     public List<MaterialEntity> asDatabaseModel(List<Material> materialList) {
@@ -38,7 +35,7 @@ public class Material {
             entity.setItemName(material.itemName);
             entity.setProduceYear(material.produceYear);
             entity.setDescription(material.description);
-            entity.setRemaining(material.remaining);
+            entity.setRemaining(material.quantity);
             entity.setPrice(material.price);
             return entity;
         }).collect(Collectors.toList());

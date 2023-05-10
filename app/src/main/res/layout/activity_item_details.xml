@@ -142,16 +142,16 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintLeft_toRightOf="@id/item_price"
+                app:layout_constraintLeft_toRightOf="@id/itemPrice"
                 android:text="฿"
                 android:textSize="16sp"
                 android:textColor="@color/black"
                 android:layout_marginStart="4dp"
                 android:id="@+id/currency"
-                app:layout_constraintTop_toTopOf="@id/item_price"/>
+                app:layout_constraintTop_toTopOf="@id/itemPrice"/>
 
         <TextView
-                android:id="@+id/item_price"
+                android:id="@+id/itemPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"

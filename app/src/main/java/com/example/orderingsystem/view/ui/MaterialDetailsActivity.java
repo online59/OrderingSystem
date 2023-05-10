@@ -55,7 +55,7 @@ public class MaterialDetailsActivity extends AppCompatActivity {
 
             binding.itemName.setText(shopItem.getItemName());
             binding.itemPrice.setText(String.valueOf(shopItem.getPrice()));
-            binding.itemQuantity.setText(String.valueOf(shopItem.getRemaining()));
+            binding.itemQuantity.setText(String.valueOf(shopItem.getQuantity()));
             binding.itemDetails.setText(shopItem.getDescription());
             binding.itemYear.setText(String.valueOf(shopItem.getProduceYear()));
 
@@ -119,6 +119,8 @@ public class MaterialDetailsActivity extends AppCompatActivity {
 
         bottomSheetBinding.itemName.setText(shopItem.getItemName());
 
+        bottomSheetBinding.itemPrice.setText(String.valueOf(shopItem.getPrice()));
+
         String defaultQuantity = "1";
         bottomSheetBinding.quantity.setText(defaultQuantity);
 
@@ -132,7 +134,7 @@ public class MaterialDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                int newQuantity = incremental(Integer.parseInt(bottomSheetBinding.quantity.getText().toString()), shopItem.getRemaining());
+                int newQuantity = incremental(Integer.parseInt(bottomSheetBinding.quantity.getText().toString()), shopItem.getQuantity());
 
                 // Update ui
                 updateQuantityAndPrice(newQuantity, shopItem.getPrice());
