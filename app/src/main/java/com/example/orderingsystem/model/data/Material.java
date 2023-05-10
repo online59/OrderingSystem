@@ -24,6 +24,10 @@ public class Material {
     private int quantity;
     @SerializedName("price")
     private float price;
+    @SerializedName("weight")
+    private float weight;
+    @SerializedName("dimension")
+    private float[] dimension;
     @SerializedName("variant")
     private String[] variant;
 

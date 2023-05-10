@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
 
     <!-- Custom colors -->
+    <color name="stroke">#FFAAAAAA</color>
     <color name="separator">#FFE4E4E4</color>
     <color name="bottomBar">#FFEFEFEF</color>
 </resources>

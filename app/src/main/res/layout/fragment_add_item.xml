@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         tools:context=".view.ui.AddItemFragment">
 
-    <LinearLayout
+    <ScrollView
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="96dp"
             android:orientation="vertical">
 
         <TextView
@@ -19,6 +27,37 @@
                 style="@style/HeaderTextStyle"
                 android:text="Create New Item"
                 android:id="@+id/pageTitle"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Images"
+                android:layout_marginStart="24dp"
+                style="@style/NormalTextStyle"/>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="24dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:orientation="horizontal">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:src="@drawable/image_placeholder"
+                    android:scaleType="centerCrop"
+                    app:shapeAppearanceOverlay="@style/RoundedCornerImageView"
+                    android:id="@+id/itemImage"/>
+
+        </LinearLayout>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="24dp"
+                android:background="@color/separator"/>
 
         <TextView
                 android:layout_width="wrap_content"
@@ -66,12 +105,11 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-
         <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/editTextEmailContainer"
+                android:id="@+id/editTextProduceYearContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Price Per Item"
+                android:hint="Produce Year"
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="24dp"
@@ -79,33 +117,58 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTextPrice"
+                    android:id="@+id/editTextProduceYear"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
-
-
-        <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/editTextQuantityContainer"
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Quantity In Stock"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginBottom="24dp"
-                app:endIconMode="clear_text"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                android:weightSum="2"
+                android:orientation="horizontal">
 
-            <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTextRemainingQuantity"
-                    android:layout_width="match_parent"
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/editTextPriceContainer"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"/>
+                    android:hint="Price Per Item"
+                    android:layout_weight="1"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginBottom="24dp"
+                    app:endIconMode="clear_text"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editTextPrice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textEmailAddress"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/editTextQuantityContainer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Quantity In Stock"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="24dp"
+                    app:endIconMode="clear_text"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editTextRemainingQuantity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textEmailAddress"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
 
         <View
                 android:layout_width="match_parent"
@@ -113,45 +176,111 @@
                 android:layout_marginBottom="24dp"
                 android:background="@color/separator"/>
 
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Item Specification"
+                android:layout_marginStart="24dp"
+                android:layout_marginBottom="12dp"
+                style="@style/NormalTextStyle"/>
+
         <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/editTextPasswordContainer"
+                android:id="@+id/editTextWeightContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Password"
+                android:hint="Weight"
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="24dp"
-                app:endIconMode="password_toggle"
+                app:endIconMode="clear_text"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTextPassword"
+                    android:id="@+id/editTextWeight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"/>
+                    android:inputType="text"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
-
-        <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/editTextConfirmPasswordContainer"
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Confirm Password"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginBottom="24dp"
-                app:endIconMode="password_toggle"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                android:weightSum="3"
+                android:orientation="horizontal">
 
-            <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTextConfirmPassword"
-                    android:layout_width="match_parent"
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/editTextDimensionWContainer"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"/>
+                    android:layout_weight="1"
+                    android:hint="Width"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginBottom="24dp"
+                    app:endIconMode="clear_text"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editTextDimensionW"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/editTextDimensionLContainer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Length"
+                    android:layout_marginEnd="24dp"
+                    app:endIconMode="clear_text"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editTextDimensionL"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/editTextDimensionHContainer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Height"
+                    android:layout_marginEnd="24dp"
+                    app:endIconMode="clear_text"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editTextDimensionH"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 
-</ScrollView>
+    </ScrollView>
+
+    <Button
+            android:id="@+id/buttonSignUp"
+            android:layout_width="0dp"
+            android:layout_height="?actionBarSize"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="24dp"
+            android:text="Create Item"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

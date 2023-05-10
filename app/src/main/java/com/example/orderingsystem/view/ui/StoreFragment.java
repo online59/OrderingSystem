@@ -46,6 +46,7 @@ public class StoreFragment extends Fragment {
 
         setValueForView();
         whenSignOutButtonClick();
+        whenAddNewItemButtonClick();
 
         return binding.getRoot();
     }
@@ -66,6 +67,15 @@ public class StoreFragment extends Fragment {
             public void onClick(View view) {
                 signUserOut();
                 startActivity(new Intent(getActivity(), SignInActivity.class));
+            }
+        });
+    }
+
+    private void whenAddNewItemButtonClick() {
+        binding.buttonAddNewItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), AddEditActivity.class));
             }
         });
     }
