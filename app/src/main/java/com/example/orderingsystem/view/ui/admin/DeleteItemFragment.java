@@ -1,4 +1,4 @@
-package com.example.orderingsystem.view.ui;
+package com.example.orderingsystem.view.ui.admin;
 
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;

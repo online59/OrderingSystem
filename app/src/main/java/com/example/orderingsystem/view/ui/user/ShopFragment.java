@@ -1,4 +1,4 @@
-package com.example.orderingsystem.view.ui;
+package com.example.orderingsystem.view.ui.user;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +14,7 @@ import com.example.orderingsystem.databinding.FragmentShopBinding;
 import com.example.orderingsystem.utils.FirebasePath;
 import com.example.orderingsystem.utils.ItemClickListener;
 import com.example.orderingsystem.view.adapter.MaterialAdapter;
+import com.example.orderingsystem.view.ui.MaterialDetailsActivity;
 import com.example.orderingsystem.viewmodel.MaterialViewModel;
 import dagger.hilt.android.AndroidEntryPoint;
 import org.jetbrains.annotations.NotNull;

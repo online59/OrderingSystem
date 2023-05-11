@@ -5,7 +5,9 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.ui.AddItemFragment">
+        android:layout_marginStart="@dimen/screenStartMargin"
+        android:layout_marginEnd="@dimen/screenEndMargin"
+        tools:context=".view.ui.admin.AddItemFragment">
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -13,26 +15,25 @@
                 android:orientation="vertical">
 
         <TextView
-                android:layout_margin="24dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/HeaderTextStyle"
                 android:text="Create New Item"
+                android:layout_marginTop="@dimen/screenTopMargin"
+                android:layout_marginBottom="@dimen/headerBottomSeparation"
                 android:id="@+id/pageTitle"/>
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Images"
-                android:layout_marginStart="24dp"
+                android:text="Select Images"
+                android:layout_marginTop="@dimen/subTitleSeparation"
+                android:layout_marginBottom="@dimen/subTitleSeparation"
                 style="@style/NormalTextStyle"/>
 
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="24dp"
-                android:paddingTop="12dp"
-                android:paddingBottom="12dp"
                 android:orientation="horizontal">
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -45,18 +46,12 @@
 
         </LinearLayout>
 
-        <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginBottom="24dp"
-                android:background="@color/separator"/>
-
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Item Details"
-                android:layout_marginStart="24dp"
-                android:layout_marginBottom="12dp"
+                android:layout_marginTop="@dimen/subTitleSeparation"
+                android:layout_marginBottom="@dimen/subTitleSeparation"
                 style="@style/NormalTextStyle"/>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -64,9 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Item Name"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="@dimen/normalVerticalSeparation"
                 app:endIconMode="clear_text"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -83,9 +76,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Item Details"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="@dimen/normalVerticalSeparation"
                 app:endIconMode="clear_text"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -102,9 +93,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Produce Year"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="@dimen/normalVerticalSeparation"
                 app:endIconMode="clear_text"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -120,6 +109,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:weightSum="2"
+                android:layout_marginBottom="@dimen/normalVerticalSeparation"
                 android:orientation="horizontal">
 
             <com.google.android.material.textfield.TextInputLayout
@@ -128,9 +118,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Price Per Item"
                     android:layout_weight="1"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginEnd="24dp"
-                    android:layout_marginBottom="24dp"
+                    android:layout_marginEnd="@dimen/normalHorizontalSeparation"
                     app:endIconMode="clear_text"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -148,7 +136,6 @@
                     android:layout_height="wrap_content"
                     android:hint="Quantity In Stock"
                     android:layout_weight="1"
-                    android:layout_marginEnd="24dp"
                     app:endIconMode="clear_text"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -162,18 +149,12 @@
 
         </LinearLayout>
 
-        <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginBottom="24dp"
-                android:background="@color/separator"/>
-
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Item Specification"
-                android:layout_marginStart="24dp"
-                android:layout_marginBottom="12dp"
+                android:layout_marginTop="@dimen/subTitleSeparation"
+                android:layout_marginBottom="@dimen/subTitleSeparation"
                 style="@style/NormalTextStyle"/>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -181,9 +162,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Weight"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="@dimen/normalVerticalSeparation"
                 app:endIconMode="clear_text"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -199,6 +178,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:weightSum="3"
+                android:layout_marginBottom="@dimen/normalVerticalSeparation"
                 android:orientation="horizontal">
 
             <com.google.android.material.textfield.TextInputLayout
@@ -207,9 +187,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="Width"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginEnd="24dp"
-                    android:layout_marginBottom="24dp"
+                    android:layout_marginEnd="@dimen/normalHorizontalSeparation"
                     app:endIconMode="clear_text"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -228,7 +206,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="Length"
-                    android:layout_marginEnd="24dp"
+                    android:layout_marginEnd="@dimen/normalHorizontalSeparation"
                     app:endIconMode="clear_text"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -246,7 +224,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="Height"
-                    android:layout_marginEnd="24dp"
                     app:endIconMode="clear_text"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -261,4 +238,5 @@
         </LinearLayout>
 
     </LinearLayout>
+
 </ScrollView>

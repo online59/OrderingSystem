@@ -1,11 +1,10 @@
-package com.example.orderingsystem.view.ui;
+package com.example.orderingsystem.view.ui.admin;
 
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.example.orderingsystem.R;
 import com.example.orderingsystem.databinding.FragmentAddItemBinding;
 
 public class AddItemFragment extends Fragment {

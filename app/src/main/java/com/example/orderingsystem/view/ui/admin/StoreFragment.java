@@ -1,4 +1,4 @@
-package com.example.orderingsystem.view.ui;
+package com.example.orderingsystem.view.ui.admin;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import com.example.orderingsystem.databinding.FragmentStoreBinding;
 import com.example.orderingsystem.utils.FirebasePath;
+import com.example.orderingsystem.view.ui.SignInActivity;
 import com.example.orderingsystem.viewmodel.AuthViewModel;
 import com.example.orderingsystem.viewmodel.UserViewModel;
 import dagger.hilt.android.AndroidEntryPoint;

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="normalVerticalSeparation">6dp</dimen>
+    <dimen name="normalHorizontalSeparation">4dp</dimen>
+    <dimen name="screenStartMargin">16dp</dimen>
+    <dimen name="screenEndMargin">16dp</dimen>
+    <dimen name="subTitleSeparation">12dp</dimen>
+    <dimen name="screenTopMargin">24dp</dimen>
+    <dimen name="headerBottomSeparation">24dp</dimen>
+</resources>

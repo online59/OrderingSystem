@@ -1,4 +1,4 @@
-package com.example.orderingsystem.view.ui;
+package com.example.orderingsystem.view.ui.user;
 
 import android.content.Context;
 import android.os.Bundle;

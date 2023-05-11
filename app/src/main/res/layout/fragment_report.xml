@@ -6,7 +6,7 @@
         android:layout_height="match_parent"
         android:paddingBottom="?actionBarSize"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        tools:context=".view.ui.ReportFragment">
+        tools:context=".view.ui.admin.ReportFragment">
 
         <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/saleReportChart"

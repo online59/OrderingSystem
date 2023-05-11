@@ -5,7 +5,7 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              android:paddingBottom="?actionBarSize"
-             tools:context=".view.ui.StoreOrderFragment">
+             tools:context=".view.ui.admin.StoreOrderFragment">
 
     <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
