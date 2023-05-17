@@ -28,6 +28,7 @@ public class AddItemFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentAddItemBinding.inflate(inflater, container, false);
+
         return binding.getRoot();
     }
 }

@@ -1,5 +1,6 @@
 package com.example.orderingsystem.view.ui.admin;
 
+import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
@@ -17,6 +18,19 @@ public class AddEditActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         translateFragment(R.id.ui_container, AddItemFragment.newInstance());
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        handlingClickEvent();
+    }
+
+    private void handlingClickEvent() {
+        binding.buttonSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void translateFragment(int container, Fragment fragment) {
@@ -26,5 +40,11 @@ public class AddEditActivity extends AppCompatActivity {
                 .setReorderingAllowed(true)
                 .addToBackStack(null)
                 .commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

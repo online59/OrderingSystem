@@ -70,7 +70,10 @@ public class SignInActivity extends AppCompatActivity {
             return;
         }
 
-        authViewModel.signInWithEmailPassword(signInData[0], signInData[1]).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        int username = 0;
+        int password = 1;
+
+        authViewModel.signInWithEmailPassword(signInData[username], signInData[password]).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
 

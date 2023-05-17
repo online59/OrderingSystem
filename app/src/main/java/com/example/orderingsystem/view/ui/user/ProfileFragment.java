@@ -117,5 +117,6 @@ public class ProfileFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         Log.e("ProfileFragment", "onDestroy: called");
+        instance = null;
     }
 }

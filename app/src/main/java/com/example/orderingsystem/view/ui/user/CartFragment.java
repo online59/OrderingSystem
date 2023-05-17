@@ -105,5 +105,6 @@ public class CartFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         Log.e("CartFragment", "onDestroy: called" );
+        instance = null;
     }
 }

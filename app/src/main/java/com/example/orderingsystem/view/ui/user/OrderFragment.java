@@ -104,5 +104,6 @@ public class OrderFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         Log.e("OrderFragment", "onDestroy: called");
+        instance = null;
     }
 }

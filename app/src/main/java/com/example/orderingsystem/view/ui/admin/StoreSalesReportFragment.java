@@ -21,19 +21,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 @AndroidEntryPoint
-public class ReportFragment extends Fragment {
+public class StoreSalesReportFragment extends Fragment {
 
-    private static ReportFragment instance;
+    private static StoreSalesReportFragment instance;
     @Inject
     public OrderViewModel orderViewModel;
     private FragmentReportBinding binding;
 
-    private ReportFragment() {
+    private StoreSalesReportFragment() {
     }
 
-    public static ReportFragment getInstance() {
+    public static StoreSalesReportFragment getInstance() {
         if (instance == null) {
-            instance = new ReportFragment();
+            instance = new StoreSalesReportFragment();
         }
         return instance;
     }
@@ -96,5 +96,11 @@ public class ReportFragment extends Fragment {
         binding.saleReportChart.setBackgroundColor(getResources().getColor(R.color.white));
         binding.saleReportChart.animateXY(2000, 2000, Easing.EaseInCubic);
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        instance = null;
     }
 }

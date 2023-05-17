@@ -2,15 +2,20 @@ package com.example.orderingsystem.view.ui.admin;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import com.example.orderingsystem.R;
 import com.example.orderingsystem.databinding.FragmentStoreBinding;
 import com.example.orderingsystem.utils.FirebasePath;
-import com.example.orderingsystem.view.ui.SignInActivity;
-import com.example.orderingsystem.viewmodel.AuthViewModel;
-import com.example.orderingsystem.viewmodel.UserViewModel;
+import com.example.orderingsystem.utils.ItemClickListener;
+import com.example.orderingsystem.view.adapter.MaterialAdapter;
+import com.example.orderingsystem.view.ui.MaterialDetailsActivity;
+import com.example.orderingsystem.view.ui.StoreMaterialDetailsActivity;
+import com.example.orderingsystem.viewmodel.MaterialViewModel;
 import dagger.hilt.android.AndroidEntryPoint;
 
 import javax.inject.Inject;
@@ -19,13 +24,14 @@ import javax.inject.Inject;
 public class StoreFragment extends Fragment {
 
     private static StoreFragment instance;
+
     @Inject
-    public AuthViewModel authViewModel;
-    @Inject
-    public UserViewModel userViewModel;
+    public MaterialViewModel materialViewModel;
+
     private FragmentStoreBinding binding;
 
     private StoreFragment() {
+        // Required empty public constructor
     }
 
     public static StoreFragment getInstance() {
@@ -45,43 +51,41 @@ public class StoreFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentStoreBinding.inflate(inflater, container, false);
 
-        setValueForView();
-        whenSignOutButtonClick();
-        whenAddNewItemButtonClick();
+        displayItemOnStore();
 
         return binding.getRoot();
     }
 
+    private void displayItemOnStore() {
 
-    private void setValueForView() {
-        userViewModel.getById(authViewModel.getCurrentUser().getUid(), FirebasePath.PATH_USER).observe(getViewLifecycleOwner(), user -> {
-            binding.userFullName.setText(user.getFullName());
-            binding.userEmail.setText(user.getEmail());
-            binding.userEmailDetail.setText(user.getEmail());
-        });
-    }
+        int columnNumber = 2;
+        int columnSpace = 50; // px
+        boolean includeEdge = true;
 
+        binding.recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), columnNumber));
 
-    private void whenSignOutButtonClick() {
-        binding.buttonSignOut.setOnClickListener(new View.OnClickListener() {
+        binding.recyclerView.setHasFixedSize(true);
+
+        MaterialAdapter materialAdapter = new MaterialAdapter();
+
+        materialViewModel.getAll(FirebasePath.PATH_MATERIAL).observe(getViewLifecycleOwner(), materialAdapter::setShopItemList);
+
+        binding.recyclerView.setAdapter(materialAdapter);
+
+        materialAdapter.setItemClickListener(new ItemClickListener() {
             @Override
-            public void onClick(View view) {
-                signUserOut();
-                startActivity(new Intent(getActivity(), SignInActivity.class));
+            public void setOnItemClick(int position) {
+                Intent intent = new Intent(getActivity(), StoreMaterialDetailsActivity.class);
+                Log.e("TAG", "setOnItemClick: " + materialAdapter.getMaterial(position).getItemId());
+                intent.putExtra("item_id", materialAdapter.getMaterial(position).getItemId());
+                startActivity(intent);
             }
         });
     }
 
-    private void whenAddNewItemButtonClick() {
-        binding.buttonAddNewItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), AddEditActivity.class));
-            }
-        });
-    }
-
-    private void signUserOut() {
-        authViewModel.signOut();
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        instance = null;
     }
 }

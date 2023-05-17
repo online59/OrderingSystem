@@ -98,4 +98,10 @@ public class StoreOrderFragment extends Fragment {
     private String getIncomingOrderPath(Order order) {
         return MyUtils.addItemsWithSlashSeparator(FirebasePath.PATH_ORDER, order.getUserId());
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        instance = null;
+    }
 }

@@ -5,6 +5,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 import com.example.orderingsystem.R;
 import com.example.orderingsystem.databinding.ActivityMainBinding;
 import com.example.orderingsystem.view.ui.user.CartFragment;
@@ -26,6 +30,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setupBottomNavBar();
+//        setupNavController();
+    }
+
+    private void setupNavController() {
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.navigation_shop, R.id.navigation_cart, R.id.navigation_order, R.id.navigation_profile
+        ).build();
+
+        NavController navController = Navigation.findNavController(this, R.id.ui_container);
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        NavigationUI.setupWithNavController(binding.bottomNavigationView, navController);
     }
 
     private void setupBottomNavBar() {

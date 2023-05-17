@@ -7,8 +7,9 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import com.example.orderingsystem.R;
 import com.example.orderingsystem.databinding.ActivityAdminMainBinding;
-import com.example.orderingsystem.view.ui.admin.ReportFragment;
 import com.example.orderingsystem.view.ui.admin.StoreFragment;
+import com.example.orderingsystem.view.ui.admin.StoreSalesReportFragment;
+import com.example.orderingsystem.view.ui.admin.StoreProfileFragment;
 import com.example.orderingsystem.view.ui.admin.StoreOrderFragment;
 import com.example.orderingsystem.view.ui.user.ShopFragment;
 import com.google.android.material.navigation.NavigationBarView;
@@ -39,16 +40,16 @@ public class AdminMainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.shop:
-                    translateFragment(R.id.ui_container, ShopFragment.getInstance());
+                    translateFragment(R.id.ui_container, StoreFragment.getInstance());
                     return true;
                 case R.id.order:
                     translateFragment(R.id.ui_container, StoreOrderFragment.getInstance());
                     return true;
                 case R.id.report:
-                    translateFragment(R.id.ui_container, ReportFragment.getInstance());
+                    translateFragment(R.id.ui_container, StoreSalesReportFragment.getInstance());
                     return true;
                 case R.id.store:
-                    translateFragment(R.id.ui_container, StoreFragment.getInstance());
+                    translateFragment(R.id.ui_container, StoreProfileFragment.getInstance());
                     return true;
             }
             return false;
@@ -56,6 +57,11 @@ public class AdminMainActivity extends AppCompatActivity {
     };
 
     private void translateFragment(int container, Fragment fragment) {
-        getSupportFragmentManager().beginTransaction().replace(container, fragment).commit();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(container, fragment)
+                .setReorderingAllowed(true)
+                .addToBackStack(null)
+                .commit();
     }
 }

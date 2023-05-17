@@ -73,7 +73,7 @@ public class MaterialDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                showDialogToSelectQuantity(shopItem);
+                showSelectQuantityDialog(shopItem);
 
             }
         });
@@ -94,20 +94,20 @@ public class MaterialDetailsActivity extends AppCompatActivity {
         });
     }
 
-    private void showDialogToSelectQuantity(Material shopItem) {
+    private void showSelectQuantityDialog(Material shopItem) {
 
-        setupDialog();
-        setupUi(shopItem);
+        initDialog();
+        setupDialogUi(shopItem);
 
         // Event handling
-        whenIncrementButtonClick(shopItem);
-        whenDecrementButtonClick(shopItem);
+        whenQuantityIncrementButtonClick(shopItem);
+        whenQuantityDecrementButtonClick(shopItem);
         whenBuyButtonClick(shopItem);
 
         bottomSheetDialog.show();
     }
 
-    private void setupDialog() {
+    private void initDialog() {
         bottomSheetBinding = BottomSheetOrderQuantityBinding.inflate(getLayoutInflater());
 
         bottomSheetDialog = new BottomSheetDialog(this);
@@ -115,7 +115,7 @@ public class MaterialDetailsActivity extends AppCompatActivity {
     }
 
 
-    private void setupUi(Material shopItem) {
+    private void setupDialogUi(Material shopItem) {
 
         bottomSheetBinding.itemName.setText(shopItem.getItemName());
 
@@ -128,7 +128,7 @@ public class MaterialDetailsActivity extends AppCompatActivity {
         bottomSheetBinding.itemPrice.setText(itemPriceAtOnePiece);
     }
 
-    private void whenIncrementButtonClick(Material shopItem) {
+    private void whenQuantityIncrementButtonClick(Material shopItem) {
 
         bottomSheetBinding.buttonIncremental.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,7 +142,7 @@ public class MaterialDetailsActivity extends AppCompatActivity {
         });
     }
 
-    private void whenDecrementButtonClick(Material shopItem) {
+    private void whenQuantityDecrementButtonClick(Material shopItem) {
 
         bottomSheetBinding.buttonDecremental.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,8 +164,9 @@ public class MaterialDetailsActivity extends AppCompatActivity {
                 Order order = createOrderData(shopItem, bottomSheetBinding.quantity.getText().toString());
 
                 // Add order to user relative path
-                orderViewModel.write(order, getCurrentUserOrderingPath(order.getOrderId()));
+                orderViewModel.write(order, getCurrentUserOrderPath(order.getOrderId()));
 
+                // Should check if write order to user is success then write order to store
                 // Add order to store relative path
                 orderViewModel.write(order, getStorePath(order.getOrderId()));
 
@@ -224,7 +225,7 @@ public class MaterialDetailsActivity extends AppCompatActivity {
         materialViewModel.removeById(itemId, getCurrentUserCartPath(""));
     }
 
-    private String getCurrentUserOrderingPath(String key) {
+    private String getCurrentUserOrderPath(String key) {
         return MyUtils.addItemsWithSlashSeparator(FirebasePath.PATH_ORDER, authViewModel.getCurrentUser().getUid(), key);
     }
 

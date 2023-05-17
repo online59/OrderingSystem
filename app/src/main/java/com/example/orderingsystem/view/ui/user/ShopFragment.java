@@ -50,12 +50,12 @@ public class ShopFragment extends Fragment {
 
         binding = FragmentShopBinding.inflate(inflater, container, false);
 
-        displayShopItemOnRecycleView();
+        displayAllItems();
 
         return binding.getRoot();
     }
 
-    private void displayShopItemOnRecycleView() {
+    private void displayAllItems() {
 
         int columnNumber = 2;
         int columnSpace = 50; // px
@@ -98,5 +98,6 @@ public class ShopFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         Log.e("ShopFragment", "onDestroy: called");
+        instance = null;
     }
 }

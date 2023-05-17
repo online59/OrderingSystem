@@ -15,11 +15,14 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.OrderingSystem"
             tools:targetApi="31">
-
+        <activity
+                android:name=".view.ui.StoreMaterialDetailsActivity"
+                android:exported="false"
+                android:parentActivityName=".view.AdminMainActivity"/>
         <activity
                 android:name=".view.ui.admin.AddEditActivity"
-                android:exported="false"/>
-
+                android:exported="false"
+                android:parentActivityName=".view.AdminMainActivity"/>
         <activity
                 android:name=".view.AdminMainActivity"
                 android:exported="false"/>
@@ -50,7 +53,8 @@
         </activity>
         <activity
                 android:name=".view.ui.MaterialDetailsActivity"
-                android:exported="false">
+                android:exported="false"
+                android:parentActivityName=".view.MainActivity">
             <meta-data
                     android:name="android.app.lib_name"
                     android:value=""/>
