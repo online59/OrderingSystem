@@ -1,6 +1,7 @@
 package com.example.orderingsystem.view.ui.user;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import com.example.orderingsystem.databinding.FragmentProfileBinding;
 import com.example.orderingsystem.utils.FirebasePath;
+import com.example.orderingsystem.view.ui.SignInActivity;
 import com.example.orderingsystem.viewmodel.AuthViewModel;
 import com.example.orderingsystem.viewmodel.UserViewModel;
 import dagger.hilt.android.AndroidEntryPoint;
@@ -69,32 +71,9 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 signUserOut();
-
-//                destroyFragmentsAssociatedActivity();
-
-                requireActivity().finish();
+                startActivity(new Intent(requireActivity(), SignInActivity.class));
             }
         });
-    }
-
-    private void destroyFragmentsAssociatedActivity() {
-        FragmentManager fragmentManager = getParentFragmentManager();
-        int countFragment = fragmentManager.getBackStackEntryCount();
-        for (int iteration = 0; iteration < countFragment; iteration++) {
-            Fragment fragment = fragmentManager.findFragmentByTag(fragmentManager.getBackStackEntryAt(countFragment).getName());
-            Log.e("TAG", "destroyActivityAssociatedFragments_backStack: " + fragment);
-            if (fragment != null) {
-                fragmentManager.beginTransaction().remove(fragment).commit();
-            }
-        }
-
-
-        for (Fragment fragment : fragmentManager.getFragments()) {
-            Log.e("TAG", "destroyActivityAssociatedFragments: " + fragment);
-            if (fragment != null) {
-                fragmentManager.beginTransaction().remove(fragment).commit();
-            }
-        }
     }
 
     private void signUserOut() {

@@ -1,6 +1,6 @@
 package com.example.orderingsystem.model.data;
 
-import com.example.orderingsystem.database.entity.MaterialEntity;
+import com.example.orderingsystem.model.database.MaterialEntity;
 import com.google.firebase.database.Exclude;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
@@ -24,12 +24,6 @@ public class Material {
     private int quantity;
     @SerializedName("price")
     private float price;
-    @SerializedName("weight")
-    private float weight;
-    @SerializedName("dimension")
-    private float[] dimension;
-    @SerializedName("variant")
-    private String[] variant;
 
     @Exclude
     public List<MaterialEntity> asDatabaseModel(List<Material> materialList) {
@@ -39,7 +33,7 @@ public class Material {
             entity.setItemName(material.itemName);
             entity.setProduceYear(material.produceYear);
             entity.setDescription(material.description);
-            entity.setRemaining(material.quantity);
+            entity.setQuantity(material.quantity);
             entity.setPrice(material.price);
             return entity;
         }).collect(Collectors.toList());

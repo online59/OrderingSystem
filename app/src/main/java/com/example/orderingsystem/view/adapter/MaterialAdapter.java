@@ -1,5 +1,6 @@
 package com.example.orderingsystem.view.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.orderingsystem.databinding.MaterialCardBinding;
 import com.example.orderingsystem.model.data.Material;
 import com.example.orderingsystem.utils.ItemClickListener;
+import com.example.orderingsystem.utils.MyUtils;
 import com.example.orderingsystem.view.viewholder.MaterialViewHolder;
 import org.jetbrains.annotations.NotNull;
 
@@ -22,8 +24,11 @@ public class MaterialAdapter extends RecyclerView.Adapter<MaterialViewHolder>{
     public MaterialAdapter() {
     }
 
-    public void setShopItemList(List<Material> itemList) {
-        this.materialList = itemList;
+    public void setShopItemList(List<Material> materialList) {
+
+        if (this.materialList != null) this.materialList.clear();
+
+        this.materialList = materialList;
         notifyDataSetChanged();
     }
 

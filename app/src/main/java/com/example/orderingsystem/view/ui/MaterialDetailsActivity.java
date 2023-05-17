@@ -47,6 +47,8 @@ public class MaterialDetailsActivity extends AppCompatActivity {
 
         displaySelectedItemDetails();
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
     private void displaySelectedItemDetails() {
@@ -241,4 +243,10 @@ public class MaterialDetailsActivity extends AppCompatActivity {
         Snackbar.make(MaterialDetailsActivity.this, view, "Add item successfully", Snackbar.LENGTH_SHORT).show();
     }
 
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }

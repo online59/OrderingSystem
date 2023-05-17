@@ -90,6 +90,7 @@ public class OrderFragment extends Fragment {
             public void setOnItemClick(int position) {
                 Intent intent = new Intent(getActivity(), MaterialDetailsActivity.class);
                 intent.putExtra("item_id", orderAdapter.getOder(position).getItemId());
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
             }
         });

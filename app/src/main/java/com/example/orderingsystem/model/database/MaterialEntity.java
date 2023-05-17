@@ -1,4 +1,4 @@
-package com.example.orderingsystem.database.entity;
+package com.example.orderingsystem.model.database;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
@@ -24,7 +24,7 @@ public class MaterialEntity {
     @ColumnInfo(name = "description")
     private String description;
     @ColumnInfo(name = "remaining")
-    private int remaining;
+    private int quantity;
     @ColumnInfo(name = "price")
     private float price;
 }

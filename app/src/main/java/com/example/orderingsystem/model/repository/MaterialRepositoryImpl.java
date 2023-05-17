@@ -1,10 +1,8 @@
 package com.example.orderingsystem.model.repository;
 
 import androidx.lifecycle.LiveData;
-import com.example.orderingsystem.database.dao.MaterialDatabase;
 import com.example.orderingsystem.model.api.FirebaseAPI;
 import com.example.orderingsystem.model.data.Material;
-import com.example.orderingsystem.model.service.FirebaseMaterialService;
 
 import javax.inject.Inject;
 import java.util.List;

@@ -7,4 +7,6 @@
     <dimen name="subTitleSeparation">12dp</dimen>
     <dimen name="screenTopMargin">24dp</dimen>
     <dimen name="headerBottomSeparation">24dp</dimen>
+    <dimen name="itemImageOrderCard">96dp</dimen>
+    <dimen name="smallTopMargin">4dp</dimen>
 </resources>

@@ -67,7 +67,7 @@ public class StoreProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 signUserOut();
-                startActivity(new Intent(getActivity(), SignInActivity.class));
+                startActivity(new Intent(requireActivity(), SignInActivity.class));
             }
         });
     }

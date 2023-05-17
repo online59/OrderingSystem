@@ -12,8 +12,7 @@
             android:id="@+id/recycler_view"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:padding="8dp"
-            tools:listitem="@layout/material_card"
+            tools:listitem="@layout/order_card"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>

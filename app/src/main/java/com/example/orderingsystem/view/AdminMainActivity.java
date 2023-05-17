@@ -12,14 +12,20 @@ import com.example.orderingsystem.view.ui.admin.StoreSalesReportFragment;
 import com.example.orderingsystem.view.ui.admin.StoreProfileFragment;
 import com.example.orderingsystem.view.ui.admin.StoreOrderFragment;
 import com.example.orderingsystem.view.ui.user.ShopFragment;
+import com.example.orderingsystem.viewmodel.AuthViewModel;
 import com.google.android.material.navigation.NavigationBarView;
 import dagger.hilt.android.AndroidEntryPoint;
 import org.jetbrains.annotations.NotNull;
+
+import javax.inject.Inject;
 
 @AndroidEntryPoint
 public class AdminMainActivity extends AppCompatActivity {
 
     private ActivityAdminMainBinding binding;
+
+    @Inject
+    public AuthViewModel authViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,5 +73,11 @@ public class AdminMainActivity extends AppCompatActivity {
                 .setReorderingAllowed(true)
                 .addToBackStack(null)
                 .commit();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        authViewModel = null;
     }
 }

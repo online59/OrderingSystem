@@ -44,6 +44,8 @@ public class StoreMaterialDetailsActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         displaySelectedItemDetails();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
 
@@ -62,5 +64,11 @@ public class StoreMaterialDetailsActivity extends AppCompatActivity {
 
     private String getItemIdFromIntent() {
         return getIntent().getStringExtra("item_id");
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

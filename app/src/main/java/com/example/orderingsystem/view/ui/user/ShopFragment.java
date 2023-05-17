@@ -91,6 +91,7 @@ public class ShopFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), MaterialDetailsActivity.class);
                 Log.e("TAG", "setOnItemClick: " + materialAdapter.getMaterial(position).getItemId());
                 intent.putExtra("item_id", materialAdapter.getMaterial(position).getItemId());
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
             }
         });
