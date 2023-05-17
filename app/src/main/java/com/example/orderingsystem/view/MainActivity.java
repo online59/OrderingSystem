@@ -1,6 +1,7 @@
 package com.example.orderingsystem.view;
 
 import android.view.MenuItem;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 //        setupNavController();
     }
 
+
     private void setupNavController() {
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_shop, R.id.navigation_cart, R.id.navigation_order, R.id.navigation_profile
@@ -54,15 +56,19 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.shop:
                     translateFragment(R.id.ui_container, ShopFragment.getInstance());
+                    setTitle("SHOP");
                     return true;
                 case R.id.cart:
                     translateFragment(R.id.ui_container, CartFragment.getInstance());
+                    setTitle("CART");
                     return true;
                 case R.id.order:
                     translateFragment(R.id.ui_container, OrderFragment.getInstance());
+                    setTitle("MY ORDER");
                     return true;
                 case R.id.profile:
                     translateFragment(R.id.ui_container, ProfileFragment.getInstance());
+                    setTitle("PROFILE");
                     return true;
             }
             return false;

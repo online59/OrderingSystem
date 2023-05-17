@@ -10,7 +10,7 @@
     <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="?actionBarSize"
+            android:layout_marginBottom="?actionBarSize"
             android:id="@+id/ui_container"/>
 
     <com.google.android.material.bottomappbar.BottomAppBar
