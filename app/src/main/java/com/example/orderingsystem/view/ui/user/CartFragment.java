@@ -4,12 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.orderingsystem.databinding.FragmentCartBinding;
 import com.example.orderingsystem.utils.FirebasePath;
 import com.example.orderingsystem.utils.MyUtils;
@@ -59,7 +61,19 @@ public class CartFragment extends Fragment {
 
         displayItemOnCartOnRecyclerView();
 
+        handlingFetchingDataRequestEvent();
+
         return binding.getRoot();
+    }
+
+    private void handlingFetchingDataRequestEvent() {
+        binding.swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Toast.makeText(getActivity(), "Fetching data from network, please wait...", Toast.LENGTH_SHORT).show();
+                binding.swipeRefresh.setRefreshing(false);
+            }
+        });
     }
 
     private void displayItemOnCartOnRecyclerView() {

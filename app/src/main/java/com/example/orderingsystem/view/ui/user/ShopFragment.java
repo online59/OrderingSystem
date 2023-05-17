@@ -54,7 +54,19 @@ public class ShopFragment extends Fragment {
 
         displayAllItems();
 
+        handlingFetchingDataRequestEvent();
+
         return binding.getRoot();
+    }
+
+    private void handlingFetchingDataRequestEvent() {
+        binding.swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Toast.makeText(getActivity(), "Fetching data from network, please wait...", Toast.LENGTH_SHORT).show();
+                binding.swipeRefresh.setRefreshing(false);
+            }
+        });
     }
 
     private void displayAllItems() {

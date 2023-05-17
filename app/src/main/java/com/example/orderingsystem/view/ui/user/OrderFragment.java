@@ -7,9 +7,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.orderingsystem.databinding.FragmentOrderBinding;
 import com.example.orderingsystem.utils.FirebasePath;
 import com.example.orderingsystem.utils.ItemClickListener;
@@ -56,7 +58,20 @@ public class OrderFragment extends Fragment {
 
         displayItemOnCartOnRecyclerView();
 
+        handlingFetchingDataRequestEvent();
+
         return binding.getRoot();
+    }
+
+
+    private void handlingFetchingDataRequestEvent() {
+        binding.swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Toast.makeText(getActivity(), "Fetching data from network, please wait...", Toast.LENGTH_SHORT).show();
+                binding.swipeRefresh.setRefreshing(false);
+            }
+        });
     }
 
 
